@@ -8,7 +8,7 @@
     4. region (E.g. us-east-2)
 2. clone the repo
 ```
-git clone https://github.com/noironetworks/scalelab.git
+git clone https://github.com/noironetworks/opflex-demo-deployment.git
 ```
 3. Bringup the cluster
 ```
