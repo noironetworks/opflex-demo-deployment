@@ -1,0 +1,100 @@
+#!/bin/bash
+
+usage()
+{
+    echo "Usage: $0 <up|destroy>"
+    exit 1
+}
+
+if [ $# -ne 1 ] ; then
+    usage
+else
+    case $1 in
+      up|destroy)
+          oper=$1
+      ;;
+      *)
+          usage
+      ;;
+    esac
+fi
+
+echo "Detecting OS..."
+if [[ "$OSTYPE" == "linux"* ]]; then
+    arch=linux
+    ostype=Linux
+elif [[ "$OSTYPE" == "darwin"* ]]; then
+    arch=darwin
+    ostype=MacOS
+else
+    echo "Unsupported OS: $OSTYPE"
+    exit 1
+fi
+echo "OS is $ostype"
+
+dir=bin
+echo "Creating a local $dir directory if not present..."
+if [[ ! -e $dir ]]; then
+    mkdir $dir
+elif [[ ! -d $dir ]]; then
+    echo "$dir already exists but is not a directory" 1>&2
+    exit 1
+fi
+
+echo "Checking AWS Environment Variables..."
+# if .eksrc is not present we'll assume that AWS env was never set
+if [[ ! -e ./.eksrc ]]; then
+    read -p "Enter AWS Access Key: " aws_key
+    read -p "Enter AWS Secret Key: " aws_secret
+    read -p "Enter AWS Region: " aws_region
+    echo "export AWS_ACCESS_KEY_ID=${aws_key}" > .eksrc
+    echo "export AWS_SECRET_ACCESS_KEY=${aws_secret}" >> .eksrc
+    echo "export AWS_DEFAULT_REGION=${aws_region}" >> .eksrc
+fi
+
+# add local bin directory to PATH
+if ! grep -Fxq "export PATH=\${PATH}:\${PWD}/bin" .eksrc; then
+    echo 'export PATH=${PATH}:${PWD}/bin' >> .eksrc
+fi
+. ./.eksrc
+
+if [ -z "$AWS_ACCESS_KEY_ID" ] || [ -z "$AWS_SECRET_ACCESS_KEY" ] || [ -z "$AWS_DEFAULT_REGION" ]; then
+    echo "AWS Access info is missing. Remove .eksrc file and rerun $0 $1"
+    exit 1
+fi
+
+echo "Download terraform binary for $ostype if not present..."
+if [[ ! -e ./$dir/terraform ]]; then
+    curl -o ./$dir/terraform_0.11.11_amd64.zip https://releases.hashicorp.com/terraform/0.11.11/terraform_0.11.11_${arch}_amd64.zip
+    unzip ./$dir/terraform_0.11.11_amd64.zip -d ./$dir
+    rm -f ./$dir/terraform_0.11.11_amd64.zip
+fi
+
+echo "Download kubectl binary for $ostype if not present..."
+if [[ ! -e ./$dir/kubectl ]]; then
+    curl -o ./$dir/kubectl https://amazon-eks.s3-us-west-2.amazonaws.com/1.11.5/2018-12-06/bin/${arch}/amd64/kubectl
+    chmod +x ./$dir/kubectl
+fi
+
+echo "Download aws-iam-authenticator binary for $ostype if not present..."
+if [[ ! -e ./$dir/aws-iam-authenticator ]]; then
+    curl -o ./$dir/aws-iam-authenticator  https://amazon-eks.s3-us-west-2.amazonaws.com/1.11.5/2018-12-06/bin/${arch}/amd64/aws-iam-authenticator
+    chmod +x ./$dir/aws-iam-authenticator
+fi
+
+if [[ "$oper" == "up" ]]; then
+    echo "Bringing up EKS cluster..."
+    ./$dir/terraform init eks-aci
+    ./$dir/terraform apply eks-aci
+    if ! grep -Fxq "export KUBECONFIG=\${PWD}/kubeconfig" .eksrc; then
+        echo 'export KUBECONFIG=${PWD}/kubeconfig' >> .eksrc
+    fi
+
+    #echo "Before executing kubectl commands source .eksrc"
+elif [[ "$oper" == "destroy" ]]; then
+    echo "Destroying EKS cluster..."
+    ./$dir/terraform init eks-aci
+    ./$dir/terraform destroy eks-aci
+    rm -f aci_deployment.yaml*
+    rm -f guestbook.yaml*
+fi
