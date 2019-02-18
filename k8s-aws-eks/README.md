@@ -1,8 +1,8 @@
 # AWS EKS Cluster with ACI CNI
 **A one step approach to setup AWS EKS cluster with ACI CNI**
 
-1. Prerequisites
-    1. Make sure you have a valid AWS account
+1. Prerequisites (You will be prompted for AWS keys and region during bringup)
+    1. A valid AWS account
     2. aws_access_key_id
     3. aws_secret_access_key
     4. region (E.g. us-east-2)

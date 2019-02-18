@@ -83,9 +83,22 @@ if [[ ! -e ./$dir/aws-iam-authenticator ]]; then
 fi
 
 if [[ "$oper" == "up" ]]; then
+    # generate ssh keys if not already present or doesn't match
+    if [ ! -e ./*.pem ] || [ ! -e ./*.pem.pub ]; then
+        echo "SSH keys not present. Generating a new pair ..."
+        rm -f *.pem && rm -f *.pem.pub
+        ssh-keygen -t rsa -N "" -f local.pem
+    elif ! diff <(ssh-keygen -y -f *.pem | cut -d' ' -f 2) <(cut -d' ' -f 2 *.pem.pub) &>/dev/null; then
+        echo "SSH keys not matching. Regenerating a new pair..."
+        rm -f *.pem && rm -f *.pem.pub
+        ssh-keygen -t rsa -N "" -f local.pem
+    fi
+    # get the public key
+    PKEY=$(cat *.pub | awk '{print $0}')
+
     echo "Bringing up EKS cluster..."
     ./$dir/terraform init eks-aci
-    ./$dir/terraform apply eks-aci
+    ./$dir/terraform apply -var public_key="$PKEY" eks-aci
     if ! grep -Fxq "export KUBECONFIG=\${PWD}/kubeconfig" .eksrc; then
         echo 'export KUBECONFIG=${PWD}/kubeconfig' >> .eksrc
     fi
@@ -97,4 +110,5 @@ elif [[ "$oper" == "destroy" ]]; then
     ./$dir/terraform destroy eks-aci
     rm -f aci_deployment.yaml*
     rm -f guestbook.yaml*
+    rm -f *.pem && rm -f *.pem.pub
 fi

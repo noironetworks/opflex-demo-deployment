@@ -30,6 +30,11 @@ variable "keyname" {
   type    = "string"
 }
 
+variable "public_key" {
+  default   = ""
+  type    = "string"
+}
+
 variable "instance_type" {
   default   = "t3.small"
   type    = "string"

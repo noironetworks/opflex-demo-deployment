@@ -105,6 +105,22 @@ python -m SimpleHTTPServer '${var.health_port}' &>/dev/null&
 USERDATA
 }
 
+resource "aws_key_pair" "deployer" {
+  key_name   = "${var.name_prefix}-key-${random_string.suffix.result}"
+  public_key = "${var.public_key}"
+}
+
+# rename the ssh key files to match the keyname
+resource "null_resource" "rename_sshkey_files" {
+  provisioner "local-exec" {
+     command = "mv local.pem ${var.name_prefix}-key-${random_string.suffix.result}.pem && mv local.pem.pub ${var.name_prefix}-key-${random_string.suffix.result}.pem.pub"
+  }
+
+  depends_on = [
+    "aws_key_pair.deployer",
+  ]
+}
+
 resource "aws_launch_configuration" "worker-alc" {
   associate_public_ip_address = true
   iam_instance_profile        = "${aws_iam_instance_profile.node-iam-instance-profile.name}"
@@ -113,7 +129,7 @@ resource "aws_launch_configuration" "worker-alc" {
   name_prefix                 = "${var.name_prefix}"
   security_groups             = ["${aws_security_group.node-sg.id}"]
   user_data_base64            = "${base64encode(local.my-node-userdata)}"
-  key_name                    = "${var.keyname}"
+  key_name                    = "${aws_key_pair.deployer.key_name}"
 
   lifecycle {
     create_before_destroy = true
