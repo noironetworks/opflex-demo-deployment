@@ -1,0 +1,101 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+# nodes in cluster (excludes ecmp lb)
+num_nodes = 2
+
+nodemap = [
+# lb must be the first entry in the list
+  {
+    :name => "lb",
+    :roles => "lb",
+    :box => "ubuntu/bionic64",
+    :cpus => "2",
+    :mem => "2048",
+    :ip => "1.100.201.10"
+  },
+  {
+    :name => "vk8s-master",
+    :roles => "master",
+    :box => "ubuntu/bionic64",
+    :cpus => "2",
+    :mem => "2048",
+    :ip => "1.100.201.11"
+  },
+  {
+    :name => "vk8s-node1",
+    :roles => "node",
+    :box => "ubuntu/bionic64",
+    :cpus => "2",
+    :mem => "2048",
+    :ip => "1.100.201.12"
+  },
+  {
+    :name => "vk8s-node2",
+    :roles => "node",
+    :box => "ubuntu/bionic64",
+    :cpus => "2",
+    :mem => "2048",
+    :ip => "1.100.201.13"
+  }
+]
+
+master_ip = '1.100.201.11'
+pod_network_cidr = '10.2.56.1/21'
+count = 0
+
+Vagrant.configure("2") do |config|
+  nodemap.each do |node|
+    if count > num_nodes then
+      break
+    end
+
+    count = count + 1
+
+    if count == 1 && ENV['SKIP_LB']
+      next
+    end
+
+    config.vm.define node[:name] do |config|
+
+      config.vm.hostname = node[:name]
+      config.vm.box = node[:box]
+      config.vm.box_check_update  = false
+      config.vm.synced_folder "/tmp", "/mnt/tmp"
+      config.vm.synced_folder "./data", "/home/vagrant/data"
+      config.vm.network :private_network, ip: node[:ip]
+
+      config.vm.provider 'virtualbox' do |vb|
+        vb.linked_clone = true
+        vb.name = node[:name]
+        vb.memory = node[:mem].to_i
+        vb.cpus = node[:cpus].to_i
+      end   
+
+      if ENV['DEBUG']
+        config.vm.provision 'shell', path: 'provision_tools.sh'
+      end
+
+      if ENV['PROVISION_CISCO']
+        config.vm.provision 'shell', path: 'provision_cisco.sh'
+      end
+
+      if node[:roles] == "lb"
+        # Add your adapter to this list for automated configuration
+        config.vm.network "public_network", type: "dhcp", bridge: [
+          "en1: Wi-Fi (AirPort)",
+          "wlp4s0",
+        ]
+        config.vm.provision 'shell', path: 'provision_lb.sh', args: [master_ip, num_nodes]
+      else
+        config.vm.provision 'shell', path: 'provision_base.sh'
+      end
+     
+      if node[:roles] == "master"
+        config.vm.provision 'shell', path: 'provision_master.sh', args: [pod_network_cidr, num_nodes]
+      elsif node[:roles] == "node"
+        config.vm.provision 'shell', path: 'provision_node.sh', args: [master_ip]
+      end
+    end
+  end
+end
