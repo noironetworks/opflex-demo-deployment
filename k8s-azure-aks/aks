@@ -1,0 +1,101 @@
+#!/bin/bash
+
+usage()
+{
+    echo "Usage: $0 <up|destroy>"
+    exit 1
+}
+
+if [ $# -ne 1 ] ; then
+    usage
+else
+    case $1 in
+      up|destroy)
+          oper=$1
+      ;;
+      *)
+          usage
+      ;;
+    esac
+fi
+
+echo "Detecting OS..."
+if [[ "$OSTYPE" == "linux"* ]]; then
+    arch=linux
+    ostype=Linux
+elif [[ "$OSTYPE" == "darwin"* ]]; then
+    arch=darwin
+    ostype=MacOS
+else
+    echo "Unsupported OS: $OSTYPE"
+    exit 1
+fi
+echo "OS is $ostype"
+
+dir=bin
+echo "Creating a local $dir directory if not present..."
+if [[ ! -e $dir ]]; then
+    mkdir $dir
+elif [[ ! -d $dir ]]; then
+    echo "$dir already exists but is not a directory" 1>&2
+    exit 1
+fi
+
+echo "Checking Azure Environment Variables..."
+# if .aksrc is not present we'll assume that AWS env was never set
+if [[ ! -e ./.aksrc ]]; then
+    read -p "Enter Azure Client ID: : " arm_client_id
+    read -p "Enter Azure Client Secret: : " arm_client_secret
+    read -p "Enter Azure Subscription ID: : " arm_sub_id
+    read -p "Enter Azure Tenant ID: : " arm_tenant_id
+    echo "export ARM_CLIENT_ID=${arm_client_id}" > .aksrc
+    echo "export ARM_CLIENT_SECRET=${arm_client_secret}" >> .aksrc
+    echo "export ARM_SUBSCRIPTION_ID=${arm_sub_id}" >> .aksrc
+    echo "export ARM_TENANT_ID=${arm_tenant_id}" >> .aksrc
+    echo 'export TF_VAR_client_id=${ARM_CLIENT_ID}' >> .aksrc
+    echo 'export TF_VAR_client_secret=${ARM_CLIENT_SECRET}' >> .aksrc
+fi
+
+# add local bin directory to PATH
+if ! grep -Fxq "export PATH=\${PATH}:\${PWD}/bin" .aksrc; then
+    echo 'export PATH=${PATH}:${PWD}/bin' >> .aksrc
+fi
+. ./.aksrc
+
+if [ -z "$ARM_CLIENT_ID" ] || [ -z "$ARM_CLIENT_SECRET" ] || [ -z "$ARM_SUBSCRIPTION_ID" ] || [ -z "$ARM_TENANT_ID" ] || [ -z "$TF_VAR_client_id" ] || [ -z "$TF_VAR_client_secret" ] ; then
+    rm -f .aksrc
+    echo "Azure Access info is missing. Rerun $0 $1"
+    exit 1
+fi
+
+echo "Download terraform binary for $ostype if not present..."
+if [[ ! -e ./$dir/terraform ]]; then
+    curl -o ./$dir/terraform_0.11.11_amd64.zip https://releases.hashicorp.com/terraform/0.11.11/terraform_0.11.11_${arch}_amd64.zip
+    unzip ./$dir/terraform_0.11.11_amd64.zip -d ./$dir
+    rm -f ./$dir/terraform_0.11.11_amd64.zip
+fi
+
+echo "Download kubectl binary for $ostype if not present..."
+if [[ ! -e ./$dir/kubectl ]]; then
+    #curl -o ./$dir/kubectl https://storage.googleapis.com/kubernetes-release/release/1.11.5/bin/${arch}/amd64/kubectl
+    curl -o ./$dir/kubectl https://amazon-eks.s3-us-west-2.amazonaws.com/1.11.5/2018-12-06/bin/${arch}/amd64/kubectl
+    chmod +x ./$dir/kubectl
+fi
+
+if [[ "$oper" == "up" ]]; then
+    echo "Bringing up Azure Kubernetes cluster..."
+    ./$dir/terraform init aks-aci
+    #./$dir/terraform apply -var public_key="$PKEY" aks-aci
+    ./$dir/terraform apply aks-aci
+    if ! grep -Fxq "export KUBECONFIG=\${PWD}/kubeconfig" .aksrc; then
+        echo 'export KUBECONFIG=${PWD}/kubeconfig' >> .aksrc
+    fi
+
+elif [[ "$oper" == "destroy" ]]; then
+    echo "Destroying AKS cluster..."
+    ./$dir/terraform init aks-aci
+    ./$dir/terraform destroy aks-aci
+    rm -f aci_deployment.yaml*
+    rm -f bbox.yaml*
+    #rm -f *.pem && rm -f *.pem.pub
+fi
