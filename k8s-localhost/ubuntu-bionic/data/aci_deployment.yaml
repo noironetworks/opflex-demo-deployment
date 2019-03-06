@@ -76,6 +76,7 @@ data:
         "aci-vmm-type": "Kubernetes",
         "aci-vmm-domain": "kube",
         "aci-vmm-controller": "kube",
+        "aci-prefix": "kube",
         "aci-vrf": "defaultVrf",
         "aci-vrf-tenant": "kube",
         "service-vlan": 1022,
@@ -93,7 +94,17 @@ data:
                 ],
                 "subnet": "10.2.56.0/21"
             }
-        ]
+        ],
+        "default-endpoint-group": {
+            "policy-space": "kube",
+            "name": "kubernetes|kube-default"
+        },
+        "namespace-default-endpoint-group": {
+            "kube-system": {
+                "policy-space": "kube",
+                "name": "kubernetes|kube-system"
+            }
+        }
     }
   opflex-agent-config: |-
     {
