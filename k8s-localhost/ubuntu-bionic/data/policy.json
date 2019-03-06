@@ -1,0 +1,3590 @@
+[
+    {
+        "subject": "GbpeL24Classifier",
+        "uri": "/PolicyUniverse/PolicySpace/common/GbpeL24Classifier/1506%7c0%7cIPv6/",
+        "properties": [
+            {
+                "name": "dToPort",
+                "data": 53
+            },
+            {
+                "name": "connectionTracking",
+                "data":"normal"
+            },
+            {
+                "name": "dFromPort",
+                "data": 53
+            },
+            {
+                "name": "etherT",
+                "data":"ipv6"
+            },
+            {
+                "name": "order",
+                "data": 0
+            },
+            {
+                "name": "name",
+                "data": "1506|0|IPv6"
+            },
+            {
+                "name": "prot",
+                "data": 17
+            }
+        ],
+        "children": []
+    },
+    {
+        "subject": "GbpeL24Classifier",
+        "uri": "/PolicyUniverse/PolicySpace/common/GbpeL24Classifier/1502%7c0/",
+        "properties": [
+            {
+                "name": "connectionTracking",
+                "data":"normal"
+            },
+            {
+                "name": "etherT",
+                "data":"ipv4"
+            },
+            {
+                "name": "order",
+                "data": 0
+            },
+            {
+                "name": "name",
+                "data": "1502|0"
+            },
+            {
+                "name": "prot",
+                "data": 1
+            }
+        ],
+        "children": []
+    },
+    {
+        "subject": "GbpBridgeDomain",
+        "uri": "/PolicyUniverse/PolicySpace/kube/GbpBridgeDomain/kube-pod-bd/",
+        "properties": [
+            {
+                "name": "name",
+                "data": "kube-pod-bd"
+            },
+            {
+                "name": "routingMode",
+                "data":"enabled"
+            }
+        ],
+        "children": [
+            "/PolicyUniverse/PolicySpace/kube/GbpBridgeDomain/kube-pod-bd/GbpeInstContext/",
+            "/PolicyUniverse/PolicySpace/kube/GbpBridgeDomain/kube-pod-bd/GbpBridgeDomainToNetworkRSrc/",
+            "/PolicyUniverse/PolicySpace/kube/GbpBridgeDomain/kube-pod-bd/GbpForwardingBehavioralGroupToSubnetsRSrc/"
+        ]
+    },
+    {
+        "subject": "GbpeInstContext",
+        "uri": "/PolicyUniverse/PolicySpace/kube/GbpBridgeDomain/kube-pod-bd/GbpeInstContext/",
+        "properties": [
+            {
+                "name": "encapId",
+                "data": 16089029
+            },
+            {
+                "name": "classid",
+                "data": 49172
+            }
+        ],
+        "children": [],
+        "parent_subject": "GbpBridgeDomain",
+        "parent_uri": "/PolicyUniverse/PolicySpace/kube/GbpBridgeDomain/kube-pod-bd/",
+        "parent_relation": "GbpeInstContext"
+    },
+    {
+        "subject": "GbpBridgeDomainToNetworkRSrc",
+        "uri": "/PolicyUniverse/PolicySpace/kube/GbpBridgeDomain/kube-pod-bd/GbpBridgeDomainToNetworkRSrc/",
+        "properties": [
+            {
+                "name": "target",
+                "data": {
+                    "subject": "GbpRoutingDomain",
+                    "reference_uri": "/PolicyUniverse/PolicySpace/common/GbpRoutingDomain/l3out_1_vrf/"
+                }
+            }
+        ],
+        "children": [],
+        "parent_subject": "GbpBridgeDomain",
+        "parent_uri": "/PolicyUniverse/PolicySpace/kube/GbpBridgeDomain/kube-pod-bd/",
+        "parent_relation": "GbpBridgeDomainToNetworkRSrc"
+    },
+    {
+        "subject": "GbpForwardingBehavioralGroupToSubnetsRSrc",
+        "uri": "/PolicyUniverse/PolicySpace/kube/GbpBridgeDomain/kube-pod-bd/GbpForwardingBehavioralGroupToSubnetsRSrc/",
+        "properties": [
+            {
+                "name": "target",
+                "data": {
+                    "subject": "GbpSubnets",
+                    "reference_uri": "/PolicyUniverse/PolicySpace/kube/GbpSubnets/BDkube-pod-bd/"
+                }
+            }
+        ],
+        "children": [],
+        "parent_subject": "GbpBridgeDomain",
+        "parent_uri": "/PolicyUniverse/PolicySpace/kube/GbpBridgeDomain/kube-pod-bd/",
+        "parent_relation": "GbpForwardingBehavioralGroupToSubnetsRSrc"
+    },
+    {
+        "subject": "GbpeL24Classifier",
+        "uri": "/PolicyUniverse/PolicySpace/common/GbpeL24Classifier/1504%7c0%7cIPv6/",
+        "properties": [
+            {
+                "name": "connectionTracking",
+                "data":"normal"
+            },
+            {
+                "name": "etherT",
+                "data":"ipv6"
+            },
+            {
+                "name": "order",
+                "data": 0
+            },
+            {
+                "name": "name",
+                "data": "1504|0|IPv6"
+            },
+            {
+                "name": "prot",
+                "data": 6
+            }
+        ],
+        "children": []
+    },
+    {
+        "subject": "GbpeL24Classifier",
+        "uri": "/PolicyUniverse/PolicySpace/common/GbpeL24Classifier/1490%7c1%7cIPv4/",
+        "properties": [
+            {
+                "name": "dToPort",
+                "data": 8443
+            },
+            {
+                "name": "connectionTracking",
+                "data":"normal"
+            },
+            {
+                "name": "dFromPort",
+                "data": 8443
+            },
+            {
+                "name": "etherT",
+                "data":"ipv4"
+            },
+            {
+                "name": "order",
+                "data": 1
+            },
+            {
+                "name": "name",
+                "data": "1490|1|IPv4"
+            },
+            {
+                "name": "prot",
+                "data": 6
+            }
+        ],
+        "children": []
+    },
+    {
+        "subject": "GbpeL24Classifier",
+        "uri": "/PolicyUniverse/PolicySpace/common/GbpeL24Classifier/1506%7c1%7cIPv6/",
+        "properties": [
+            {
+                "name": "dToPort",
+                "data": 53
+            },
+            {
+                "name": "connectionTracking",
+                "data":"normal"
+            },
+            {
+                "name": "dFromPort",
+                "data": 53
+            },
+            {
+                "name": "etherT",
+                "data":"ipv6"
+            },
+            {
+                "name": "order",
+                "data": 1
+            },
+            {
+                "name": "name",
+                "data": "1506|1|IPv6"
+            },
+            {
+                "name": "prot",
+                "data": 6
+            }
+        ],
+        "children": []
+    },
+    {
+        "subject": "GbpeL24Classifier",
+        "uri": "/PolicyUniverse/PolicySpace/common/GbpeL24Classifier/1491%7c0%7cIPv4/",
+        "properties": [
+            {
+                "name": "sToPort",
+                "data": 8443
+            },
+            {
+                "name": "sFromPort",
+                "data": 8443
+            },
+            {
+                "name": "connectionTracking",
+                "data":"normal"
+            },
+            {
+                "name": "etherT",
+                "data":"ipv4"
+            },
+            {
+                "name": "order",
+                "data": 0
+            },
+            {
+                "name": "name",
+                "data": "1491|0|IPv4"
+            },
+            {
+                "name": "prot",
+                "data": 6
+            }
+        ],
+        "children": []
+    },
+    {
+        "subject": "GbpeL24Classifier",
+        "uri": "/PolicyUniverse/PolicySpace/common/GbpeL24Classifier/3%7c0%7cIPv4/",
+        "properties": [
+            {
+                "name": "tcpFlags",
+                "data": 16
+            },
+            {
+                "name": "connectionTracking",
+                "data":"normal"
+            },
+            {
+                "name": "etherT",
+                "data":"ipv4"
+            },
+            {
+                "name": "order",
+                "data": 0
+            },
+            {
+                "name": "name",
+                "data": "3|0|IPv4"
+            },
+            {
+                "name": "prot",
+                "data": 6
+            }
+        ],
+        "children": []
+    },
+    {
+        "subject": "GbpeL24Classifier",
+        "uri": "/PolicyUniverse/PolicySpace/common/GbpeL24Classifier/1490%7c1%7cIPv6/",
+        "properties": [
+            {
+                "name": "dToPort",
+                "data": 8443
+            },
+            {
+                "name": "connectionTracking",
+                "data":"normal"
+            },
+            {
+                "name": "dFromPort",
+                "data": 8443
+            },
+            {
+                "name": "etherT",
+                "data":"ipv6"
+            },
+            {
+                "name": "order",
+                "data": 1
+            },
+            {
+                "name": "name",
+                "data": "1490|1|IPv6"
+            },
+            {
+                "name": "prot",
+                "data": 6
+            }
+        ],
+        "children": []
+    },
+    {
+        "subject": "GbpAllowDenyAction",
+        "uri": "/PolicyUniverse/PolicySpace/common/GbpAllowDenyAction/allow/",
+        "properties": [
+            {
+                "name": "name",
+                "data": "allow"
+            },
+            {
+                "name": "allow",
+                "data": 1
+            }
+        ],
+        "children": []
+    },
+    {
+        "subject": "GbpeL24Classifier",
+        "uri": "/PolicyUniverse/PolicySpace/common/GbpeL24Classifier/1507%7c1%7cIPv6/",
+        "properties": [
+            {
+                "name": "sToPort",
+                "data": 53
+            },
+            {
+                "name": "sFromPort",
+                "data": 53
+            },
+            {
+                "name": "connectionTracking",
+                "data":"normal"
+            },
+            {
+                "name": "etherT",
+                "data":"ipv6"
+            },
+            {
+                "name": "order",
+                "data": 1
+            },
+            {
+                "name": "name",
+                "data": "1507|1|IPv6"
+            },
+            {
+                "name": "prot",
+                "data": 17
+            }
+        ],
+        "children": []
+    },
+    {
+        "subject": "GbpeL24Classifier",
+        "uri": "/PolicyUniverse/PolicySpace/common/GbpeL24Classifier/1491%7c0%7cIPv6/",
+        "properties": [
+            {
+                "name": "sToPort",
+                "data": 8443
+            },
+            {
+                "name": "sFromPort",
+                "data": 8443
+            },
+            {
+                "name": "connectionTracking",
+                "data":"normal"
+            },
+            {
+                "name": "etherT",
+                "data":"ipv6"
+            },
+            {
+                "name": "order",
+                "data": 0
+            },
+            {
+                "name": "name",
+                "data": "1491|0|IPv6"
+            },
+            {
+                "name": "prot",
+                "data": 6
+            }
+        ],
+        "children": []
+    },
+    {
+        "subject": "GbpeL24Classifier",
+        "uri": "/PolicyUniverse/PolicySpace/common/GbpeL24Classifier/1490%7c0%7cIPv4/",
+        "properties": [
+            {
+                "name": "dToPort",
+                "data": 6443
+            },
+            {
+                "name": "connectionTracking",
+                "data":"normal"
+            },
+            {
+                "name": "dFromPort",
+                "data": 6443
+            },
+            {
+                "name": "etherT",
+                "data":"ipv4"
+            },
+            {
+                "name": "order",
+                "data": 0
+            },
+            {
+                "name": "name",
+                "data": "1490|0|IPv4"
+            },
+            {
+                "name": "prot",
+                "data": 6
+            }
+        ],
+        "children": []
+    },
+    {
+        "subject": "GbpFloodDomain",
+        "uri": "/PolicyUniverse/PolicySpace/kube/GbpFloodDomain/BDkube-pod-bd/",
+        "properties": [
+            {
+                "name": "unknownFloodMode",
+                "data":"drop"
+            },
+            {
+                "name": "arpMode",
+                "data":"unicast"
+            },
+            {
+                "name": "name",
+                "data": "BDkube-pod-bd"
+            },
+            {
+                "name": "neighborDiscMode",
+                "data":"unicast"
+            }
+        ],
+        "children": [
+            "/PolicyUniverse/PolicySpace/kube/GbpFloodDomain/BDkube-pod-bd/GbpeFloodContext/",
+            "/PolicyUniverse/PolicySpace/kube/GbpFloodDomain/BDkube-pod-bd/GbpFloodDomainToNetworkRSrc/"
+        ]
+    },
+    {
+        "subject": "GbpeFloodContext",
+        "uri": "/PolicyUniverse/PolicySpace/kube/GbpFloodDomain/BDkube-pod-bd/GbpeFloodContext/",
+        "properties": [
+            {
+                "name": "multicastGroupIP",
+                "data": "225.1.71.48"
+            }
+        ],
+        "children": [],
+        "parent_subject": "GbpFloodDomain",
+        "parent_uri": "/PolicyUniverse/PolicySpace/kube/GbpFloodDomain/BDkube-pod-bd/",
+        "parent_relation": "GbpeFloodContext"
+    },
+    {
+        "subject": "GbpFloodDomainToNetworkRSrc",
+        "uri": "/PolicyUniverse/PolicySpace/kube/GbpFloodDomain/BDkube-pod-bd/GbpFloodDomainToNetworkRSrc/",
+        "properties": [
+            {
+                "name": "target",
+                "data": {
+                    "subject": "GbpBridgeDomain",
+                    "reference_uri": "/PolicyUniverse/PolicySpace/kube/GbpBridgeDomain/kube-pod-bd/"
+                }
+            }
+        ],
+        "children": [],
+        "parent_subject": "GbpFloodDomain",
+        "parent_uri": "/PolicyUniverse/PolicySpace/kube/GbpFloodDomain/BDkube-pod-bd/",
+        "parent_relation": "GbpFloodDomainToNetworkRSrc"
+    },
+    {
+        "subject": "GbpeL24Classifier",
+        "uri": "/PolicyUniverse/PolicySpace/common/GbpeL24Classifier/1507%7c1%7cIPv4/",
+        "properties": [
+            {
+                "name": "sToPort",
+                "data": 53
+            },
+            {
+                "name": "sFromPort",
+                "data": 53
+            },
+            {
+                "name": "connectionTracking",
+                "data":"normal"
+            },
+            {
+                "name": "etherT",
+                "data":"ipv4"
+            },
+            {
+                "name": "order",
+                "data": 1
+            },
+            {
+                "name": "name",
+                "data": "1507|1|IPv4"
+            },
+            {
+                "name": "prot",
+                "data": 17
+            }
+        ],
+        "children": []
+    },
+    {
+        "subject": "GbpeL24Classifier",
+        "uri": "/PolicyUniverse/PolicySpace/common/GbpeL24Classifier/1506%7c0%7cIPv4/",
+        "properties": [
+            {
+                "name": "dToPort",
+                "data": 53
+            },
+            {
+                "name": "connectionTracking",
+                "data":"normal"
+            },
+            {
+                "name": "dFromPort",
+                "data": 53
+            },
+            {
+                "name": "etherT",
+                "data":"ipv4"
+            },
+            {
+                "name": "order",
+                "data": 0
+            },
+            {
+                "name": "name",
+                "data": "1506|0|IPv4"
+            },
+            {
+                "name": "prot",
+                "data": 17
+            }
+        ],
+        "children": []
+    },
+    {
+        "subject": "GbpContract",
+        "uri": "/PolicyUniverse/PolicySpace/kube/GbpContract/kube-api/",
+        "properties": [
+            {
+                "name": "name",
+                "data": "kube-api"
+            }
+        ],
+        "children": [
+            "/PolicyUniverse/PolicySpace/kube/GbpContract/kube-api/GbpSubject/kube-api-subj/"
+        ]
+    },
+    {
+        "subject": "GbpSubject",
+        "uri": "/PolicyUniverse/PolicySpace/kube/GbpContract/kube-api/GbpSubject/kube-api-subj/",
+        "properties": [
+            {
+                "name": "name",
+                "data": "kube-api-subj"
+            }
+        ],
+        "children": [
+            "/PolicyUniverse/PolicySpace/kube/GbpContract/kube-api/GbpSubject/kube-api-subj/GbpRule/kube-api-filter1490/",
+            "/PolicyUniverse/PolicySpace/kube/GbpContract/kube-api/GbpSubject/kube-api-subj/GbpRule/kube-api-filter1491/"
+        ],
+        "parent_subject": "GbpContract",
+        "parent_uri": "/PolicyUniverse/PolicySpace/kube/GbpContract/kube-api/",
+        "parent_relation": "GbpSubject"
+    },
+    {
+        "subject": "GbpRule",
+        "uri": "/PolicyUniverse/PolicySpace/kube/GbpContract/kube-api/GbpSubject/kube-api-subj/GbpRule/kube-api-filter1490/",
+        "properties": [
+            {
+                "name": "direction",
+                "data":"in"
+            },
+            {
+                "name": "name",
+                "data": "kube-api-filter1490"
+            },
+            {
+                "name": "order",
+                "data": 1
+            }
+        ],
+        "children": [
+            "/PolicyUniverse/PolicySpace/kube/GbpContract/kube-api/GbpSubject/kube-api-subj/GbpRule/kube-api-filter1490/GbpRuleToClassifierRSrc/178/%2fPolicyUniverse%2fPolicySpace%2fcommon%2fGbpeL24Classifier%2f1490%257c1%257cIPv6%2f/",
+            "/PolicyUniverse/PolicySpace/kube/GbpContract/kube-api/GbpSubject/kube-api-subj/GbpRule/kube-api-filter1490/GbpRuleToClassifierRSrc/178/%2fPolicyUniverse%2fPolicySpace%2fcommon%2fGbpeL24Classifier%2f1490%257c1%257cIPv4%2f/",
+            "/PolicyUniverse/PolicySpace/kube/GbpContract/kube-api/GbpSubject/kube-api-subj/GbpRule/kube-api-filter1490/GbpRuleToClassifierRSrc/178/%2fPolicyUniverse%2fPolicySpace%2fcommon%2fGbpeL24Classifier%2f1490%257c0%257cIPv6%2f/",
+            "/PolicyUniverse/PolicySpace/kube/GbpContract/kube-api/GbpSubject/kube-api-subj/GbpRule/kube-api-filter1490/GbpRuleToClassifierRSrc/178/%2fPolicyUniverse%2fPolicySpace%2fcommon%2fGbpeL24Classifier%2f1490%257c0%257cIPv4%2f/",
+            "/PolicyUniverse/PolicySpace/kube/GbpContract/kube-api/GbpSubject/kube-api-subj/GbpRule/kube-api-filter1490/GbpRuleToActionRSrc/286/allow/"
+        ],
+        "parent_subject": "GbpSubject",
+        "parent_uri": "/PolicyUniverse/PolicySpace/kube/GbpContract/kube-api/GbpSubject/kube-api-subj/",
+        "parent_relation": "GbpRule"
+    },
+    {
+        "subject": "GbpRuleToClassifierRSrc",
+        "uri": "/PolicyUniverse/PolicySpace/kube/GbpContract/kube-api/GbpSubject/kube-api-subj/GbpRule/kube-api-filter1490/GbpRuleToClassifierRSrc/178/%2fPolicyUniverse%2fPolicySpace%2fcommon%2fGbpeL24Classifier%2f1490%257c1%257cIPv6%2f/",
+        "properties": [
+            {
+                "name": "target",
+                "data": {
+                    "subject": "GbpeL24Classifier",
+                    "reference_uri": "/PolicyUniverse/PolicySpace/common/GbpeL24Classifier/1490%7c1%7cIPv6/"
+                }
+            }
+        ],
+        "children": [],
+        "parent_subject": "GbpRule",
+        "parent_uri": "/PolicyUniverse/PolicySpace/kube/GbpContract/kube-api/GbpSubject/kube-api-subj/GbpRule/kube-api-filter1490/",
+        "parent_relation": "GbpRuleToClassifierRSrc"
+    },
+    {
+        "subject": "GbpRuleToClassifierRSrc",
+        "uri": "/PolicyUniverse/PolicySpace/kube/GbpContract/kube-api/GbpSubject/kube-api-subj/GbpRule/kube-api-filter1490/GbpRuleToClassifierRSrc/178/%2fPolicyUniverse%2fPolicySpace%2fcommon%2fGbpeL24Classifier%2f1490%257c1%257cIPv4%2f/",
+        "properties": [
+            {
+                "name": "target",
+                "data": {
+                    "subject": "GbpeL24Classifier",
+                    "reference_uri": "/PolicyUniverse/PolicySpace/common/GbpeL24Classifier/1490%7c1%7cIPv4/"
+                }
+            }
+        ],
+        "children": [],
+        "parent_subject": "GbpRule",
+        "parent_uri": "/PolicyUniverse/PolicySpace/kube/GbpContract/kube-api/GbpSubject/kube-api-subj/GbpRule/kube-api-filter1490/",
+        "parent_relation": "GbpRuleToClassifierRSrc"
+    },
+    {
+        "subject": "GbpRuleToClassifierRSrc",
+        "uri": "/PolicyUniverse/PolicySpace/kube/GbpContract/kube-api/GbpSubject/kube-api-subj/GbpRule/kube-api-filter1490/GbpRuleToClassifierRSrc/178/%2fPolicyUniverse%2fPolicySpace%2fcommon%2fGbpeL24Classifier%2f1490%257c0%257cIPv6%2f/",
+        "properties": [
+            {
+                "name": "target",
+                "data": {
+                    "subject": "GbpeL24Classifier",
+                    "reference_uri": "/PolicyUniverse/PolicySpace/common/GbpeL24Classifier/1490%7c0%7cIPv6/"
+                }
+            }
+        ],
+        "children": [],
+        "parent_subject": "GbpRule",
+        "parent_uri": "/PolicyUniverse/PolicySpace/kube/GbpContract/kube-api/GbpSubject/kube-api-subj/GbpRule/kube-api-filter1490/",
+        "parent_relation": "GbpRuleToClassifierRSrc"
+    },
+    {
+        "subject": "GbpRuleToClassifierRSrc",
+        "uri": "/PolicyUniverse/PolicySpace/kube/GbpContract/kube-api/GbpSubject/kube-api-subj/GbpRule/kube-api-filter1490/GbpRuleToClassifierRSrc/178/%2fPolicyUniverse%2fPolicySpace%2fcommon%2fGbpeL24Classifier%2f1490%257c0%257cIPv4%2f/",
+        "properties": [
+            {
+                "name": "target",
+                "data": {
+                    "subject": "GbpeL24Classifier",
+                    "reference_uri": "/PolicyUniverse/PolicySpace/common/GbpeL24Classifier/1490%7c0%7cIPv4/"
+                }
+            }
+        ],
+        "children": [],
+        "parent_subject": "GbpRule",
+        "parent_uri": "/PolicyUniverse/PolicySpace/kube/GbpContract/kube-api/GbpSubject/kube-api-subj/GbpRule/kube-api-filter1490/",
+        "parent_relation": "GbpRuleToClassifierRSrc"
+    },
+    {
+        "subject": "GbpRuleToActionRSrc",
+        "uri": "/PolicyUniverse/PolicySpace/kube/GbpContract/kube-api/GbpSubject/kube-api-subj/GbpRule/kube-api-filter1490/GbpRuleToActionRSrc/286/allow/",
+        "properties": [
+            {
+                "name": "target",
+                "data": {
+                    "subject": "GbpAllowDenyAction",
+                    "reference_uri": "/PolicyUniverse/PolicySpace/common/GbpAllowDenyAction/allow/"
+                }
+            }
+        ],
+        "children": [],
+        "parent_subject": "GbpRule",
+        "parent_uri": "/PolicyUniverse/PolicySpace/kube/GbpContract/kube-api/GbpSubject/kube-api-subj/GbpRule/kube-api-filter1490/",
+        "parent_relation": "GbpRuleToActionRSrc"
+    },
+    {
+        "subject": "GbpRule",
+        "uri": "/PolicyUniverse/PolicySpace/kube/GbpContract/kube-api/GbpSubject/kube-api-subj/GbpRule/kube-api-filter1491/",
+        "properties": [
+            {
+                "name": "direction",
+                "data":"out"
+            },
+            {
+                "name": "name",
+                "data": "kube-api-filter1491"
+            },
+            {
+                "name": "order",
+                "data": 1
+            }
+        ],
+        "children": [
+            "/PolicyUniverse/PolicySpace/kube/GbpContract/kube-api/GbpSubject/kube-api-subj/GbpRule/kube-api-filter1491/GbpRuleToClassifierRSrc/178/%2fPolicyUniverse%2fPolicySpace%2fcommon%2fGbpeL24Classifier%2f1491%257c1%257cIPv6%2f/",
+            "/PolicyUniverse/PolicySpace/kube/GbpContract/kube-api/GbpSubject/kube-api-subj/GbpRule/kube-api-filter1491/GbpRuleToClassifierRSrc/178/%2fPolicyUniverse%2fPolicySpace%2fcommon%2fGbpeL24Classifier%2f1491%257c1%257cIPv4%2f/",
+            "/PolicyUniverse/PolicySpace/kube/GbpContract/kube-api/GbpSubject/kube-api-subj/GbpRule/kube-api-filter1491/GbpRuleToClassifierRSrc/178/%2fPolicyUniverse%2fPolicySpace%2fcommon%2fGbpeL24Classifier%2f1491%257c0%257cIPv6%2f/",
+            "/PolicyUniverse/PolicySpace/kube/GbpContract/kube-api/GbpSubject/kube-api-subj/GbpRule/kube-api-filter1491/GbpRuleToClassifierRSrc/178/%2fPolicyUniverse%2fPolicySpace%2fcommon%2fGbpeL24Classifier%2f1491%257c0%257cIPv4%2f/",
+            "/PolicyUniverse/PolicySpace/kube/GbpContract/kube-api/GbpSubject/kube-api-subj/GbpRule/kube-api-filter1491/GbpRuleToActionRSrc/286/allow/"
+        ],
+        "parent_subject": "GbpSubject",
+        "parent_uri": "/PolicyUniverse/PolicySpace/kube/GbpContract/kube-api/GbpSubject/kube-api-subj/",
+        "parent_relation": "GbpRule"
+    },
+    {
+        "subject": "GbpRuleToClassifierRSrc",
+        "uri": "/PolicyUniverse/PolicySpace/kube/GbpContract/kube-api/GbpSubject/kube-api-subj/GbpRule/kube-api-filter1491/GbpRuleToClassifierRSrc/178/%2fPolicyUniverse%2fPolicySpace%2fcommon%2fGbpeL24Classifier%2f1491%257c1%257cIPv6%2f/",
+        "properties": [
+            {
+                "name": "target",
+                "data": {
+                    "subject": "GbpeL24Classifier",
+                    "reference_uri": "/PolicyUniverse/PolicySpace/common/GbpeL24Classifier/1491%7c1%7cIPv6/"
+                }
+            }
+        ],
+        "children": [],
+        "parent_subject": "GbpRule",
+        "parent_uri": "/PolicyUniverse/PolicySpace/kube/GbpContract/kube-api/GbpSubject/kube-api-subj/GbpRule/kube-api-filter1491/",
+        "parent_relation": "GbpRuleToClassifierRSrc"
+    },
+    {
+        "subject": "GbpRuleToClassifierRSrc",
+        "uri": "/PolicyUniverse/PolicySpace/kube/GbpContract/kube-api/GbpSubject/kube-api-subj/GbpRule/kube-api-filter1491/GbpRuleToClassifierRSrc/178/%2fPolicyUniverse%2fPolicySpace%2fcommon%2fGbpeL24Classifier%2f1491%257c1%257cIPv4%2f/",
+        "properties": [
+            {
+                "name": "target",
+                "data": {
+                    "subject": "GbpeL24Classifier",
+                    "reference_uri": "/PolicyUniverse/PolicySpace/common/GbpeL24Classifier/1491%7c1%7cIPv4/"
+                }
+            }
+        ],
+        "children": [],
+        "parent_subject": "GbpRule",
+        "parent_uri": "/PolicyUniverse/PolicySpace/kube/GbpContract/kube-api/GbpSubject/kube-api-subj/GbpRule/kube-api-filter1491/",
+        "parent_relation": "GbpRuleToClassifierRSrc"
+    },
+    {
+        "subject": "GbpRuleToClassifierRSrc",
+        "uri": "/PolicyUniverse/PolicySpace/kube/GbpContract/kube-api/GbpSubject/kube-api-subj/GbpRule/kube-api-filter1491/GbpRuleToClassifierRSrc/178/%2fPolicyUniverse%2fPolicySpace%2fcommon%2fGbpeL24Classifier%2f1491%257c0%257cIPv6%2f/",
+        "properties": [
+            {
+                "name": "target",
+                "data": {
+                    "subject": "GbpeL24Classifier",
+                    "reference_uri": "/PolicyUniverse/PolicySpace/common/GbpeL24Classifier/1491%7c0%7cIPv6/"
+                }
+            }
+        ],
+        "children": [],
+        "parent_subject": "GbpRule",
+        "parent_uri": "/PolicyUniverse/PolicySpace/kube/GbpContract/kube-api/GbpSubject/kube-api-subj/GbpRule/kube-api-filter1491/",
+        "parent_relation": "GbpRuleToClassifierRSrc"
+    },
+    {
+        "subject": "GbpRuleToClassifierRSrc",
+        "uri": "/PolicyUniverse/PolicySpace/kube/GbpContract/kube-api/GbpSubject/kube-api-subj/GbpRule/kube-api-filter1491/GbpRuleToClassifierRSrc/178/%2fPolicyUniverse%2fPolicySpace%2fcommon%2fGbpeL24Classifier%2f1491%257c0%257cIPv4%2f/",
+        "properties": [
+            {
+                "name": "target",
+                "data": {
+                    "subject": "GbpeL24Classifier",
+                    "reference_uri": "/PolicyUniverse/PolicySpace/common/GbpeL24Classifier/1491%7c0%7cIPv4/"
+                }
+            }
+        ],
+        "children": [],
+        "parent_subject": "GbpRule",
+        "parent_uri": "/PolicyUniverse/PolicySpace/kube/GbpContract/kube-api/GbpSubject/kube-api-subj/GbpRule/kube-api-filter1491/",
+        "parent_relation": "GbpRuleToClassifierRSrc"
+    },
+    {
+        "subject": "GbpRuleToActionRSrc",
+        "uri": "/PolicyUniverse/PolicySpace/kube/GbpContract/kube-api/GbpSubject/kube-api-subj/GbpRule/kube-api-filter1491/GbpRuleToActionRSrc/286/allow/",
+        "properties": [
+            {
+                "name": "target",
+                "data": {
+                    "subject": "GbpAllowDenyAction",
+                    "reference_uri": "/PolicyUniverse/PolicySpace/common/GbpAllowDenyAction/allow/"
+                }
+            }
+        ],
+        "children": [],
+        "parent_subject": "GbpRule",
+        "parent_uri": "/PolicyUniverse/PolicySpace/kube/GbpContract/kube-api/GbpSubject/kube-api-subj/GbpRule/kube-api-filter1491/",
+        "parent_relation": "GbpRuleToActionRSrc"
+    },
+    {
+        "subject": "GbpeL24Classifier",
+        "uri": "/PolicyUniverse/PolicySpace/common/GbpeL24Classifier/1506%7c1%7cIPv4/",
+        "properties": [
+            {
+                "name": "dToPort",
+                "data": 53
+            },
+            {
+                "name": "connectionTracking",
+                "data":"normal"
+            },
+            {
+                "name": "dFromPort",
+                "data": 53
+            },
+            {
+                "name": "etherT",
+                "data":"ipv4"
+            },
+            {
+                "name": "order",
+                "data": 1
+            },
+            {
+                "name": "name",
+                "data": "1506|1|IPv4"
+            },
+            {
+                "name": "prot",
+                "data": 6
+            }
+        ],
+        "children": []
+    },
+    {
+        "subject": "GbpeL24Classifier",
+        "uri": "/PolicyUniverse/PolicySpace/common/GbpeL24Classifier/1504%7c0%7cIPv4/",
+        "properties": [
+            {
+                "name": "connectionTracking",
+                "data":"normal"
+            },
+            {
+                "name": "etherT",
+                "data":"ipv4"
+            },
+            {
+                "name": "order",
+                "data": 0
+            },
+            {
+                "name": "name",
+                "data": "1504|0|IPv4"
+            },
+            {
+                "name": "prot",
+                "data": 6
+            }
+        ],
+        "children": []
+    },
+    {
+        "subject": "GbpContract",
+        "uri": "/PolicyUniverse/PolicySpace/kube/GbpContract/health-check/",
+        "properties": [
+            {
+                "name": "name",
+                "data": "health-check"
+            }
+        ],
+        "children": [
+            "/PolicyUniverse/PolicySpace/kube/GbpContract/health-check/GbpSubject/health-check-subj/"
+        ]
+    },
+    {
+        "subject": "GbpSubject",
+        "uri": "/PolicyUniverse/PolicySpace/kube/GbpContract/health-check/GbpSubject/health-check-subj/",
+        "properties": [
+            {
+                "name": "name",
+                "data": "health-check-subj"
+            }
+        ],
+        "children": [
+            "/PolicyUniverse/PolicySpace/kube/GbpContract/health-check/GbpSubject/health-check-subj/GbpRule/health-check-filter-in1504/",
+            "/PolicyUniverse/PolicySpace/kube/GbpContract/health-check/GbpSubject/health-check-subj/GbpRule/health-check-filter-out3/"
+        ],
+        "parent_subject": "GbpContract",
+        "parent_uri": "/PolicyUniverse/PolicySpace/kube/GbpContract/health-check/",
+        "parent_relation": "GbpSubject"
+    },
+    {
+        "subject": "GbpRule",
+        "uri": "/PolicyUniverse/PolicySpace/kube/GbpContract/health-check/GbpSubject/health-check-subj/GbpRule/health-check-filter-in1504/",
+        "properties": [
+            {
+                "name": "direction",
+                "data":"in"
+            },
+            {
+                "name": "name",
+                "data": "health-check-filter-in1504"
+            },
+            {
+                "name": "order",
+                "data": 1
+            }
+        ],
+        "children": [
+            "/PolicyUniverse/PolicySpace/kube/GbpContract/health-check/GbpSubject/health-check-subj/GbpRule/health-check-filter-in1504/GbpRuleToClassifierRSrc/178/%2fPolicyUniverse%2fPolicySpace%2fcommon%2fGbpeL24Classifier%2f1504%257c0%257cIPv6%2f/",
+            "/PolicyUniverse/PolicySpace/kube/GbpContract/health-check/GbpSubject/health-check-subj/GbpRule/health-check-filter-in1504/GbpRuleToClassifierRSrc/178/%2fPolicyUniverse%2fPolicySpace%2fcommon%2fGbpeL24Classifier%2f1504%257c0%257cIPv4%2f/",
+            "/PolicyUniverse/PolicySpace/kube/GbpContract/health-check/GbpSubject/health-check-subj/GbpRule/health-check-filter-in1504/GbpRuleToActionRSrc/286/allow/"
+        ],
+        "parent_subject": "GbpSubject",
+        "parent_uri": "/PolicyUniverse/PolicySpace/kube/GbpContract/health-check/GbpSubject/health-check-subj/",
+        "parent_relation": "GbpRule"
+    },
+    {
+        "subject": "GbpRuleToClassifierRSrc",
+        "uri": "/PolicyUniverse/PolicySpace/kube/GbpContract/health-check/GbpSubject/health-check-subj/GbpRule/health-check-filter-in1504/GbpRuleToClassifierRSrc/178/%2fPolicyUniverse%2fPolicySpace%2fcommon%2fGbpeL24Classifier%2f1504%257c0%257cIPv6%2f/",
+        "properties": [
+            {
+                "name": "target",
+                "data": {
+                    "subject": "GbpeL24Classifier",
+                    "reference_uri": "/PolicyUniverse/PolicySpace/common/GbpeL24Classifier/1504%7c0%7cIPv6/"
+                }
+            }
+        ],
+        "children": [],
+        "parent_subject": "GbpRule",
+        "parent_uri": "/PolicyUniverse/PolicySpace/kube/GbpContract/health-check/GbpSubject/health-check-subj/GbpRule/health-check-filter-in1504/",
+        "parent_relation": "GbpRuleToClassifierRSrc"
+    },
+    {
+        "subject": "GbpRuleToClassifierRSrc",
+        "uri": "/PolicyUniverse/PolicySpace/kube/GbpContract/health-check/GbpSubject/health-check-subj/GbpRule/health-check-filter-in1504/GbpRuleToClassifierRSrc/178/%2fPolicyUniverse%2fPolicySpace%2fcommon%2fGbpeL24Classifier%2f1504%257c0%257cIPv4%2f/",
+        "properties": [
+            {
+                "name": "target",
+                "data": {
+                    "subject": "GbpeL24Classifier",
+                    "reference_uri": "/PolicyUniverse/PolicySpace/common/GbpeL24Classifier/1504%7c0%7cIPv4/"
+                }
+            }
+        ],
+        "children": [],
+        "parent_subject": "GbpRule",
+        "parent_uri": "/PolicyUniverse/PolicySpace/kube/GbpContract/health-check/GbpSubject/health-check-subj/GbpRule/health-check-filter-in1504/",
+        "parent_relation": "GbpRuleToClassifierRSrc"
+    },
+    {
+        "subject": "GbpRuleToActionRSrc",
+        "uri": "/PolicyUniverse/PolicySpace/kube/GbpContract/health-check/GbpSubject/health-check-subj/GbpRule/health-check-filter-in1504/GbpRuleToActionRSrc/286/allow/",
+        "properties": [
+            {
+                "name": "target",
+                "data": {
+                    "subject": "GbpAllowDenyAction",
+                    "reference_uri": "/PolicyUniverse/PolicySpace/common/GbpAllowDenyAction/allow/"
+                }
+            }
+        ],
+        "children": [],
+        "parent_subject": "GbpRule",
+        "parent_uri": "/PolicyUniverse/PolicySpace/kube/GbpContract/health-check/GbpSubject/health-check-subj/GbpRule/health-check-filter-in1504/",
+        "parent_relation": "GbpRuleToActionRSrc"
+    },
+    {
+        "subject": "GbpRule",
+        "uri": "/PolicyUniverse/PolicySpace/kube/GbpContract/health-check/GbpSubject/health-check-subj/GbpRule/health-check-filter-out3/",
+        "properties": [
+            {
+                "name": "direction",
+                "data":"out"
+            },
+            {
+                "name": "name",
+                "data": "health-check-filter-out3"
+            },
+            {
+                "name": "order",
+                "data": 1
+            }
+        ],
+        "children": [
+            "/PolicyUniverse/PolicySpace/kube/GbpContract/health-check/GbpSubject/health-check-subj/GbpRule/health-check-filter-out3/GbpRuleToClassifierRSrc/178/%2fPolicyUniverse%2fPolicySpace%2fcommon%2fGbpeL24Classifier%2f3%257c0%257cIPv6%2f/",
+            "/PolicyUniverse/PolicySpace/kube/GbpContract/health-check/GbpSubject/health-check-subj/GbpRule/health-check-filter-out3/GbpRuleToClassifierRSrc/178/%2fPolicyUniverse%2fPolicySpace%2fcommon%2fGbpeL24Classifier%2f3%257c0%257cIPv4%2f/",
+            "/PolicyUniverse/PolicySpace/kube/GbpContract/health-check/GbpSubject/health-check-subj/GbpRule/health-check-filter-out3/GbpRuleToActionRSrc/286/allow/"
+        ],
+        "parent_subject": "GbpSubject",
+        "parent_uri": "/PolicyUniverse/PolicySpace/kube/GbpContract/health-check/GbpSubject/health-check-subj/",
+        "parent_relation": "GbpRule"
+    },
+    {
+        "subject": "GbpRuleToClassifierRSrc",
+        "uri": "/PolicyUniverse/PolicySpace/kube/GbpContract/health-check/GbpSubject/health-check-subj/GbpRule/health-check-filter-out3/GbpRuleToClassifierRSrc/178/%2fPolicyUniverse%2fPolicySpace%2fcommon%2fGbpeL24Classifier%2f3%257c0%257cIPv6%2f/",
+        "properties": [
+            {
+                "name": "target",
+                "data": {
+                    "subject": "GbpeL24Classifier",
+                    "reference_uri": "/PolicyUniverse/PolicySpace/common/GbpeL24Classifier/3%7c0%7cIPv6/"
+                }
+            }
+        ],
+        "children": [],
+        "parent_subject": "GbpRule",
+        "parent_uri": "/PolicyUniverse/PolicySpace/kube/GbpContract/health-check/GbpSubject/health-check-subj/GbpRule/health-check-filter-out3/",
+        "parent_relation": "GbpRuleToClassifierRSrc"
+    },
+    {
+        "subject": "GbpRuleToClassifierRSrc",
+        "uri": "/PolicyUniverse/PolicySpace/kube/GbpContract/health-check/GbpSubject/health-check-subj/GbpRule/health-check-filter-out3/GbpRuleToClassifierRSrc/178/%2fPolicyUniverse%2fPolicySpace%2fcommon%2fGbpeL24Classifier%2f3%257c0%257cIPv4%2f/",
+        "properties": [
+            {
+                "name": "target",
+                "data": {
+                    "subject": "GbpeL24Classifier",
+                    "reference_uri": "/PolicyUniverse/PolicySpace/common/GbpeL24Classifier/3%7c0%7cIPv4/"
+                }
+            }
+        ],
+        "children": [],
+        "parent_subject": "GbpRule",
+        "parent_uri": "/PolicyUniverse/PolicySpace/kube/GbpContract/health-check/GbpSubject/health-check-subj/GbpRule/health-check-filter-out3/",
+        "parent_relation": "GbpRuleToClassifierRSrc"
+    },
+    {
+        "subject": "GbpRuleToActionRSrc",
+        "uri": "/PolicyUniverse/PolicySpace/kube/GbpContract/health-check/GbpSubject/health-check-subj/GbpRule/health-check-filter-out3/GbpRuleToActionRSrc/286/allow/",
+        "properties": [
+            {
+                "name": "target",
+                "data": {
+                    "subject": "GbpAllowDenyAction",
+                    "reference_uri": "/PolicyUniverse/PolicySpace/common/GbpAllowDenyAction/allow/"
+                }
+            }
+        ],
+        "children": [],
+        "parent_subject": "GbpRule",
+        "parent_uri": "/PolicyUniverse/PolicySpace/kube/GbpContract/health-check/GbpSubject/health-check-subj/GbpRule/health-check-filter-out3/",
+        "parent_relation": "GbpRuleToActionRSrc"
+    },
+    {
+        "subject": "GbpeL24Classifier",
+        "uri": "/PolicyUniverse/PolicySpace/common/GbpeL24Classifier/3%7c0%7cIPv6/",
+        "properties": [
+            {
+                "name": "tcpFlags",
+                "data": 16
+            },
+            {
+                "name": "connectionTracking",
+                "data":"normal"
+            },
+            {
+                "name": "etherT",
+                "data":"ipv6"
+            },
+            {
+                "name": "order",
+                "data": 0
+            },
+            {
+                "name": "name",
+                "data": "3|0|IPv6"
+            },
+            {
+                "name": "prot",
+                "data": 6
+            }
+        ],
+        "children": []
+    },
+    {
+        "subject": "GbpSubnets",
+        "uri": "/PolicyUniverse/PolicySpace/kube/GbpSubnets/EPGkubernetes%7ckube-default/",
+        "properties": [
+            {
+                "name": "name",
+                "data": "EPGkubernetes|kube-default"
+            }
+        ],
+        "children": []
+    },
+    {
+        "subject": "GbpContract",
+        "uri": "/PolicyUniverse/PolicySpace/kube/GbpContract/icmp/",
+        "properties": [
+            {
+                "name": "name",
+                "data": "icmp"
+            }
+        ],
+        "children": [
+            "/PolicyUniverse/PolicySpace/kube/GbpContract/icmp/GbpSubject/icmp-subj/"
+        ]
+    },
+    {
+        "subject": "GbpSubject",
+        "uri": "/PolicyUniverse/PolicySpace/kube/GbpContract/icmp/GbpSubject/icmp-subj/",
+        "properties": [
+            {
+                "name": "name",
+                "data": "icmp-subj"
+            }
+        ],
+        "children": [
+            "/PolicyUniverse/PolicySpace/kube/GbpContract/icmp/GbpSubject/icmp-subj/GbpRule/icmp-filter1502/"
+        ],
+        "parent_subject": "GbpContract",
+        "parent_uri": "/PolicyUniverse/PolicySpace/kube/GbpContract/icmp/",
+        "parent_relation": "GbpSubject"
+    },
+    {
+        "subject": "GbpRule",
+        "uri": "/PolicyUniverse/PolicySpace/kube/GbpContract/icmp/GbpSubject/icmp-subj/GbpRule/icmp-filter1502/",
+        "properties": [
+            {
+                "name": "direction",
+                "data":"bidirectional"
+            },
+            {
+                "name": "name",
+                "data": "icmp-filter1502"
+            },
+            {
+                "name": "order",
+                "data": 1
+            }
+        ],
+        "children": [
+            "/PolicyUniverse/PolicySpace/kube/GbpContract/icmp/GbpSubject/icmp-subj/GbpRule/icmp-filter1502/GbpRuleToClassifierRSrc/178/%2fPolicyUniverse%2fPolicySpace%2fcommon%2fGbpeL24Classifier%2f1502%257c1%2f/",
+            "/PolicyUniverse/PolicySpace/kube/GbpContract/icmp/GbpSubject/icmp-subj/GbpRule/icmp-filter1502/GbpRuleToClassifierRSrc/178/%2fPolicyUniverse%2fPolicySpace%2fcommon%2fGbpeL24Classifier%2f1502%257c0%2f/",
+            "/PolicyUniverse/PolicySpace/kube/GbpContract/icmp/GbpSubject/icmp-subj/GbpRule/icmp-filter1502/GbpRuleToActionRSrc/286/allow/"
+        ],
+        "parent_subject": "GbpSubject",
+        "parent_uri": "/PolicyUniverse/PolicySpace/kube/GbpContract/icmp/GbpSubject/icmp-subj/",
+        "parent_relation": "GbpRule"
+    },
+    {
+        "subject": "GbpRuleToClassifierRSrc",
+        "uri": "/PolicyUniverse/PolicySpace/kube/GbpContract/icmp/GbpSubject/icmp-subj/GbpRule/icmp-filter1502/GbpRuleToClassifierRSrc/178/%2fPolicyUniverse%2fPolicySpace%2fcommon%2fGbpeL24Classifier%2f1502%257c1%2f/",
+        "properties": [
+            {
+                "name": "target",
+                "data": {
+                    "subject": "GbpeL24Classifier",
+                    "reference_uri": "/PolicyUniverse/PolicySpace/common/GbpeL24Classifier/1502%7c1/"
+                }
+            }
+        ],
+        "children": [],
+        "parent_subject": "GbpRule",
+        "parent_uri": "/PolicyUniverse/PolicySpace/kube/GbpContract/icmp/GbpSubject/icmp-subj/GbpRule/icmp-filter1502/",
+        "parent_relation": "GbpRuleToClassifierRSrc"
+    },
+    {
+        "subject": "GbpRuleToClassifierRSrc",
+        "uri": "/PolicyUniverse/PolicySpace/kube/GbpContract/icmp/GbpSubject/icmp-subj/GbpRule/icmp-filter1502/GbpRuleToClassifierRSrc/178/%2fPolicyUniverse%2fPolicySpace%2fcommon%2fGbpeL24Classifier%2f1502%257c0%2f/",
+        "properties": [
+            {
+                "name": "target",
+                "data": {
+                    "subject": "GbpeL24Classifier",
+                    "reference_uri": "/PolicyUniverse/PolicySpace/common/GbpeL24Classifier/1502%7c0/"
+                }
+            }
+        ],
+        "children": [],
+        "parent_subject": "GbpRule",
+        "parent_uri": "/PolicyUniverse/PolicySpace/kube/GbpContract/icmp/GbpSubject/icmp-subj/GbpRule/icmp-filter1502/",
+        "parent_relation": "GbpRuleToClassifierRSrc"
+    },
+    {
+        "subject": "GbpRuleToActionRSrc",
+        "uri": "/PolicyUniverse/PolicySpace/kube/GbpContract/icmp/GbpSubject/icmp-subj/GbpRule/icmp-filter1502/GbpRuleToActionRSrc/286/allow/",
+        "properties": [
+            {
+                "name": "target",
+                "data": {
+                    "subject": "GbpAllowDenyAction",
+                    "reference_uri": "/PolicyUniverse/PolicySpace/common/GbpAllowDenyAction/allow/"
+                }
+            }
+        ],
+        "children": [],
+        "parent_subject": "GbpRule",
+        "parent_uri": "/PolicyUniverse/PolicySpace/kube/GbpContract/icmp/GbpSubject/icmp-subj/GbpRule/icmp-filter1502/",
+        "parent_relation": "GbpRuleToActionRSrc"
+    },
+    {
+        "subject": "GbpeL24Classifier",
+        "uri": "/PolicyUniverse/PolicySpace/common/GbpeL24Classifier/1502%7c1/",
+        "properties": [
+            {
+                "name": "connectionTracking",
+                "data":"normal"
+            },
+            {
+                "name": "etherT",
+                "data":"ipv6"
+            },
+            {
+                "name": "order",
+                "data": 1
+            },
+            {
+                "name": "name",
+                "data": "1502|1"
+            },
+            {
+                "name": "prot",
+                "data": 58
+            }
+        ],
+        "children": []
+    },
+    {
+        "subject": "GbpSubnets",
+        "uri": "/PolicyUniverse/PolicySpace/kube/GbpSubnets/EPGkubernetes%7ckube-system/",
+        "properties": [
+            {
+                "name": "name",
+                "data": "EPGkubernetes|kube-system"
+            }
+        ],
+        "children": []
+    },
+    {
+        "subject": "GbpeL24Classifier",
+        "uri": "/PolicyUniverse/PolicySpace/common/GbpeL24Classifier/1490%7c0%7cIPv6/",
+        "properties": [
+            {
+                "name": "dToPort",
+                "data": 6443
+            },
+            {
+                "name": "connectionTracking",
+                "data":"normal"
+            },
+            {
+                "name": "dFromPort",
+                "data": 6443
+            },
+            {
+                "name": "etherT",
+                "data":"ipv6"
+            },
+            {
+                "name": "order",
+                "data": 0
+            },
+            {
+                "name": "name",
+                "data": "1490|0|IPv6"
+            },
+            {
+                "name": "prot",
+                "data": 6
+            }
+        ],
+        "children": []
+    },
+    {
+        "subject": "GbpeL24Classifier",
+        "uri": "/PolicyUniverse/PolicySpace/common/GbpeL24Classifier/1507%7c0%7cIPv4/",
+        "properties": [
+            {
+                "name": "sToPort",
+                "data": 53
+            },
+            {
+                "name": "sFromPort",
+                "data": 53
+            },
+            {
+                "name": "connectionTracking",
+                "data":"normal"
+            },
+            {
+                "name": "etherT",
+                "data":"ipv4"
+            },
+            {
+                "name": "order",
+                "data": 0
+            },
+            {
+                "name": "name",
+                "data": "1507|0|IPv4"
+            },
+            {
+                "name": "prot",
+                "data": 6
+            }
+        ],
+        "children": []
+    },
+    {
+        "subject": "GbpeL24Classifier",
+        "uri": "/PolicyUniverse/PolicySpace/common/GbpeL24Classifier/1507%7c0%7cIPv6/",
+        "properties": [
+            {
+                "name": "sToPort",
+                "data": 53
+            },
+            {
+                "name": "sFromPort",
+                "data": 53
+            },
+            {
+                "name": "connectionTracking",
+                "data":"normal"
+            },
+            {
+                "name": "etherT",
+                "data":"ipv6"
+            },
+            {
+                "name": "order",
+                "data": 0
+            },
+            {
+                "name": "name",
+                "data": "1507|0|IPv6"
+            },
+            {
+                "name": "prot",
+                "data": 6
+            }
+        ],
+        "children": []
+    },
+    {
+        "subject": "GbpEpGroup",
+        "uri": "/PolicyUniverse/PolicySpace/kube/GbpEpGroup/kubernetes%7ckube-system/",
+        "properties": [
+            {
+                "name": "name",
+                "data": "kubernetes|kube-system"
+            },
+            {
+                "name": "intraGroupPolicy",
+                "data":"allow"
+            }
+        ],
+        "children": [
+            "/PolicyUniverse/PolicySpace/kube/GbpEpGroup/kubernetes%7ckube-system/GbpeInstContext/",
+            "/PolicyUniverse/PolicySpace/kube/GbpEpGroup/kubernetes%7ckube-system/GbpEpGroupToNetworkRSrc/",
+            "/PolicyUniverse/PolicySpace/kube/GbpEpGroup/kubernetes%7ckube-system/GbpEpGroupToProvContractRSrc/288/health-check/",
+            "/PolicyUniverse/PolicySpace/kube/GbpEpGroup/kubernetes%7ckube-system/GbpEpGroupToProvContractRSrc/288/dns/",
+            "/PolicyUniverse/PolicySpace/kube/GbpEpGroup/kubernetes%7ckube-system/GbpEpGroupToProvContractRSrc/288/icmp/",
+            "/PolicyUniverse/PolicySpace/kube/GbpEpGroup/kubernetes%7ckube-system/GbpEpGroupToConsContractRSrc/288/kube-api/",
+            "/PolicyUniverse/PolicySpace/kube/GbpEpGroup/kubernetes%7ckube-system/GbpEpGroupToConsContractRSrc/288/kube-l3out-allow-all/",
+            "/PolicyUniverse/PolicySpace/kube/GbpEpGroup/kubernetes%7ckube-system/GbpEpGroupToConsContractRSrc/288/icmp/",
+            "/PolicyUniverse/PolicySpace/kube/GbpEpGroup/kubernetes%7ckube-system/GbpEpGroupToSubnetsRSrc/"
+        ]
+    },
+    {
+        "subject": "GbpeInstContext",
+        "uri": "/PolicyUniverse/PolicySpace/kube/GbpEpGroup/kubernetes%7ckube-system/GbpeInstContext/",
+        "properties": [
+            {
+                "name": "multicastGroupIP",
+                "data": "225.107.24.233"
+            },
+            {
+                "name": "encapId",
+                "data": 7798786
+            },
+            {
+                "name": "classid",
+                "data": 32801
+            }
+        ],
+        "children": [],
+        "parent_subject": "GbpEpGroup",
+        "parent_uri": "/PolicyUniverse/PolicySpace/kube/GbpEpGroup/kubernetes%7ckube-system/",
+        "parent_relation": "GbpeInstContext"
+    },
+    {
+        "subject": "GbpEpGroupToNetworkRSrc",
+        "uri": "/PolicyUniverse/PolicySpace/kube/GbpEpGroup/kubernetes%7ckube-system/GbpEpGroupToNetworkRSrc/",
+        "properties": [
+            {
+                "name": "target",
+                "data": {
+                    "subject": "GbpFloodDomain",
+                    "reference_uri": "/PolicyUniverse/PolicySpace/kube/GbpFloodDomain/BDkube-pod-bd/"
+                }
+            }
+        ],
+        "children": [],
+        "parent_subject": "GbpEpGroup",
+        "parent_uri": "/PolicyUniverse/PolicySpace/kube/GbpEpGroup/kubernetes%7ckube-system/",
+        "parent_relation": "GbpEpGroupToNetworkRSrc"
+    },
+    {
+        "subject": "GbpEpGroupToProvContractRSrc",
+        "uri": "/PolicyUniverse/PolicySpace/kube/GbpEpGroup/kubernetes%7ckube-system/GbpEpGroupToProvContractRSrc/288/health-check/",
+        "properties": [
+            {
+                "name": "target",
+                "data": {
+                    "subject": "GbpContract",
+                    "reference_uri": "/PolicyUniverse/PolicySpace/kube/GbpContract/health-check/"
+                }
+            }
+        ],
+        "children": [],
+        "parent_subject": "GbpEpGroup",
+        "parent_uri": "/PolicyUniverse/PolicySpace/kube/GbpEpGroup/kubernetes%7ckube-system/",
+        "parent_relation": "GbpEpGroupToProvContractRSrc"
+    },
+    {
+        "subject": "GbpEpGroupToProvContractRSrc",
+        "uri": "/PolicyUniverse/PolicySpace/kube/GbpEpGroup/kubernetes%7ckube-system/GbpEpGroupToProvContractRSrc/288/dns/",
+        "properties": [
+            {
+                "name": "target",
+                "data": {
+                    "subject": "GbpContract",
+                    "reference_uri": "/PolicyUniverse/PolicySpace/kube/GbpContract/dns/"
+                }
+            }
+        ],
+        "children": [],
+        "parent_subject": "GbpEpGroup",
+        "parent_uri": "/PolicyUniverse/PolicySpace/kube/GbpEpGroup/kubernetes%7ckube-system/",
+        "parent_relation": "GbpEpGroupToProvContractRSrc"
+    },
+    {
+        "subject": "GbpEpGroupToProvContractRSrc",
+        "uri": "/PolicyUniverse/PolicySpace/kube/GbpEpGroup/kubernetes%7ckube-system/GbpEpGroupToProvContractRSrc/288/icmp/",
+        "properties": [
+            {
+                "name": "target",
+                "data": {
+                    "subject": "GbpContract",
+                    "reference_uri": "/PolicyUniverse/PolicySpace/kube/GbpContract/icmp/"
+                }
+            }
+        ],
+        "children": [],
+        "parent_subject": "GbpEpGroup",
+        "parent_uri": "/PolicyUniverse/PolicySpace/kube/GbpEpGroup/kubernetes%7ckube-system/",
+        "parent_relation": "GbpEpGroupToProvContractRSrc"
+    },
+    {
+        "subject": "GbpEpGroupToConsContractRSrc",
+        "uri": "/PolicyUniverse/PolicySpace/kube/GbpEpGroup/kubernetes%7ckube-system/GbpEpGroupToConsContractRSrc/288/kube-api/",
+        "properties": [
+            {
+                "name": "target",
+                "data": {
+                    "subject": "GbpContract",
+                    "reference_uri": "/PolicyUniverse/PolicySpace/kube/GbpContract/kube-api/"
+                }
+            }
+        ],
+        "children": [],
+        "parent_subject": "GbpEpGroup",
+        "parent_uri": "/PolicyUniverse/PolicySpace/kube/GbpEpGroup/kubernetes%7ckube-system/",
+        "parent_relation": "GbpEpGroupToConsContractRSrc"
+    },
+    {
+        "subject": "GbpEpGroupToConsContractRSrc",
+        "uri": "/PolicyUniverse/PolicySpace/kube/GbpEpGroup/kubernetes%7ckube-system/GbpEpGroupToConsContractRSrc/288/kube-l3out-allow-all/",
+        "properties": [
+            {
+                "name": "target",
+                "data": {
+                    "subject": "GbpContract",
+                    "reference_uri": "/PolicyUniverse/PolicySpace/common/GbpContract/kube-l3out-allow-all/"
+                }
+            }
+        ],
+        "children": [],
+        "parent_subject": "GbpEpGroup",
+        "parent_uri": "/PolicyUniverse/PolicySpace/kube/GbpEpGroup/kubernetes%7ckube-system/",
+        "parent_relation": "GbpEpGroupToConsContractRSrc"
+    },
+    {
+        "subject": "GbpEpGroupToConsContractRSrc",
+        "uri": "/PolicyUniverse/PolicySpace/kube/GbpEpGroup/kubernetes%7ckube-system/GbpEpGroupToConsContractRSrc/288/icmp/",
+        "properties": [
+            {
+                "name": "target",
+                "data": {
+                    "subject": "GbpContract",
+                    "reference_uri": "/PolicyUniverse/PolicySpace/kube/GbpContract/icmp/"
+                }
+            }
+        ],
+        "children": [],
+        "parent_subject": "GbpEpGroup",
+        "parent_uri": "/PolicyUniverse/PolicySpace/kube/GbpEpGroup/kubernetes%7ckube-system/",
+        "parent_relation": "GbpEpGroupToConsContractRSrc"
+    },
+    {
+        "subject": "GbpEpGroupToSubnetsRSrc",
+        "uri": "/PolicyUniverse/PolicySpace/kube/GbpEpGroup/kubernetes%7ckube-system/GbpEpGroupToSubnetsRSrc/",
+        "properties": [
+            {
+                "name": "target",
+                "data": {
+                    "subject": "GbpSubnets",
+                    "reference_uri": "/PolicyUniverse/PolicySpace/kube/GbpSubnets/EPGkubernetes%7ckube-system/"
+                }
+            }
+        ],
+        "children": [],
+        "parent_subject": "GbpEpGroup",
+        "parent_uri": "/PolicyUniverse/PolicySpace/kube/GbpEpGroup/kubernetes%7ckube-system/",
+        "parent_relation": "GbpEpGroupToSubnetsRSrc"
+    },
+    {
+        "subject": "GbpeL24Classifier",
+        "uri": "/PolicyUniverse/PolicySpace/common/GbpeL24Classifier/65535%7cany/",
+        "properties": [
+            {
+                "name": "connectionTracking",
+                "data":"normal"
+            },
+            {
+                "name": "order",
+                "data": 0
+            },
+            {
+                "name": "name",
+                "data": "65535|any"
+            }
+        ],
+        "children": []
+    },
+    {
+        "subject": "GbpeL24Classifier",
+        "uri": "/PolicyUniverse/PolicySpace/common/GbpeL24Classifier/1491%7c1%7cIPv4/",
+        "properties": [
+            {
+                "name": "sToPort",
+                "data": 6443
+            },
+            {
+                "name": "sFromPort",
+                "data": 6443
+            },
+            {
+                "name": "connectionTracking",
+                "data":"normal"
+            },
+            {
+                "name": "etherT",
+                "data":"ipv4"
+            },
+            {
+                "name": "order",
+                "data": 1
+            },
+            {
+                "name": "name",
+                "data": "1491|1|IPv4"
+            },
+            {
+                "name": "prot",
+                "data": 6
+            }
+        ],
+        "children": []
+    },
+    {
+        "subject": "GbpContract",
+        "uri": "/PolicyUniverse/PolicySpace/kube/GbpContract/dns/",
+        "properties": [
+            {
+                "name": "name",
+                "data": "dns"
+            }
+        ],
+        "children": [
+            "/PolicyUniverse/PolicySpace/kube/GbpContract/dns/GbpSubject/dns-subj/"
+        ]
+    },
+    {
+        "subject": "GbpSubject",
+        "uri": "/PolicyUniverse/PolicySpace/kube/GbpContract/dns/GbpSubject/dns-subj/",
+        "properties": [
+            {
+                "name": "name",
+                "data": "dns-subj"
+            }
+        ],
+        "children": [
+            "/PolicyUniverse/PolicySpace/kube/GbpContract/dns/GbpSubject/dns-subj/GbpRule/dns-filter1507/",
+            "/PolicyUniverse/PolicySpace/kube/GbpContract/dns/GbpSubject/dns-subj/GbpRule/dns-filter1506/"
+        ],
+        "parent_subject": "GbpContract",
+        "parent_uri": "/PolicyUniverse/PolicySpace/kube/GbpContract/dns/",
+        "parent_relation": "GbpSubject"
+    },
+    {
+        "subject": "GbpRule",
+        "uri": "/PolicyUniverse/PolicySpace/kube/GbpContract/dns/GbpSubject/dns-subj/GbpRule/dns-filter1507/",
+        "properties": [
+            {
+                "name": "direction",
+                "data":"out"
+            },
+            {
+                "name": "name",
+                "data": "dns-filter1507"
+            },
+            {
+                "name": "order",
+                "data": 1
+            }
+        ],
+        "children": [
+            "/PolicyUniverse/PolicySpace/kube/GbpContract/dns/GbpSubject/dns-subj/GbpRule/dns-filter1507/GbpRuleToClassifierRSrc/178/%2fPolicyUniverse%2fPolicySpace%2fcommon%2fGbpeL24Classifier%2f1507%257c1%257cIPv6%2f/",
+            "/PolicyUniverse/PolicySpace/kube/GbpContract/dns/GbpSubject/dns-subj/GbpRule/dns-filter1507/GbpRuleToClassifierRSrc/178/%2fPolicyUniverse%2fPolicySpace%2fcommon%2fGbpeL24Classifier%2f1507%257c1%257cIPv4%2f/",
+            "/PolicyUniverse/PolicySpace/kube/GbpContract/dns/GbpSubject/dns-subj/GbpRule/dns-filter1507/GbpRuleToClassifierRSrc/178/%2fPolicyUniverse%2fPolicySpace%2fcommon%2fGbpeL24Classifier%2f1507%257c0%257cIPv6%2f/",
+            "/PolicyUniverse/PolicySpace/kube/GbpContract/dns/GbpSubject/dns-subj/GbpRule/dns-filter1507/GbpRuleToClassifierRSrc/178/%2fPolicyUniverse%2fPolicySpace%2fcommon%2fGbpeL24Classifier%2f1507%257c0%257cIPv4%2f/",
+            "/PolicyUniverse/PolicySpace/kube/GbpContract/dns/GbpSubject/dns-subj/GbpRule/dns-filter1507/GbpRuleToActionRSrc/286/allow/"
+        ],
+        "parent_subject": "GbpSubject",
+        "parent_uri": "/PolicyUniverse/PolicySpace/kube/GbpContract/dns/GbpSubject/dns-subj/",
+        "parent_relation": "GbpRule"
+    },
+    {
+        "subject": "GbpRuleToClassifierRSrc",
+        "uri": "/PolicyUniverse/PolicySpace/kube/GbpContract/dns/GbpSubject/dns-subj/GbpRule/dns-filter1507/GbpRuleToClassifierRSrc/178/%2fPolicyUniverse%2fPolicySpace%2fcommon%2fGbpeL24Classifier%2f1507%257c1%257cIPv6%2f/",
+        "properties": [
+            {
+                "name": "target",
+                "data": {
+                    "subject": "GbpeL24Classifier",
+                    "reference_uri": "/PolicyUniverse/PolicySpace/common/GbpeL24Classifier/1507%7c1%7cIPv6/"
+                }
+            }
+        ],
+        "children": [],
+        "parent_subject": "GbpRule",
+        "parent_uri": "/PolicyUniverse/PolicySpace/kube/GbpContract/dns/GbpSubject/dns-subj/GbpRule/dns-filter1507/",
+        "parent_relation": "GbpRuleToClassifierRSrc"
+    },
+    {
+        "subject": "GbpRuleToClassifierRSrc",
+        "uri": "/PolicyUniverse/PolicySpace/kube/GbpContract/dns/GbpSubject/dns-subj/GbpRule/dns-filter1507/GbpRuleToClassifierRSrc/178/%2fPolicyUniverse%2fPolicySpace%2fcommon%2fGbpeL24Classifier%2f1507%257c1%257cIPv4%2f/",
+        "properties": [
+            {
+                "name": "target",
+                "data": {
+                    "subject": "GbpeL24Classifier",
+                    "reference_uri": "/PolicyUniverse/PolicySpace/common/GbpeL24Classifier/1507%7c1%7cIPv4/"
+                }
+            }
+        ],
+        "children": [],
+        "parent_subject": "GbpRule",
+        "parent_uri": "/PolicyUniverse/PolicySpace/kube/GbpContract/dns/GbpSubject/dns-subj/GbpRule/dns-filter1507/",
+        "parent_relation": "GbpRuleToClassifierRSrc"
+    },
+    {
+        "subject": "GbpRuleToClassifierRSrc",
+        "uri": "/PolicyUniverse/PolicySpace/kube/GbpContract/dns/GbpSubject/dns-subj/GbpRule/dns-filter1507/GbpRuleToClassifierRSrc/178/%2fPolicyUniverse%2fPolicySpace%2fcommon%2fGbpeL24Classifier%2f1507%257c0%257cIPv6%2f/",
+        "properties": [
+            {
+                "name": "target",
+                "data": {
+                    "subject": "GbpeL24Classifier",
+                    "reference_uri": "/PolicyUniverse/PolicySpace/common/GbpeL24Classifier/1507%7c0%7cIPv6/"
+                }
+            }
+        ],
+        "children": [],
+        "parent_subject": "GbpRule",
+        "parent_uri": "/PolicyUniverse/PolicySpace/kube/GbpContract/dns/GbpSubject/dns-subj/GbpRule/dns-filter1507/",
+        "parent_relation": "GbpRuleToClassifierRSrc"
+    },
+    {
+        "subject": "GbpRuleToClassifierRSrc",
+        "uri": "/PolicyUniverse/PolicySpace/kube/GbpContract/dns/GbpSubject/dns-subj/GbpRule/dns-filter1507/GbpRuleToClassifierRSrc/178/%2fPolicyUniverse%2fPolicySpace%2fcommon%2fGbpeL24Classifier%2f1507%257c0%257cIPv4%2f/",
+        "properties": [
+            {
+                "name": "target",
+                "data": {
+                    "subject": "GbpeL24Classifier",
+                    "reference_uri": "/PolicyUniverse/PolicySpace/common/GbpeL24Classifier/1507%7c0%7cIPv4/"
+                }
+            }
+        ],
+        "children": [],
+        "parent_subject": "GbpRule",
+        "parent_uri": "/PolicyUniverse/PolicySpace/kube/GbpContract/dns/GbpSubject/dns-subj/GbpRule/dns-filter1507/",
+        "parent_relation": "GbpRuleToClassifierRSrc"
+    },
+    {
+        "subject": "GbpRuleToActionRSrc",
+        "uri": "/PolicyUniverse/PolicySpace/kube/GbpContract/dns/GbpSubject/dns-subj/GbpRule/dns-filter1507/GbpRuleToActionRSrc/286/allow/",
+        "properties": [
+            {
+                "name": "target",
+                "data": {
+                    "subject": "GbpAllowDenyAction",
+                    "reference_uri": "/PolicyUniverse/PolicySpace/common/GbpAllowDenyAction/allow/"
+                }
+            }
+        ],
+        "children": [],
+        "parent_subject": "GbpRule",
+        "parent_uri": "/PolicyUniverse/PolicySpace/kube/GbpContract/dns/GbpSubject/dns-subj/GbpRule/dns-filter1507/",
+        "parent_relation": "GbpRuleToActionRSrc"
+    },
+    {
+        "subject": "GbpRule",
+        "uri": "/PolicyUniverse/PolicySpace/kube/GbpContract/dns/GbpSubject/dns-subj/GbpRule/dns-filter1506/",
+        "properties": [
+            {
+                "name": "direction",
+                "data":"in"
+            },
+            {
+                "name": "name",
+                "data": "dns-filter1506"
+            },
+            {
+                "name": "order",
+                "data": 1
+            }
+        ],
+        "children": [
+            "/PolicyUniverse/PolicySpace/kube/GbpContract/dns/GbpSubject/dns-subj/GbpRule/dns-filter1506/GbpRuleToClassifierRSrc/178/%2fPolicyUniverse%2fPolicySpace%2fcommon%2fGbpeL24Classifier%2f1506%257c1%257cIPv6%2f/",
+            "/PolicyUniverse/PolicySpace/kube/GbpContract/dns/GbpSubject/dns-subj/GbpRule/dns-filter1506/GbpRuleToClassifierRSrc/178/%2fPolicyUniverse%2fPolicySpace%2fcommon%2fGbpeL24Classifier%2f1506%257c0%257cIPv4%2f/",
+            "/PolicyUniverse/PolicySpace/kube/GbpContract/dns/GbpSubject/dns-subj/GbpRule/dns-filter1506/GbpRuleToClassifierRSrc/178/%2fPolicyUniverse%2fPolicySpace%2fcommon%2fGbpeL24Classifier%2f1506%257c1%257cIPv4%2f/",
+            "/PolicyUniverse/PolicySpace/kube/GbpContract/dns/GbpSubject/dns-subj/GbpRule/dns-filter1506/GbpRuleToClassifierRSrc/178/%2fPolicyUniverse%2fPolicySpace%2fcommon%2fGbpeL24Classifier%2f1506%257c0%257cIPv6%2f/",
+            "/PolicyUniverse/PolicySpace/kube/GbpContract/dns/GbpSubject/dns-subj/GbpRule/dns-filter1506/GbpRuleToActionRSrc/286/allow/"
+        ],
+        "parent_subject": "GbpSubject",
+        "parent_uri": "/PolicyUniverse/PolicySpace/kube/GbpContract/dns/GbpSubject/dns-subj/",
+        "parent_relation": "GbpRule"
+    },
+    {
+        "subject": "GbpRuleToClassifierRSrc",
+        "uri": "/PolicyUniverse/PolicySpace/kube/GbpContract/dns/GbpSubject/dns-subj/GbpRule/dns-filter1506/GbpRuleToClassifierRSrc/178/%2fPolicyUniverse%2fPolicySpace%2fcommon%2fGbpeL24Classifier%2f1506%257c1%257cIPv6%2f/",
+        "properties": [
+            {
+                "name": "target",
+                "data": {
+                    "subject": "GbpeL24Classifier",
+                    "reference_uri": "/PolicyUniverse/PolicySpace/common/GbpeL24Classifier/1506%7c1%7cIPv6/"
+                }
+            }
+        ],
+        "children": [],
+        "parent_subject": "GbpRule",
+        "parent_uri": "/PolicyUniverse/PolicySpace/kube/GbpContract/dns/GbpSubject/dns-subj/GbpRule/dns-filter1506/",
+        "parent_relation": "GbpRuleToClassifierRSrc"
+    },
+    {
+        "subject": "GbpRuleToClassifierRSrc",
+        "uri": "/PolicyUniverse/PolicySpace/kube/GbpContract/dns/GbpSubject/dns-subj/GbpRule/dns-filter1506/GbpRuleToClassifierRSrc/178/%2fPolicyUniverse%2fPolicySpace%2fcommon%2fGbpeL24Classifier%2f1506%257c0%257cIPv4%2f/",
+        "properties": [
+            {
+                "name": "target",
+                "data": {
+                    "subject": "GbpeL24Classifier",
+                    "reference_uri": "/PolicyUniverse/PolicySpace/common/GbpeL24Classifier/1506%7c0%7cIPv4/"
+                }
+            }
+        ],
+        "children": [],
+        "parent_subject": "GbpRule",
+        "parent_uri": "/PolicyUniverse/PolicySpace/kube/GbpContract/dns/GbpSubject/dns-subj/GbpRule/dns-filter1506/",
+        "parent_relation": "GbpRuleToClassifierRSrc"
+    },
+    {
+        "subject": "GbpRuleToClassifierRSrc",
+        "uri": "/PolicyUniverse/PolicySpace/kube/GbpContract/dns/GbpSubject/dns-subj/GbpRule/dns-filter1506/GbpRuleToClassifierRSrc/178/%2fPolicyUniverse%2fPolicySpace%2fcommon%2fGbpeL24Classifier%2f1506%257c1%257cIPv4%2f/",
+        "properties": [
+            {
+                "name": "target",
+                "data": {
+                    "subject": "GbpeL24Classifier",
+                    "reference_uri": "/PolicyUniverse/PolicySpace/common/GbpeL24Classifier/1506%7c1%7cIPv4/"
+                }
+            }
+        ],
+        "children": [],
+        "parent_subject": "GbpRule",
+        "parent_uri": "/PolicyUniverse/PolicySpace/kube/GbpContract/dns/GbpSubject/dns-subj/GbpRule/dns-filter1506/",
+        "parent_relation": "GbpRuleToClassifierRSrc"
+    },
+    {
+        "subject": "GbpRuleToClassifierRSrc",
+        "uri": "/PolicyUniverse/PolicySpace/kube/GbpContract/dns/GbpSubject/dns-subj/GbpRule/dns-filter1506/GbpRuleToClassifierRSrc/178/%2fPolicyUniverse%2fPolicySpace%2fcommon%2fGbpeL24Classifier%2f1506%257c0%257cIPv6%2f/",
+        "properties": [
+            {
+                "name": "target",
+                "data": {
+                    "subject": "GbpeL24Classifier",
+                    "reference_uri": "/PolicyUniverse/PolicySpace/common/GbpeL24Classifier/1506%7c0%7cIPv6/"
+                }
+            }
+        ],
+        "children": [],
+        "parent_subject": "GbpRule",
+        "parent_uri": "/PolicyUniverse/PolicySpace/kube/GbpContract/dns/GbpSubject/dns-subj/GbpRule/dns-filter1506/",
+        "parent_relation": "GbpRuleToClassifierRSrc"
+    },
+    {
+        "subject": "GbpRuleToActionRSrc",
+        "uri": "/PolicyUniverse/PolicySpace/kube/GbpContract/dns/GbpSubject/dns-subj/GbpRule/dns-filter1506/GbpRuleToActionRSrc/286/allow/",
+        "properties": [
+            {
+                "name": "target",
+                "data": {
+                    "subject": "GbpAllowDenyAction",
+                    "reference_uri": "/PolicyUniverse/PolicySpace/common/GbpAllowDenyAction/allow/"
+                }
+            }
+        ],
+        "children": [],
+        "parent_subject": "GbpRule",
+        "parent_uri": "/PolicyUniverse/PolicySpace/kube/GbpContract/dns/GbpSubject/dns-subj/GbpRule/dns-filter1506/",
+        "parent_relation": "GbpRuleToActionRSrc"
+    },
+    {
+        "subject": "GbpeL24Classifier",
+        "uri": "/PolicyUniverse/PolicySpace/common/GbpeL24Classifier/1491%7c1%7cIPv6/",
+        "properties": [
+            {
+                "name": "sToPort",
+                "data": 6443
+            },
+            {
+                "name": "sFromPort",
+                "data": 6443
+            },
+            {
+                "name": "connectionTracking",
+                "data":"normal"
+            },
+            {
+                "name": "etherT",
+                "data":"ipv6"
+            },
+            {
+                "name": "order",
+                "data": 1
+            },
+            {
+                "name": "name",
+                "data": "1491|1|IPv6"
+            },
+            {
+                "name": "prot",
+                "data": 6
+            }
+        ],
+        "children": []
+    },
+    {
+        "subject": "GbpEpGroup",
+        "uri": "/PolicyUniverse/PolicySpace/kube/GbpEpGroup/kubernetes%7ckube-default/",
+        "properties": [
+            {
+                "name": "name",
+                "data": "kubernetes|kube-default"
+            },
+            {
+                "name": "intraGroupPolicy",
+                "data":"allow"
+            }
+        ],
+        "children": [
+            "/PolicyUniverse/PolicySpace/kube/GbpEpGroup/kubernetes%7ckube-default/GbpeInstContext/",
+            "/PolicyUniverse/PolicySpace/kube/GbpEpGroup/kubernetes%7ckube-default/GbpEpGroupToNetworkRSrc/",
+            "/PolicyUniverse/PolicySpace/kube/GbpEpGroup/kubernetes%7ckube-default/GbpEpGroupToProvContractRSrc/288/health-check/",
+            "/PolicyUniverse/PolicySpace/kube/GbpEpGroup/kubernetes%7ckube-default/GbpEpGroupToConsContractRSrc/288/kube-l3out-allow-all/",
+            "/PolicyUniverse/PolicySpace/kube/GbpEpGroup/kubernetes%7ckube-default/GbpEpGroupToConsContractRSrc/288/dns/",
+            "/PolicyUniverse/PolicySpace/kube/GbpEpGroup/kubernetes%7ckube-default/GbpEpGroupToConsContractRSrc/288/icmp/",
+            "/PolicyUniverse/PolicySpace/kube/GbpEpGroup/kubernetes%7ckube-default/GbpEpGroupToSubnetsRSrc/"
+        ]
+    },
+    {
+        "subject": "GbpeInstContext",
+        "uri": "/PolicyUniverse/PolicySpace/kube/GbpEpGroup/kubernetes%7ckube-default/GbpeInstContext/",
+        "properties": [
+            {
+                "name": "multicastGroupIP",
+                "data": "225.107.40.217"
+            },
+            {
+                "name": "encapId",
+                "data": 7897088
+            },
+            {
+                "name": "classid",
+                "data": 49154
+            }
+        ],
+        "children": [],
+        "parent_subject": "GbpEpGroup",
+        "parent_uri": "/PolicyUniverse/PolicySpace/kube/GbpEpGroup/kubernetes%7ckube-default/",
+        "parent_relation": "GbpeInstContext"
+    },
+    {
+        "subject": "GbpEpGroupToNetworkRSrc",
+        "uri": "/PolicyUniverse/PolicySpace/kube/GbpEpGroup/kubernetes%7ckube-default/GbpEpGroupToNetworkRSrc/",
+        "properties": [
+            {
+                "name": "target",
+                "data": {
+                    "subject": "GbpFloodDomain",
+                    "reference_uri": "/PolicyUniverse/PolicySpace/kube/GbpFloodDomain/BDkube-pod-bd/"
+                }
+            }
+        ],
+        "children": [],
+        "parent_subject": "GbpEpGroup",
+        "parent_uri": "/PolicyUniverse/PolicySpace/kube/GbpEpGroup/kubernetes%7ckube-default/",
+        "parent_relation": "GbpEpGroupToNetworkRSrc"
+    },
+    {
+        "subject": "GbpEpGroupToProvContractRSrc",
+        "uri": "/PolicyUniverse/PolicySpace/kube/GbpEpGroup/kubernetes%7ckube-default/GbpEpGroupToProvContractRSrc/288/health-check/",
+        "properties": [
+            {
+                "name": "target",
+                "data": {
+                    "subject": "GbpContract",
+                    "reference_uri": "/PolicyUniverse/PolicySpace/kube/GbpContract/health-check/"
+                }
+            }
+        ],
+        "children": [],
+        "parent_subject": "GbpEpGroup",
+        "parent_uri": "/PolicyUniverse/PolicySpace/kube/GbpEpGroup/kubernetes%7ckube-default/",
+        "parent_relation": "GbpEpGroupToProvContractRSrc"
+    },
+    {
+        "subject": "GbpEpGroupToConsContractRSrc",
+        "uri": "/PolicyUniverse/PolicySpace/kube/GbpEpGroup/kubernetes%7ckube-default/GbpEpGroupToConsContractRSrc/288/kube-l3out-allow-all/",
+        "properties": [
+            {
+                "name": "target",
+                "data": {
+                    "subject": "GbpContract",
+                    "reference_uri": "/PolicyUniverse/PolicySpace/common/GbpContract/kube-l3out-allow-all/"
+                }
+            }
+        ],
+        "children": [],
+        "parent_subject": "GbpEpGroup",
+        "parent_uri": "/PolicyUniverse/PolicySpace/kube/GbpEpGroup/kubernetes%7ckube-default/",
+        "parent_relation": "GbpEpGroupToConsContractRSrc"
+    },
+    {
+        "subject": "GbpEpGroupToConsContractRSrc",
+        "uri": "/PolicyUniverse/PolicySpace/kube/GbpEpGroup/kubernetes%7ckube-default/GbpEpGroupToConsContractRSrc/288/dns/",
+        "properties": [
+            {
+                "name": "target",
+                "data": {
+                    "subject": "GbpContract",
+                    "reference_uri": "/PolicyUniverse/PolicySpace/kube/GbpContract/dns/"
+                }
+            }
+        ],
+        "children": [],
+        "parent_subject": "GbpEpGroup",
+        "parent_uri": "/PolicyUniverse/PolicySpace/kube/GbpEpGroup/kubernetes%7ckube-default/",
+        "parent_relation": "GbpEpGroupToConsContractRSrc"
+    },
+    {
+        "subject": "GbpEpGroupToConsContractRSrc",
+        "uri": "/PolicyUniverse/PolicySpace/kube/GbpEpGroup/kubernetes%7ckube-default/GbpEpGroupToConsContractRSrc/288/icmp/",
+        "properties": [
+            {
+                "name": "target",
+                "data": {
+                    "subject": "GbpContract",
+                    "reference_uri": "/PolicyUniverse/PolicySpace/kube/GbpContract/icmp/"
+                }
+            }
+        ],
+        "children": [],
+        "parent_subject": "GbpEpGroup",
+        "parent_uri": "/PolicyUniverse/PolicySpace/kube/GbpEpGroup/kubernetes%7ckube-default/",
+        "parent_relation": "GbpEpGroupToConsContractRSrc"
+    },
+    {
+        "subject": "GbpEpGroupToSubnetsRSrc",
+        "uri": "/PolicyUniverse/PolicySpace/kube/GbpEpGroup/kubernetes%7ckube-default/GbpEpGroupToSubnetsRSrc/",
+        "properties": [
+            {
+                "name": "target",
+                "data": {
+                    "subject": "GbpSubnets",
+                    "reference_uri": "/PolicyUniverse/PolicySpace/kube/GbpSubnets/EPGkubernetes%7ckube-default/"
+                }
+            }
+        ],
+        "children": [],
+        "parent_subject": "GbpEpGroup",
+        "parent_uri": "/PolicyUniverse/PolicySpace/kube/GbpEpGroup/kubernetes%7ckube-default/",
+        "parent_relation": "GbpEpGroupToSubnetsRSrc"
+    },
+    {
+        "subject": "GbpSubnets",
+        "uri": "/PolicyUniverse/PolicySpace/kube/GbpSubnets/BDkube-pod-bd/",
+        "properties": [
+            {
+                "name": "name",
+                "data": "BDkube-pod-bd"
+            }
+        ],
+        "children": [
+            "/PolicyUniverse/PolicySpace/kube/GbpSubnets/BDkube-pod-bd/GbpSubnet/10.2.56.1%2f21/"
+        ]
+    },
+    {
+        "subject": "GbpSubnet",
+        "uri": "/PolicyUniverse/PolicySpace/kube/GbpSubnets/BDkube-pod-bd/GbpSubnet/10.2.56.1%2f21/",
+        "properties": [
+            {
+                "name": "virtualRouterIp",
+                "data": "10.2.56.1"
+            },
+            {
+                "name": "prefixLen",
+                "data": 21
+            },
+            {
+                "name": "name",
+                "data": "10.2.56.1/21"
+            },
+            {
+                "name": "macAddress",
+                "data": "00:22:bd:f8:19:ff"
+            },
+            {
+                "name": "address",
+                "data": "10.2.56.0"
+            }
+        ],
+        "children": [],
+        "parent_subject": "GbpSubnets",
+        "parent_uri": "/PolicyUniverse/PolicySpace/kube/GbpSubnets/BDkube-pod-bd/",
+        "parent_relation": "GbpSubnet"
+    },
+    {
+        "subject": "GbpSubnets",
+        "uri": "/PolicyUniverse/PolicySpace/kube/GbpSubnets/EPGkubernetes%7ckube-nodes/",
+        "properties": [
+            {
+                "name": "name",
+                "data": "EPGkubernetes|kube-nodes"
+            }
+        ],
+        "children": []
+    },
+    {
+        "subject": "GbpRoutingDomain",
+        "uri": "/PolicyUniverse/PolicySpace/common/GbpRoutingDomain/l3out_1_vrf/",
+        "properties": [
+            {
+                "name": "name",
+                "data": "l3out_1_vrf"
+            },
+            {
+                "name": "ipv6Autoconfig",
+                "data":"dhcp"
+            }
+        ],
+        "children": [
+            "/PolicyUniverse/PolicySpace/common/GbpRoutingDomain/l3out_1_vrf/GbpeInstContext/",
+            "/PolicyUniverse/PolicySpace/common/GbpRoutingDomain/l3out_1_vrf/GbpL3ExternalDomain/l3out-1/",
+            "/PolicyUniverse/PolicySpace/common/GbpRoutingDomain/l3out_1_vrf/GbpRoutingDomainToIntSubnetsRSrc/344/%2fPolicyUniverse%2fPolicySpace%2fkube%2fGbpSubnets%2fBDkube-node-bd%2f/",
+            "/PolicyUniverse/PolicySpace/common/GbpRoutingDomain/l3out_1_vrf/GbpRoutingDomainToIntSubnetsRSrc/344/%2fPolicyUniverse%2fPolicySpace%2fkube%2fGbpSubnets%2fEPGkubernetes%257ckube-nodes%2f/",
+            "/PolicyUniverse/PolicySpace/common/GbpRoutingDomain/l3out_1_vrf/GbpRoutingDomainToIntSubnetsRSrc/344/%2fPolicyUniverse%2fPolicySpace%2fkube%2fGbpSubnets%2fBDkube-pod-bd%2f/",
+            "/PolicyUniverse/PolicySpace/common/GbpRoutingDomain/l3out_1_vrf/GbpRoutingDomainToIntSubnetsRSrc/344/%2fPolicyUniverse%2fPolicySpace%2fkube%2fGbpSubnets%2fEPGkubernetes%257ckube-system%2f/"
+        ]
+    },
+    {
+        "subject": "GbpeInstContext",
+        "uri": "/PolicyUniverse/PolicySpace/common/GbpRoutingDomain/l3out_1_vrf/GbpeInstContext/",
+        "properties": [
+            {
+                "name": "encapId",
+                "data": 2392064
+            },
+            {
+                "name": "classid",
+                "data": 49153
+            }
+        ],
+        "children": [],
+        "parent_subject": "GbpRoutingDomain",
+        "parent_uri": "/PolicyUniverse/PolicySpace/common/GbpRoutingDomain/l3out_1_vrf/",
+        "parent_relation": "GbpeInstContext"
+    },
+    {
+        "subject": "GbpL3ExternalDomain",
+        "uri": "/PolicyUniverse/PolicySpace/common/GbpRoutingDomain/l3out_1_vrf/GbpL3ExternalDomain/l3out-1/",
+        "properties": [
+            {
+                "name": "name",
+                "data": "l3out-1"
+            }
+        ],
+        "children": [
+            "/PolicyUniverse/PolicySpace/common/GbpRoutingDomain/l3out_1_vrf/GbpL3ExternalDomain/l3out-1/GbpL3ExternalNetwork/l3out_1_net/"
+        ],
+        "parent_subject": "GbpRoutingDomain",
+        "parent_uri": "/PolicyUniverse/PolicySpace/common/GbpRoutingDomain/l3out_1_vrf/",
+        "parent_relation": "GbpL3ExternalDomain"
+    },
+    {
+        "subject": "GbpL3ExternalNetwork",
+        "uri": "/PolicyUniverse/PolicySpace/common/GbpRoutingDomain/l3out_1_vrf/GbpL3ExternalDomain/l3out-1/GbpL3ExternalNetwork/l3out_1_net/",
+        "properties": [
+            {
+                "name": "name",
+                "data": "l3out_1_net"
+            }
+        ],
+        "children": [
+            "/PolicyUniverse/PolicySpace/common/GbpRoutingDomain/l3out_1_vrf/GbpL3ExternalDomain/l3out-1/GbpL3ExternalNetwork/l3out_1_net/GbpL3ExternalNetworkToProvContractRSrc/288/kube-l3out-allow-all/",
+            "/PolicyUniverse/PolicySpace/common/GbpRoutingDomain/l3out_1_vrf/GbpL3ExternalDomain/l3out-1/GbpL3ExternalNetwork/l3out_1_net/GbpExternalSubnet/0.0.0.0%2f0/"
+        ],
+        "parent_subject": "GbpL3ExternalDomain",
+        "parent_uri": "/PolicyUniverse/PolicySpace/common/GbpRoutingDomain/l3out_1_vrf/GbpL3ExternalDomain/l3out-1/",
+        "parent_relation": "GbpL3ExternalNetwork"
+    },
+    {
+        "subject": "GbpL3ExternalNetworkToProvContractRSrc",
+        "uri": "/PolicyUniverse/PolicySpace/common/GbpRoutingDomain/l3out_1_vrf/GbpL3ExternalDomain/l3out-1/GbpL3ExternalNetwork/l3out_1_net/GbpL3ExternalNetworkToProvContractRSrc/288/kube-l3out-allow-all/",
+        "properties": [
+            {
+                "name": "target",
+                "data": {
+                    "subject": "GbpContract",
+                    "reference_uri": "/PolicyUniverse/PolicySpace/common/GbpContract/kube-l3out-allow-all/"
+                }
+            }
+        ],
+        "children": [],
+        "parent_subject": "GbpL3ExternalNetwork",
+        "parent_uri": "/PolicyUniverse/PolicySpace/common/GbpRoutingDomain/l3out_1_vrf/GbpL3ExternalDomain/l3out-1/GbpL3ExternalNetwork/l3out_1_net/",
+        "parent_relation": "GbpL3ExternalNetworkToProvContractRSrc"
+    },
+    {
+        "subject": "GbpExternalSubnet",
+        "uri": "/PolicyUniverse/PolicySpace/common/GbpRoutingDomain/l3out_1_vrf/GbpL3ExternalDomain/l3out-1/GbpL3ExternalNetwork/l3out_1_net/GbpExternalSubnet/0.0.0.0%2f0/",
+        "properties": [
+            {
+                "name": "prefixLen",
+                "data": 0
+            },
+            {
+                "name": "name",
+                "data": "0.0.0.0/0"
+            },
+            {
+                "name": "address",
+                "data": "0.0.0.0"
+            }
+        ],
+        "children": [],
+        "parent_subject": "GbpL3ExternalNetwork",
+        "parent_uri": "/PolicyUniverse/PolicySpace/common/GbpRoutingDomain/l3out_1_vrf/GbpL3ExternalDomain/l3out-1/GbpL3ExternalNetwork/l3out_1_net/",
+        "parent_relation": "GbpExternalSubnet"
+    },
+    {
+        "subject": "GbpRoutingDomainToIntSubnetsRSrc",
+        "uri": "/PolicyUniverse/PolicySpace/common/GbpRoutingDomain/l3out_1_vrf/GbpRoutingDomainToIntSubnetsRSrc/344/%2fPolicyUniverse%2fPolicySpace%2fkube%2fGbpSubnets%2fBDkube-node-bd%2f/",
+        "properties": [
+            {
+                "name": "target",
+                "data": {
+                    "subject": "GbpSubnets",
+                    "reference_uri": "/PolicyUniverse/PolicySpace/kube/GbpSubnets/BDkube-node-bd/"
+                }
+            }
+        ],
+        "children": [],
+        "parent_subject": "GbpRoutingDomain",
+        "parent_uri": "/PolicyUniverse/PolicySpace/common/GbpRoutingDomain/l3out_1_vrf/",
+        "parent_relation": "GbpRoutingDomainToIntSubnetsRSrc"
+    },
+    {
+        "subject": "GbpRoutingDomainToIntSubnetsRSrc",
+        "uri": "/PolicyUniverse/PolicySpace/common/GbpRoutingDomain/l3out_1_vrf/GbpRoutingDomainToIntSubnetsRSrc/344/%2fPolicyUniverse%2fPolicySpace%2fkube%2fGbpSubnets%2fEPGkubernetes%257ckube-nodes%2f/",
+        "properties": [
+            {
+                "name": "target",
+                "data": {
+                    "subject": "GbpSubnets",
+                    "reference_uri": "/PolicyUniverse/PolicySpace/kube/GbpSubnets/EPGkubernetes%7ckube-nodes/"
+                }
+            }
+        ],
+        "children": [],
+        "parent_subject": "GbpRoutingDomain",
+        "parent_uri": "/PolicyUniverse/PolicySpace/common/GbpRoutingDomain/l3out_1_vrf/",
+        "parent_relation": "GbpRoutingDomainToIntSubnetsRSrc"
+    },
+    {
+        "subject": "GbpRoutingDomainToIntSubnetsRSrc",
+        "uri": "/PolicyUniverse/PolicySpace/common/GbpRoutingDomain/l3out_1_vrf/GbpRoutingDomainToIntSubnetsRSrc/344/%2fPolicyUniverse%2fPolicySpace%2fkube%2fGbpSubnets%2fBDkube-pod-bd%2f/",
+        "properties": [
+            {
+                "name": "target",
+                "data": {
+                    "subject": "GbpSubnets",
+                    "reference_uri": "/PolicyUniverse/PolicySpace/kube/GbpSubnets/BDkube-pod-bd/"
+                }
+            }
+        ],
+        "children": [],
+        "parent_subject": "GbpRoutingDomain",
+        "parent_uri": "/PolicyUniverse/PolicySpace/common/GbpRoutingDomain/l3out_1_vrf/",
+        "parent_relation": "GbpRoutingDomainToIntSubnetsRSrc"
+    },
+    {
+        "subject": "GbpRoutingDomainToIntSubnetsRSrc",
+        "uri": "/PolicyUniverse/PolicySpace/common/GbpRoutingDomain/l3out_1_vrf/GbpRoutingDomainToIntSubnetsRSrc/344/%2fPolicyUniverse%2fPolicySpace%2fkube%2fGbpSubnets%2fEPGkubernetes%257ckube-system%2f/",
+        "properties": [
+            {
+                "name": "target",
+                "data": {
+                    "subject": "GbpSubnets",
+                    "reference_uri": "/PolicyUniverse/PolicySpace/kube/GbpSubnets/EPGkubernetes%7ckube-system/"
+                }
+            }
+        ],
+        "children": [],
+        "parent_subject": "GbpRoutingDomain",
+        "parent_uri": "/PolicyUniverse/PolicySpace/common/GbpRoutingDomain/l3out_1_vrf/",
+        "parent_relation": "GbpRoutingDomainToIntSubnetsRSrc"
+    },
+    {
+        "subject": "GbpSubnets",
+        "uri": "/PolicyUniverse/PolicySpace/kube/GbpSubnets/BDkube-node-bd/",
+        "properties": [
+            {
+                "name": "name",
+                "data": "BDkube-node-bd"
+            }
+        ],
+        "children": [
+            "/PolicyUniverse/PolicySpace/kube/GbpSubnets/BDkube-node-bd/GbpSubnet/1.100.101.1%2f24/"
+        ]
+    },
+    {
+        "subject": "GbpSubnet",
+        "uri": "/PolicyUniverse/PolicySpace/kube/GbpSubnets/BDkube-node-bd/GbpSubnet/1.100.101.1%2f24/",
+        "properties": [
+            {
+                "name": "virtualRouterIp",
+                "data": "1.100.101.1"
+            },
+            {
+                "name": "prefixLen",
+                "data": 24
+            },
+            {
+                "name": "name",
+                "data": "1.100.101.1/24"
+            },
+            {
+                "name": "macAddress",
+                "data": "00:22:bd:f8:19:ff"
+            },
+            {
+                "name": "address",
+                "data": "1.100.101.0"
+            }
+        ],
+        "children": [],
+        "parent_subject": "GbpSubnets",
+        "parent_uri": "/PolicyUniverse/PolicySpace/kube/GbpSubnets/BDkube-node-bd/",
+        "parent_relation": "GbpSubnet"
+    },
+    {
+        "subject": "GbpContract",
+        "uri": "/PolicyUniverse/PolicySpace/common/GbpContract/kube-l3out-allow-all/",
+        "properties": [
+            {
+                "name": "name",
+                "data": "kube-l3out-allow-all"
+            }
+        ],
+        "children": [
+            "/PolicyUniverse/PolicySpace/common/GbpContract/kube-l3out-allow-all/GbpSubject/allow-all-subj/"
+        ]
+    },
+    {
+        "subject": "GbpSubject",
+        "uri": "/PolicyUniverse/PolicySpace/common/GbpContract/kube-l3out-allow-all/GbpSubject/allow-all-subj/",
+        "properties": [
+            {
+                "name": "name",
+                "data": "allow-all-subj"
+            }
+        ],
+        "children": [
+            "/PolicyUniverse/PolicySpace/common/GbpContract/kube-l3out-allow-all/GbpSubject/allow-all-subj/GbpRule/kube-allow-all-filter65535/"
+        ],
+        "parent_subject": "GbpContract",
+        "parent_uri": "/PolicyUniverse/PolicySpace/common/GbpContract/kube-l3out-allow-all/",
+        "parent_relation": "GbpSubject"
+    },
+    {
+        "subject": "GbpRule",
+        "uri": "/PolicyUniverse/PolicySpace/common/GbpContract/kube-l3out-allow-all/GbpSubject/allow-all-subj/GbpRule/kube-allow-all-filter65535/",
+        "properties": [
+            {
+                "name": "direction",
+                "data":"bidirectional"
+            },
+            {
+                "name": "name",
+                "data": "kube-allow-all-filter65535"
+            },
+            {
+                "name": "order",
+                "data": 1
+            }
+        ],
+        "children": [
+            "/PolicyUniverse/PolicySpace/common/GbpContract/kube-l3out-allow-all/GbpSubject/allow-all-subj/GbpRule/kube-allow-all-filter65535/GbpRuleToClassifierRSrc/178/%2fPolicyUniverse%2fPolicySpace%2fcommon%2fGbpeL24Classifier%2f65535%257cany%2f/",
+            "/PolicyUniverse/PolicySpace/common/GbpContract/kube-l3out-allow-all/GbpSubject/allow-all-subj/GbpRule/kube-allow-all-filter65535/GbpRuleToActionRSrc/286/allow/"
+        ],
+        "parent_subject": "GbpSubject",
+        "parent_uri": "/PolicyUniverse/PolicySpace/common/GbpContract/kube-l3out-allow-all/GbpSubject/allow-all-subj/",
+        "parent_relation": "GbpRule"
+    },
+    {
+        "subject": "GbpRuleToClassifierRSrc",
+        "uri": "/PolicyUniverse/PolicySpace/common/GbpContract/kube-l3out-allow-all/GbpSubject/allow-all-subj/GbpRule/kube-allow-all-filter65535/GbpRuleToClassifierRSrc/178/%2fPolicyUniverse%2fPolicySpace%2fcommon%2fGbpeL24Classifier%2f65535%257cany%2f/",
+        "properties": [
+            {
+                "name": "target",
+                "data": {
+                    "subject": "GbpeL24Classifier",
+                    "reference_uri": "/PolicyUniverse/PolicySpace/common/GbpeL24Classifier/65535%7cany/"
+                }
+            }
+        ],
+        "children": [],
+        "parent_subject": "GbpRule",
+        "parent_uri": "/PolicyUniverse/PolicySpace/common/GbpContract/kube-l3out-allow-all/GbpSubject/allow-all-subj/GbpRule/kube-allow-all-filter65535/",
+        "parent_relation": "GbpRuleToClassifierRSrc"
+    },
+    {
+        "subject": "GbpRuleToActionRSrc",
+        "uri": "/PolicyUniverse/PolicySpace/common/GbpContract/kube-l3out-allow-all/GbpSubject/allow-all-subj/GbpRule/kube-allow-all-filter65535/GbpRuleToActionRSrc/286/allow/",
+        "properties": [
+            {
+                "name": "target",
+                "data": {
+                    "subject": "GbpAllowDenyAction",
+                    "reference_uri": "/PolicyUniverse/PolicySpace/common/GbpAllowDenyAction/allow/"
+                }
+            }
+        ],
+        "children": [],
+        "parent_subject": "GbpRule",
+        "parent_uri": "/PolicyUniverse/PolicySpace/common/GbpContract/kube-l3out-allow-all/GbpSubject/allow-all-subj/GbpRule/kube-allow-all-filter65535/",
+        "parent_relation": "GbpRuleToActionRSrc"
+    },
+    {
+        "subject": "DmtreeRoot",
+        "uri": "/",
+        "properties": [],
+        "children": [
+            "/RelatorUniverse/",
+            "/GbpeVMUniverse/",
+            "/GbpeTunnelEpUniverse/",
+            "/DomainConfig/",
+            "/EpdrL2Discovered/",
+            "/EpdrL3Discovered/",
+            "/InvUniverse/",
+            "/EprL2Universe/",
+            "/EprL3Universe/",
+            "/ObserverEpStatUniverse/",
+            "/ObserverPolicyStatUniverse/",
+            "/PolicyUniverse/"
+        ]
+    },
+    {
+        "subject": "RelatorUniverse",
+        "uri": "/RelatorUniverse/",
+        "properties": [],
+        "children": [],
+        "parent_subject": "DmtreeRoot",
+        "parent_uri": "/",
+        "parent_relation": "RelatorUniverse"
+    },
+    {
+        "subject": "GbpeVMUniverse",
+        "uri": "/GbpeVMUniverse/",
+        "properties": [],
+        "children": [
+            "/GbpeVMUniverse/GbpeVMEp/d663c54c-1159-11e9-9e00-84b261c2790e_e5c7a813cca040504cca74d1408e4eb611c87487c211afbb6f88eaba1b9bc69f_vethc1413be2/",
+            "/GbpeVMUniverse/GbpeVMEp/f9a24007-1181-11e9-9e00-84b261c2790e_ce021cf1abcc1342fc1b6bef89eae3f5786814a2f44074d19a6ce6306d4f2183_vethccba25d7/",
+            "/GbpeVMUniverse/GbpeVMEp/f9a2db38-1181-11e9-9e00-84b261c2790e_5d42b5dbd7786fc3f7dfc6e69f41e8757daa4e1e5b64c4a876a404d3ab9791f7_veth19edcd0e/"
+        ],
+        "parent_subject": "DmtreeRoot",
+        "parent_uri": "/",
+        "parent_relation": "GbpeVMUniverse"
+    },
+    {
+        "subject": "GbpeVMEp",
+        "uri": "/GbpeVMUniverse/GbpeVMEp/d663c54c-1159-11e9-9e00-84b261c2790e_e5c7a813cca040504cca74d1408e4eb611c87487c211afbb6f88eaba1b9bc69f_vethc1413be2/",
+        "properties": [
+            {
+                "name": "uuid",
+                "data": "d663c54c-1159-11e9-9e00-84b261c2790e_e5c7a813cca040504cca74d1408e4eb611c87487c211afbb6f88eaba1b9bc69f_vethc1413be2"
+            }
+        ],
+        "children": [],
+        "parent_subject": "GbpeVMUniverse",
+        "parent_uri": "/GbpeVMUniverse/",
+        "parent_relation": "GbpeVMEp"
+    },
+    {
+        "subject": "GbpeVMEp",
+        "uri": "/GbpeVMUniverse/GbpeVMEp/f9a24007-1181-11e9-9e00-84b261c2790e_ce021cf1abcc1342fc1b6bef89eae3f5786814a2f44074d19a6ce6306d4f2183_vethccba25d7/",
+        "properties": [
+            {
+                "name": "uuid",
+                "data": "f9a24007-1181-11e9-9e00-84b261c2790e_ce021cf1abcc1342fc1b6bef89eae3f5786814a2f44074d19a6ce6306d4f2183_vethccba25d7"
+            }
+        ],
+        "children": [],
+        "parent_subject": "GbpeVMUniverse",
+        "parent_uri": "/GbpeVMUniverse/",
+        "parent_relation": "GbpeVMEp"
+    },
+    {
+        "subject": "GbpeVMEp",
+        "uri": "/GbpeVMUniverse/GbpeVMEp/f9a2db38-1181-11e9-9e00-84b261c2790e_5d42b5dbd7786fc3f7dfc6e69f41e8757daa4e1e5b64c4a876a404d3ab9791f7_veth19edcd0e/",
+        "properties": [
+            {
+                "name": "uuid",
+                "data": "f9a2db38-1181-11e9-9e00-84b261c2790e_5d42b5dbd7786fc3f7dfc6e69f41e8757daa4e1e5b64c4a876a404d3ab9791f7_veth19edcd0e"
+            }
+        ],
+        "children": [],
+        "parent_subject": "GbpeVMUniverse",
+        "parent_uri": "/GbpeVMUniverse/",
+        "parent_relation": "GbpeVMEp"
+    },
+    {
+        "subject": "GbpeTunnelEpUniverse",
+        "uri": "/GbpeTunnelEpUniverse/",
+        "properties": [],
+        "children": [
+            "/GbpeTunnelEpUniverse/GbpeTunnelEp/411e86db-9b99-48c5-84d0-26608a92251f/"
+        ],
+        "parent_subject": "DmtreeRoot",
+        "parent_uri": "/",
+        "parent_relation": "GbpeTunnelEpUniverse"
+    },
+    {
+        "subject": "GbpeTunnelEp",
+        "uri": "/GbpeTunnelEpUniverse/GbpeTunnelEp/411e86db-9b99-48c5-84d0-26608a92251f/",
+        "properties": [
+            {
+                "name": "uuid",
+                "data": "411e86db-9b99-48c5-84d0-26608a92251f"
+            },
+            {
+                "name": "encapId",
+                "data": 4093
+            },
+            {
+                "name": "encapType",
+                "data":"vlan"
+            },
+            {
+                "name": "mac",
+                "data": "90:e2:ba:b1:78:84"
+            },
+            {
+                "name": "terminatorIp",
+                "data": "10.0.184.65"
+            }
+        ],
+        "children": [],
+        "parent_subject": "GbpeTunnelEpUniverse",
+        "parent_uri": "/GbpeTunnelEpUniverse/",
+        "parent_relation": "GbpeTunnelEp"
+    },
+    {
+        "subject": "DomainConfig",
+        "uri": "/DomainConfig/",
+        "properties": [],
+        "children": [
+            "/DomainConfig/DomainConfigToConfigRSrc/",
+            "/DomainConfig/DomainConfigToRemoteEndpointInventoryRSrc/"
+        ],
+        "parent_subject": "DmtreeRoot",
+        "parent_uri": "/",
+        "parent_relation": "DomainConfig"
+    },
+    {
+        "subject": "DomainConfigToConfigRSrc",
+        "uri": "/DomainConfig/DomainConfigToConfigRSrc/",
+        "properties": [
+            {
+                "name": "target",
+                "data": {
+                    "subject": "PlatformConfig",
+                    "reference_uri": "/PolicyUniverse/PlatformConfig/comp%2fprov-Kubernetes%2fctrlr-%5bkube%5d-kube%2fsw-InsiemeLSOid/"
+                }
+            }
+        ],
+        "children": [],
+        "parent_subject": "DomainConfig",
+        "parent_uri": "/DomainConfig/",
+        "parent_relation": "DomainConfigToConfigRSrc"
+    },
+    {
+        "subject": "DomainConfigToRemoteEndpointInventoryRSrc",
+        "uri": "/DomainConfig/DomainConfigToRemoteEndpointInventoryRSrc/",
+        "properties": [
+            {
+                "name": "target",
+                "data": {
+                    "subject": "InvRemoteEndpointInventory",
+                    "reference_uri": "/InvUniverse/InvRemoteEndpointInventory/"
+                }
+            }
+        ],
+        "children": [],
+        "parent_subject": "DomainConfig",
+        "parent_uri": "/DomainConfig/",
+        "parent_relation": "DomainConfigToRemoteEndpointInventoryRSrc"
+    },
+    {
+        "subject": "EpdrL2Discovered",
+        "uri": "/EpdrL2Discovered/",
+        "properties": [],
+        "children": [
+            "/EpdrL2Discovered/EpdrLocalL2Ep/d663c54c-1159-11e9-9e00-84b261c2790e_e5c7a813cca040504cca74d1408e4eb611c87487c211afbb6f88eaba1b9bc69f_vethc1413be2/",
+            "/EpdrL2Discovered/EpdrLocalL2Ep/f9a24007-1181-11e9-9e00-84b261c2790e_ce021cf1abcc1342fc1b6bef89eae3f5786814a2f44074d19a6ce6306d4f2183_vethccba25d7/",
+            "/EpdrL2Discovered/EpdrLocalL2Ep/f9a2db38-1181-11e9-9e00-84b261c2790e_5d42b5dbd7786fc3f7dfc6e69f41e8757daa4e1e5b64c4a876a404d3ab9791f7_veth19edcd0e/"
+        ],
+        "parent_subject": "DmtreeRoot",
+        "parent_uri": "/",
+        "parent_relation": "EpdrL2Discovered"
+    },
+    {
+        "subject": "EpdrLocalL2Ep",
+        "uri": "/EpdrL2Discovered/EpdrLocalL2Ep/d663c54c-1159-11e9-9e00-84b261c2790e_e5c7a813cca040504cca74d1408e4eb611c87487c211afbb6f88eaba1b9bc69f_vethc1413be2/",
+        "properties": [
+            {
+                "name": "mac",
+                "data": "66:9d:8b:a1:de:4a"
+            },
+            {
+                "name": "uuid",
+                "data": "d663c54c-1159-11e9-9e00-84b261c2790e_e5c7a813cca040504cca74d1408e4eb611c87487c211afbb6f88eaba1b9bc69f_vethc1413be2"
+            }
+        ],
+        "children": [
+            "/EpdrL2Discovered/EpdrLocalL2Ep/d663c54c-1159-11e9-9e00-84b261c2790e_e5c7a813cca040504cca74d1408e4eb611c87487c211afbb6f88eaba1b9bc69f_vethc1413be2/EpdrEndPointToGroupRSrc/"
+        ],
+        "parent_subject": "EpdrL2Discovered",
+        "parent_uri": "/EpdrL2Discovered/",
+        "parent_relation": "EpdrLocalL2Ep"
+    },
+    {
+        "subject": "EpdrEndPointToGroupRSrc",
+        "uri": "/EpdrL2Discovered/EpdrLocalL2Ep/d663c54c-1159-11e9-9e00-84b261c2790e_e5c7a813cca040504cca74d1408e4eb611c87487c211afbb6f88eaba1b9bc69f_vethc1413be2/EpdrEndPointToGroupRSrc/",
+        "properties": [
+            {
+                "name": "target",
+                "data": {
+                    "subject": "GbpEpGroup",
+                    "reference_uri": "/PolicyUniverse/PolicySpace/kube/GbpEpGroup/kubernetes%7ckube-system/"
+                }
+            }
+        ],
+        "children": [],
+        "parent_subject": "EpdrLocalL2Ep",
+        "parent_uri": "/EpdrL2Discovered/EpdrLocalL2Ep/d663c54c-1159-11e9-9e00-84b261c2790e_e5c7a813cca040504cca74d1408e4eb611c87487c211afbb6f88eaba1b9bc69f_vethc1413be2/",
+        "parent_relation": "EpdrEndPointToGroupRSrc"
+    },
+    {
+        "subject": "EpdrLocalL2Ep",
+        "uri": "/EpdrL2Discovered/EpdrLocalL2Ep/f9a24007-1181-11e9-9e00-84b261c2790e_ce021cf1abcc1342fc1b6bef89eae3f5786814a2f44074d19a6ce6306d4f2183_vethccba25d7/",
+        "properties": [
+            {
+                "name": "mac",
+                "data": "4e:c9:c5:1a:e0:41"
+            },
+            {
+                "name": "uuid",
+                "data": "f9a24007-1181-11e9-9e00-84b261c2790e_ce021cf1abcc1342fc1b6bef89eae3f5786814a2f44074d19a6ce6306d4f2183_vethccba25d7"
+            }
+        ],
+        "children": [
+            "/EpdrL2Discovered/EpdrLocalL2Ep/f9a24007-1181-11e9-9e00-84b261c2790e_ce021cf1abcc1342fc1b6bef89eae3f5786814a2f44074d19a6ce6306d4f2183_vethccba25d7/EpdrEndPointToGroupRSrc/"
+        ],
+        "parent_subject": "EpdrL2Discovered",
+        "parent_uri": "/EpdrL2Discovered/",
+        "parent_relation": "EpdrLocalL2Ep"
+    },
+    {
+        "subject": "EpdrEndPointToGroupRSrc",
+        "uri": "/EpdrL2Discovered/EpdrLocalL2Ep/f9a24007-1181-11e9-9e00-84b261c2790e_ce021cf1abcc1342fc1b6bef89eae3f5786814a2f44074d19a6ce6306d4f2183_vethccba25d7/EpdrEndPointToGroupRSrc/",
+        "properties": [
+            {
+                "name": "target",
+                "data": {
+                    "subject": "GbpEpGroup",
+                    "reference_uri": "/PolicyUniverse/PolicySpace/kube/GbpEpGroup/kubernetes%7ckube-default/"
+                }
+            }
+        ],
+        "children": [],
+        "parent_subject": "EpdrLocalL2Ep",
+        "parent_uri": "/EpdrL2Discovered/EpdrLocalL2Ep/f9a24007-1181-11e9-9e00-84b261c2790e_ce021cf1abcc1342fc1b6bef89eae3f5786814a2f44074d19a6ce6306d4f2183_vethccba25d7/",
+        "parent_relation": "EpdrEndPointToGroupRSrc"
+    },
+    {
+        "subject": "EpdrLocalL2Ep",
+        "uri": "/EpdrL2Discovered/EpdrLocalL2Ep/f9a2db38-1181-11e9-9e00-84b261c2790e_5d42b5dbd7786fc3f7dfc6e69f41e8757daa4e1e5b64c4a876a404d3ab9791f7_veth19edcd0e/",
+        "properties": [
+            {
+                "name": "mac",
+                "data": "6a:c6:70:9b:f3:57"
+            },
+            {
+                "name": "uuid",
+                "data": "f9a2db38-1181-11e9-9e00-84b261c2790e_5d42b5dbd7786fc3f7dfc6e69f41e8757daa4e1e5b64c4a876a404d3ab9791f7_veth19edcd0e"
+            }
+        ],
+        "children": [
+            "/EpdrL2Discovered/EpdrLocalL2Ep/f9a2db38-1181-11e9-9e00-84b261c2790e_5d42b5dbd7786fc3f7dfc6e69f41e8757daa4e1e5b64c4a876a404d3ab9791f7_veth19edcd0e/EpdrEndPointToGroupRSrc/"
+        ],
+        "parent_subject": "EpdrL2Discovered",
+        "parent_uri": "/EpdrL2Discovered/",
+        "parent_relation": "EpdrLocalL2Ep"
+    },
+    {
+        "subject": "EpdrEndPointToGroupRSrc",
+        "uri": "/EpdrL2Discovered/EpdrLocalL2Ep/f9a2db38-1181-11e9-9e00-84b261c2790e_5d42b5dbd7786fc3f7dfc6e69f41e8757daa4e1e5b64c4a876a404d3ab9791f7_veth19edcd0e/EpdrEndPointToGroupRSrc/",
+        "properties": [
+            {
+                "name": "target",
+                "data": {
+                    "subject": "GbpEpGroup",
+                    "reference_uri": "/PolicyUniverse/PolicySpace/kube/GbpEpGroup/kubernetes%7ckube-default/"
+                }
+            }
+        ],
+        "children": [],
+        "parent_subject": "EpdrLocalL2Ep",
+        "parent_uri": "/EpdrL2Discovered/EpdrLocalL2Ep/f9a2db38-1181-11e9-9e00-84b261c2790e_5d42b5dbd7786fc3f7dfc6e69f41e8757daa4e1e5b64c4a876a404d3ab9791f7_veth19edcd0e/",
+        "parent_relation": "EpdrEndPointToGroupRSrc"
+    },
+    {
+        "subject": "EpdrL3Discovered",
+        "uri": "/EpdrL3Discovered/",
+        "properties": [],
+        "children": [
+            "/EpdrL3Discovered/EpdrLocalL3Ep/d663c54c-1159-11e9-9e00-84b261c2790e_e5c7a813cca040504cca74d1408e4eb611c87487c211afbb6f88eaba1b9bc69f_vethc1413be2/",
+            "/EpdrL3Discovered/EpdrLocalL3Ep/f9a24007-1181-11e9-9e00-84b261c2790e_ce021cf1abcc1342fc1b6bef89eae3f5786814a2f44074d19a6ce6306d4f2183_vethccba25d7/",
+            "/EpdrL3Discovered/EpdrLocalL3Ep/f9a2db38-1181-11e9-9e00-84b261c2790e_5d42b5dbd7786fc3f7dfc6e69f41e8757daa4e1e5b64c4a876a404d3ab9791f7_veth19edcd0e/"
+        ],
+        "parent_subject": "DmtreeRoot",
+        "parent_uri": "/",
+        "parent_relation": "EpdrL3Discovered"
+    },
+    {
+        "subject": "EpdrLocalL3Ep",
+        "uri": "/EpdrL3Discovered/EpdrLocalL3Ep/d663c54c-1159-11e9-9e00-84b261c2790e_e5c7a813cca040504cca74d1408e4eb611c87487c211afbb6f88eaba1b9bc69f_vethc1413be2/",
+        "properties": [
+            {
+                "name": "ip",
+                "data": "10.2.56.34"
+            },
+            {
+                "name": "mac",
+                "data": "66:9d:8b:a1:de:4a"
+            },
+            {
+                "name": "uuid",
+                "data": "d663c54c-1159-11e9-9e00-84b261c2790e_e5c7a813cca040504cca74d1408e4eb611c87487c211afbb6f88eaba1b9bc69f_vethc1413be2"
+            }
+        ],
+        "children": [],
+        "parent_subject": "EpdrL3Discovered",
+        "parent_uri": "/EpdrL3Discovered/",
+        "parent_relation": "EpdrLocalL3Ep"
+    },
+    {
+        "subject": "EpdrLocalL3Ep",
+        "uri": "/EpdrL3Discovered/EpdrLocalL3Ep/f9a24007-1181-11e9-9e00-84b261c2790e_ce021cf1abcc1342fc1b6bef89eae3f5786814a2f44074d19a6ce6306d4f2183_vethccba25d7/",
+        "properties": [
+            {
+                "name": "ip",
+                "data": "10.2.56.35"
+            },
+            {
+                "name": "mac",
+                "data": "4e:c9:c5:1a:e0:41"
+            },
+            {
+                "name": "uuid",
+                "data": "f9a24007-1181-11e9-9e00-84b261c2790e_ce021cf1abcc1342fc1b6bef89eae3f5786814a2f44074d19a6ce6306d4f2183_vethccba25d7"
+            }
+        ],
+        "children": [],
+        "parent_subject": "EpdrL3Discovered",
+        "parent_uri": "/EpdrL3Discovered/",
+        "parent_relation": "EpdrLocalL3Ep"
+    },
+    {
+        "subject": "EpdrLocalL3Ep",
+        "uri": "/EpdrL3Discovered/EpdrLocalL3Ep/f9a2db38-1181-11e9-9e00-84b261c2790e_5d42b5dbd7786fc3f7dfc6e69f41e8757daa4e1e5b64c4a876a404d3ab9791f7_veth19edcd0e/",
+        "properties": [
+            {
+                "name": "ip",
+                "data": "10.2.56.36"
+            },
+            {
+                "name": "mac",
+                "data": "6a:c6:70:9b:f3:57"
+            },
+            {
+                "name": "uuid",
+                "data": "f9a2db38-1181-11e9-9e00-84b261c2790e_5d42b5dbd7786fc3f7dfc6e69f41e8757daa4e1e5b64c4a876a404d3ab9791f7_veth19edcd0e"
+            }
+        ],
+        "children": [],
+        "parent_subject": "EpdrL3Discovered",
+        "parent_uri": "/EpdrL3Discovered/",
+        "parent_relation": "EpdrLocalL3Ep"
+    },
+    {
+        "subject": "InvUniverse",
+        "uri": "/InvUniverse/",
+        "properties": [],
+        "children": [],
+        "parent_subject": "DmtreeRoot",
+        "parent_uri": "/",
+        "parent_relation": "InvUniverse"
+    },
+    {
+        "subject": "EprL2Universe",
+        "uri": "/EprL2Universe/",
+        "properties": [],
+        "children": [
+            "/EprL2Universe/EprL2Ep/%2fPolicyUniverse%2fPolicySpace%2fkube%2fGbpBridgeDomain%2fkube-pod-bd%2f/66%3a9d%3a8b%3aa1%3ade%3a4a/",
+            "/EprL2Universe/EprL2Ep/%2fPolicyUniverse%2fPolicySpace%2fkube%2fGbpBridgeDomain%2fkube-pod-bd%2f/6a%3ac6%3a70%3a9b%3af3%3a57/",
+            "/EprL2Universe/EprL2Ep/%2fPolicyUniverse%2fPolicySpace%2fkube%2fGbpBridgeDomain%2fkube-pod-bd%2f/4e%3ac9%3ac5%3a1a%3ae0%3a41/"
+        ],
+        "parent_subject": "DmtreeRoot",
+        "parent_uri": "/",
+        "parent_relation": "EprL2Universe"
+    },
+    {
+        "subject": "EprL2Ep",
+        "uri": "/EprL2Universe/EprL2Ep/%2fPolicyUniverse%2fPolicySpace%2fkube%2fGbpBridgeDomain%2fkube-pod-bd%2f/66%3a9d%3a8b%3aa1%3ade%3a4a/",
+        "properties": [
+            {
+                "name": "mac",
+                "data": "66:9d:8b:a1:de:4a"
+            },
+            {
+                "name": "interfaceName",
+                "data": "vethc1413be2"
+            },
+            {
+                "name": "group",
+                "data": "/PolicyUniverse/PolicySpace/kube/GbpEpGroup/kubernetes%7ckube-system/"
+            },
+            {
+                "name": "context",
+                "data": "/PolicyUniverse/PolicySpace/kube/GbpBridgeDomain/kube-pod-bd/"
+            },
+            {
+                "name": "uuid",
+                "data": "d663c54c-1159-11e9-9e00-84b261c2790e_e5c7a813cca040504cca74d1408e4eb611c87487c211afbb6f88eaba1b9bc69f_vethc1413be2"
+            },
+            {
+                "name": "vmName",
+                "data": "kube-dns-5bff646c-jl5fm"
+            }
+        ],
+        "children": [
+            "/EprL2Universe/EprL2Ep/%2fPolicyUniverse%2fPolicySpace%2fkube%2fGbpBridgeDomain%2fkube-pod-bd%2f/66%3a9d%3a8b%3aa1%3ade%3a4a/GbpeReportedEpAttributeSet/"
+        ],
+        "parent_subject": "EprL2Universe",
+        "parent_uri": "/EprL2Universe/",
+        "parent_relation": "EprL2Ep"
+    },
+    {
+        "subject": "GbpeReportedEpAttributeSet",
+        "uri": "/EprL2Universe/EprL2Ep/%2fPolicyUniverse%2fPolicySpace%2fkube%2fGbpBridgeDomain%2fkube-pod-bd%2f/66%3a9d%3a8b%3aa1%3ade%3a4a/GbpeReportedEpAttributeSet/",
+        "properties": [],
+        "children": [
+            "/EprL2Universe/EprL2Ep/%2fPolicyUniverse%2fPolicySpace%2fkube%2fGbpBridgeDomain%2fkube-pod-bd%2f/66%3a9d%3a8b%3aa1%3ade%3a4a/GbpeReportedEpAttributeSet/GbpeReportedEpAttribute/vm-name/",
+            "/EprL2Universe/EprL2Ep/%2fPolicyUniverse%2fPolicySpace%2fkube%2fGbpBridgeDomain%2fkube-pod-bd%2f/66%3a9d%3a8b%3aa1%3ade%3a4a/GbpeReportedEpAttributeSet/GbpeReportedEpAttribute/interface-name/",
+            "/EprL2Universe/EprL2Ep/%2fPolicyUniverse%2fPolicySpace%2fkube%2fGbpBridgeDomain%2fkube-pod-bd%2f/66%3a9d%3a8b%3aa1%3ade%3a4a/GbpeReportedEpAttributeSet/GbpeReportedEpAttribute/pod-template-hash/",
+            "/EprL2Universe/EprL2Ep/%2fPolicyUniverse%2fPolicySpace%2fkube%2fGbpBridgeDomain%2fkube-pod-bd%2f/66%3a9d%3a8b%3aa1%3ade%3a4a/GbpeReportedEpAttributeSet/GbpeReportedEpAttribute/k8s-app/",
+            "/EprL2Universe/EprL2Ep/%2fPolicyUniverse%2fPolicySpace%2fkube%2fGbpBridgeDomain%2fkube-pod-bd%2f/66%3a9d%3a8b%3aa1%3ade%3a4a/GbpeReportedEpAttributeSet/GbpeReportedEpAttribute/namespace/"
+        ],
+        "parent_subject": "EprL2Ep",
+        "parent_uri": "/EprL2Universe/EprL2Ep/%2fPolicyUniverse%2fPolicySpace%2fkube%2fGbpBridgeDomain%2fkube-pod-bd%2f/66%3a9d%3a8b%3aa1%3ade%3a4a/",
+        "parent_relation": "GbpeReportedEpAttributeSet"
+    },
+    {
+        "subject": "GbpeReportedEpAttribute",
+        "uri": "/EprL2Universe/EprL2Ep/%2fPolicyUniverse%2fPolicySpace%2fkube%2fGbpBridgeDomain%2fkube-pod-bd%2f/66%3a9d%3a8b%3aa1%3ade%3a4a/GbpeReportedEpAttributeSet/GbpeReportedEpAttribute/vm-name/",
+        "properties": [
+            {
+                "name": "value",
+                "data": "kube-dns-5bff646c-jl5fm"
+            },
+            {
+                "name": "name",
+                "data": "vm-name"
+            }
+        ],
+        "children": [],
+        "parent_subject": "GbpeReportedEpAttributeSet",
+        "parent_uri": "/EprL2Universe/EprL2Ep/%2fPolicyUniverse%2fPolicySpace%2fkube%2fGbpBridgeDomain%2fkube-pod-bd%2f/66%3a9d%3a8b%3aa1%3ade%3a4a/GbpeReportedEpAttributeSet/",
+        "parent_relation": "GbpeReportedEpAttribute"
+    },
+    {
+        "subject": "GbpeReportedEpAttribute",
+        "uri": "/EprL2Universe/EprL2Ep/%2fPolicyUniverse%2fPolicySpace%2fkube%2fGbpBridgeDomain%2fkube-pod-bd%2f/66%3a9d%3a8b%3aa1%3ade%3a4a/GbpeReportedEpAttributeSet/GbpeReportedEpAttribute/interface-name/",
+        "properties": [
+            {
+                "name": "value",
+                "data": "vethc1413be2"
+            },
+            {
+                "name": "name",
+                "data": "interface-name"
+            }
+        ],
+        "children": [],
+        "parent_subject": "GbpeReportedEpAttributeSet",
+        "parent_uri": "/EprL2Universe/EprL2Ep/%2fPolicyUniverse%2fPolicySpace%2fkube%2fGbpBridgeDomain%2fkube-pod-bd%2f/66%3a9d%3a8b%3aa1%3ade%3a4a/GbpeReportedEpAttributeSet/",
+        "parent_relation": "GbpeReportedEpAttribute"
+    },
+    {
+        "subject": "GbpeReportedEpAttribute",
+        "uri": "/EprL2Universe/EprL2Ep/%2fPolicyUniverse%2fPolicySpace%2fkube%2fGbpBridgeDomain%2fkube-pod-bd%2f/66%3a9d%3a8b%3aa1%3ade%3a4a/GbpeReportedEpAttributeSet/GbpeReportedEpAttribute/pod-template-hash/",
+        "properties": [
+            {
+                "name": "value",
+                "data": "5bff646c"
+            },
+            {
+                "name": "name",
+                "data": "pod-template-hash"
+            }
+        ],
+        "children": [],
+        "parent_subject": "GbpeReportedEpAttributeSet",
+        "parent_uri": "/EprL2Universe/EprL2Ep/%2fPolicyUniverse%2fPolicySpace%2fkube%2fGbpBridgeDomain%2fkube-pod-bd%2f/66%3a9d%3a8b%3aa1%3ade%3a4a/GbpeReportedEpAttributeSet/",
+        "parent_relation": "GbpeReportedEpAttribute"
+    },
+    {
+        "subject": "GbpeReportedEpAttribute",
+        "uri": "/EprL2Universe/EprL2Ep/%2fPolicyUniverse%2fPolicySpace%2fkube%2fGbpBridgeDomain%2fkube-pod-bd%2f/66%3a9d%3a8b%3aa1%3ade%3a4a/GbpeReportedEpAttributeSet/GbpeReportedEpAttribute/k8s-app/",
+        "properties": [
+            {
+                "name": "value",
+                "data": "kube-dns"
+            },
+            {
+                "name": "name",
+                "data": "k8s-app"
+            }
+        ],
+        "children": [],
+        "parent_subject": "GbpeReportedEpAttributeSet",
+        "parent_uri": "/EprL2Universe/EprL2Ep/%2fPolicyUniverse%2fPolicySpace%2fkube%2fGbpBridgeDomain%2fkube-pod-bd%2f/66%3a9d%3a8b%3aa1%3ade%3a4a/GbpeReportedEpAttributeSet/",
+        "parent_relation": "GbpeReportedEpAttribute"
+    },
+    {
+        "subject": "GbpeReportedEpAttribute",
+        "uri": "/EprL2Universe/EprL2Ep/%2fPolicyUniverse%2fPolicySpace%2fkube%2fGbpBridgeDomain%2fkube-pod-bd%2f/66%3a9d%3a8b%3aa1%3ade%3a4a/GbpeReportedEpAttributeSet/GbpeReportedEpAttribute/namespace/",
+        "properties": [
+            {
+                "name": "value",
+                "data": "kube-system"
+            },
+            {
+                "name": "name",
+                "data": "namespace"
+            }
+        ],
+        "children": [],
+        "parent_subject": "GbpeReportedEpAttributeSet",
+        "parent_uri": "/EprL2Universe/EprL2Ep/%2fPolicyUniverse%2fPolicySpace%2fkube%2fGbpBridgeDomain%2fkube-pod-bd%2f/66%3a9d%3a8b%3aa1%3ade%3a4a/GbpeReportedEpAttributeSet/",
+        "parent_relation": "GbpeReportedEpAttribute"
+    },
+    {
+        "subject": "EprL2Ep",
+        "uri": "/EprL2Universe/EprL2Ep/%2fPolicyUniverse%2fPolicySpace%2fkube%2fGbpBridgeDomain%2fkube-pod-bd%2f/6a%3ac6%3a70%3a9b%3af3%3a57/",
+        "properties": [
+            {
+                "name": "mac",
+                "data": "6a:c6:70:9b:f3:57"
+            },
+            {
+                "name": "interfaceName",
+                "data": "veth19edcd0e"
+            },
+            {
+                "name": "group",
+                "data": "/PolicyUniverse/PolicySpace/kube/GbpEpGroup/kubernetes%7ckube-default/"
+            },
+            {
+                "name": "context",
+                "data": "/PolicyUniverse/PolicySpace/kube/GbpBridgeDomain/kube-pod-bd/"
+            },
+            {
+                "name": "uuid",
+                "data": "f9a2db38-1181-11e9-9e00-84b261c2790e_5d42b5dbd7786fc3f7dfc6e69f41e8757daa4e1e5b64c4a876a404d3ab9791f7_veth19edcd0e"
+            },
+            {
+                "name": "vmName",
+                "data": "busybox0-ff2br"
+            }
+        ],
+        "children": [
+            "/EprL2Universe/EprL2Ep/%2fPolicyUniverse%2fPolicySpace%2fkube%2fGbpBridgeDomain%2fkube-pod-bd%2f/6a%3ac6%3a70%3a9b%3af3%3a57/GbpeReportedEpAttributeSet/"
+        ],
+        "parent_subject": "EprL2Universe",
+        "parent_uri": "/EprL2Universe/",
+        "parent_relation": "EprL2Ep"
+    },
+    {
+        "subject": "GbpeReportedEpAttributeSet",
+        "uri": "/EprL2Universe/EprL2Ep/%2fPolicyUniverse%2fPolicySpace%2fkube%2fGbpBridgeDomain%2fkube-pod-bd%2f/6a%3ac6%3a70%3a9b%3af3%3a57/GbpeReportedEpAttributeSet/",
+        "properties": [],
+        "children": [
+            "/EprL2Universe/EprL2Ep/%2fPolicyUniverse%2fPolicySpace%2fkube%2fGbpBridgeDomain%2fkube-pod-bd%2f/6a%3ac6%3a70%3a9b%3af3%3a57/GbpeReportedEpAttributeSet/GbpeReportedEpAttribute/app/",
+            "/EprL2Universe/EprL2Ep/%2fPolicyUniverse%2fPolicySpace%2fkube%2fGbpBridgeDomain%2fkube-pod-bd%2f/6a%3ac6%3a70%3a9b%3af3%3a57/GbpeReportedEpAttributeSet/GbpeReportedEpAttribute/interface-name/",
+            "/EprL2Universe/EprL2Ep/%2fPolicyUniverse%2fPolicySpace%2fkube%2fGbpBridgeDomain%2fkube-pod-bd%2f/6a%3ac6%3a70%3a9b%3af3%3a57/GbpeReportedEpAttributeSet/GbpeReportedEpAttribute/vm-name/",
+            "/EprL2Universe/EprL2Ep/%2fPolicyUniverse%2fPolicySpace%2fkube%2fGbpBridgeDomain%2fkube-pod-bd%2f/6a%3ac6%3a70%3a9b%3af3%3a57/GbpeReportedEpAttributeSet/GbpeReportedEpAttribute/namespace/"
+        ],
+        "parent_subject": "EprL2Ep",
+        "parent_uri": "/EprL2Universe/EprL2Ep/%2fPolicyUniverse%2fPolicySpace%2fkube%2fGbpBridgeDomain%2fkube-pod-bd%2f/6a%3ac6%3a70%3a9b%3af3%3a57/",
+        "parent_relation": "GbpeReportedEpAttributeSet"
+    },
+    {
+        "subject": "GbpeReportedEpAttribute",
+        "uri": "/EprL2Universe/EprL2Ep/%2fPolicyUniverse%2fPolicySpace%2fkube%2fGbpBridgeDomain%2fkube-pod-bd%2f/6a%3ac6%3a70%3a9b%3af3%3a57/GbpeReportedEpAttributeSet/GbpeReportedEpAttribute/app/",
+        "properties": [
+            {
+                "name": "value",
+                "data": "busybox0"
+            },
+            {
+                "name": "name",
+                "data": "app"
+            }
+        ],
+        "children": [],
+        "parent_subject": "GbpeReportedEpAttributeSet",
+        "parent_uri": "/EprL2Universe/EprL2Ep/%2fPolicyUniverse%2fPolicySpace%2fkube%2fGbpBridgeDomain%2fkube-pod-bd%2f/6a%3ac6%3a70%3a9b%3af3%3a57/GbpeReportedEpAttributeSet/",
+        "parent_relation": "GbpeReportedEpAttribute"
+    },
+    {
+        "subject": "GbpeReportedEpAttribute",
+        "uri": "/EprL2Universe/EprL2Ep/%2fPolicyUniverse%2fPolicySpace%2fkube%2fGbpBridgeDomain%2fkube-pod-bd%2f/6a%3ac6%3a70%3a9b%3af3%3a57/GbpeReportedEpAttributeSet/GbpeReportedEpAttribute/interface-name/",
+        "properties": [
+            {
+                "name": "value",
+                "data": "veth19edcd0e"
+            },
+            {
+                "name": "name",
+                "data": "interface-name"
+            }
+        ],
+        "children": [],
+        "parent_subject": "GbpeReportedEpAttributeSet",
+        "parent_uri": "/EprL2Universe/EprL2Ep/%2fPolicyUniverse%2fPolicySpace%2fkube%2fGbpBridgeDomain%2fkube-pod-bd%2f/6a%3ac6%3a70%3a9b%3af3%3a57/GbpeReportedEpAttributeSet/",
+        "parent_relation": "GbpeReportedEpAttribute"
+    },
+    {
+        "subject": "GbpeReportedEpAttribute",
+        "uri": "/EprL2Universe/EprL2Ep/%2fPolicyUniverse%2fPolicySpace%2fkube%2fGbpBridgeDomain%2fkube-pod-bd%2f/6a%3ac6%3a70%3a9b%3af3%3a57/GbpeReportedEpAttributeSet/GbpeReportedEpAttribute/vm-name/",
+        "properties": [
+            {
+                "name": "value",
+                "data": "busybox0-ff2br"
+            },
+            {
+                "name": "name",
+                "data": "vm-name"
+            }
+        ],
+        "children": [],
+        "parent_subject": "GbpeReportedEpAttributeSet",
+        "parent_uri": "/EprL2Universe/EprL2Ep/%2fPolicyUniverse%2fPolicySpace%2fkube%2fGbpBridgeDomain%2fkube-pod-bd%2f/6a%3ac6%3a70%3a9b%3af3%3a57/GbpeReportedEpAttributeSet/",
+        "parent_relation": "GbpeReportedEpAttribute"
+    },
+    {
+        "subject": "GbpeReportedEpAttribute",
+        "uri": "/EprL2Universe/EprL2Ep/%2fPolicyUniverse%2fPolicySpace%2fkube%2fGbpBridgeDomain%2fkube-pod-bd%2f/6a%3ac6%3a70%3a9b%3af3%3a57/GbpeReportedEpAttributeSet/GbpeReportedEpAttribute/namespace/",
+        "properties": [
+            {
+                "name": "value",
+                "data": "default"
+            },
+            {
+                "name": "name",
+                "data": "namespace"
+            }
+        ],
+        "children": [],
+        "parent_subject": "GbpeReportedEpAttributeSet",
+        "parent_uri": "/EprL2Universe/EprL2Ep/%2fPolicyUniverse%2fPolicySpace%2fkube%2fGbpBridgeDomain%2fkube-pod-bd%2f/6a%3ac6%3a70%3a9b%3af3%3a57/GbpeReportedEpAttributeSet/",
+        "parent_relation": "GbpeReportedEpAttribute"
+    },
+    {
+        "subject": "EprL2Ep",
+        "uri": "/EprL2Universe/EprL2Ep/%2fPolicyUniverse%2fPolicySpace%2fkube%2fGbpBridgeDomain%2fkube-pod-bd%2f/4e%3ac9%3ac5%3a1a%3ae0%3a41/",
+        "properties": [
+            {
+                "name": "mac",
+                "data": "4e:c9:c5:1a:e0:41"
+            },
+            {
+                "name": "interfaceName",
+                "data": "vethccba25d7"
+            },
+            {
+                "name": "group",
+                "data": "/PolicyUniverse/PolicySpace/kube/GbpEpGroup/kubernetes%7ckube-default/"
+            },
+            {
+                "name": "context",
+                "data": "/PolicyUniverse/PolicySpace/kube/GbpBridgeDomain/kube-pod-bd/"
+            },
+            {
+                "name": "uuid",
+                "data": "f9a24007-1181-11e9-9e00-84b261c2790e_ce021cf1abcc1342fc1b6bef89eae3f5786814a2f44074d19a6ce6306d4f2183_vethccba25d7"
+            },
+            {
+                "name": "vmName",
+                "data": "busybox0-l5n5v"
+            }
+        ],
+        "children": [
+            "/EprL2Universe/EprL2Ep/%2fPolicyUniverse%2fPolicySpace%2fkube%2fGbpBridgeDomain%2fkube-pod-bd%2f/4e%3ac9%3ac5%3a1a%3ae0%3a41/GbpeReportedEpAttributeSet/"
+        ],
+        "parent_subject": "EprL2Universe",
+        "parent_uri": "/EprL2Universe/",
+        "parent_relation": "EprL2Ep"
+    },
+    {
+        "subject": "GbpeReportedEpAttributeSet",
+        "uri": "/EprL2Universe/EprL2Ep/%2fPolicyUniverse%2fPolicySpace%2fkube%2fGbpBridgeDomain%2fkube-pod-bd%2f/4e%3ac9%3ac5%3a1a%3ae0%3a41/GbpeReportedEpAttributeSet/",
+        "properties": [],
+        "children": [
+            "/EprL2Universe/EprL2Ep/%2fPolicyUniverse%2fPolicySpace%2fkube%2fGbpBridgeDomain%2fkube-pod-bd%2f/4e%3ac9%3ac5%3a1a%3ae0%3a41/GbpeReportedEpAttributeSet/GbpeReportedEpAttribute/app/",
+            "/EprL2Universe/EprL2Ep/%2fPolicyUniverse%2fPolicySpace%2fkube%2fGbpBridgeDomain%2fkube-pod-bd%2f/4e%3ac9%3ac5%3a1a%3ae0%3a41/GbpeReportedEpAttributeSet/GbpeReportedEpAttribute/vm-name/",
+            "/EprL2Universe/EprL2Ep/%2fPolicyUniverse%2fPolicySpace%2fkube%2fGbpBridgeDomain%2fkube-pod-bd%2f/4e%3ac9%3ac5%3a1a%3ae0%3a41/GbpeReportedEpAttributeSet/GbpeReportedEpAttribute/interface-name/",
+            "/EprL2Universe/EprL2Ep/%2fPolicyUniverse%2fPolicySpace%2fkube%2fGbpBridgeDomain%2fkube-pod-bd%2f/4e%3ac9%3ac5%3a1a%3ae0%3a41/GbpeReportedEpAttributeSet/GbpeReportedEpAttribute/namespace/"
+        ],
+        "parent_subject": "EprL2Ep",
+        "parent_uri": "/EprL2Universe/EprL2Ep/%2fPolicyUniverse%2fPolicySpace%2fkube%2fGbpBridgeDomain%2fkube-pod-bd%2f/4e%3ac9%3ac5%3a1a%3ae0%3a41/",
+        "parent_relation": "GbpeReportedEpAttributeSet"
+    },
+    {
+        "subject": "GbpeReportedEpAttribute",
+        "uri": "/EprL2Universe/EprL2Ep/%2fPolicyUniverse%2fPolicySpace%2fkube%2fGbpBridgeDomain%2fkube-pod-bd%2f/4e%3ac9%3ac5%3a1a%3ae0%3a41/GbpeReportedEpAttributeSet/GbpeReportedEpAttribute/app/",
+        "properties": [
+            {
+                "name": "value",
+                "data": "busybox0"
+            },
+            {
+                "name": "name",
+                "data": "app"
+            }
+        ],
+        "children": [],
+        "parent_subject": "GbpeReportedEpAttributeSet",
+        "parent_uri": "/EprL2Universe/EprL2Ep/%2fPolicyUniverse%2fPolicySpace%2fkube%2fGbpBridgeDomain%2fkube-pod-bd%2f/4e%3ac9%3ac5%3a1a%3ae0%3a41/GbpeReportedEpAttributeSet/",
+        "parent_relation": "GbpeReportedEpAttribute"
+    },
+    {
+        "subject": "GbpeReportedEpAttribute",
+        "uri": "/EprL2Universe/EprL2Ep/%2fPolicyUniverse%2fPolicySpace%2fkube%2fGbpBridgeDomain%2fkube-pod-bd%2f/4e%3ac9%3ac5%3a1a%3ae0%3a41/GbpeReportedEpAttributeSet/GbpeReportedEpAttribute/vm-name/",
+        "properties": [
+            {
+                "name": "value",
+                "data": "busybox0-l5n5v"
+            },
+            {
+                "name": "name",
+                "data": "vm-name"
+            }
+        ],
+        "children": [],
+        "parent_subject": "GbpeReportedEpAttributeSet",
+        "parent_uri": "/EprL2Universe/EprL2Ep/%2fPolicyUniverse%2fPolicySpace%2fkube%2fGbpBridgeDomain%2fkube-pod-bd%2f/4e%3ac9%3ac5%3a1a%3ae0%3a41/GbpeReportedEpAttributeSet/",
+        "parent_relation": "GbpeReportedEpAttribute"
+    },
+    {
+        "subject": "GbpeReportedEpAttribute",
+        "uri": "/EprL2Universe/EprL2Ep/%2fPolicyUniverse%2fPolicySpace%2fkube%2fGbpBridgeDomain%2fkube-pod-bd%2f/4e%3ac9%3ac5%3a1a%3ae0%3a41/GbpeReportedEpAttributeSet/GbpeReportedEpAttribute/interface-name/",
+        "properties": [
+            {
+                "name": "value",
+                "data": "vethccba25d7"
+            },
+            {
+                "name": "name",
+                "data": "interface-name"
+            }
+        ],
+        "children": [],
+        "parent_subject": "GbpeReportedEpAttributeSet",
+        "parent_uri": "/EprL2Universe/EprL2Ep/%2fPolicyUniverse%2fPolicySpace%2fkube%2fGbpBridgeDomain%2fkube-pod-bd%2f/4e%3ac9%3ac5%3a1a%3ae0%3a41/GbpeReportedEpAttributeSet/",
+        "parent_relation": "GbpeReportedEpAttribute"
+    },
+    {
+        "subject": "GbpeReportedEpAttribute",
+        "uri": "/EprL2Universe/EprL2Ep/%2fPolicyUniverse%2fPolicySpace%2fkube%2fGbpBridgeDomain%2fkube-pod-bd%2f/4e%3ac9%3ac5%3a1a%3ae0%3a41/GbpeReportedEpAttributeSet/GbpeReportedEpAttribute/namespace/",
+        "properties": [
+            {
+                "name": "value",
+                "data": "default"
+            },
+            {
+                "name": "name",
+                "data": "namespace"
+            }
+        ],
+        "children": [],
+        "parent_subject": "GbpeReportedEpAttributeSet",
+        "parent_uri": "/EprL2Universe/EprL2Ep/%2fPolicyUniverse%2fPolicySpace%2fkube%2fGbpBridgeDomain%2fkube-pod-bd%2f/4e%3ac9%3ac5%3a1a%3ae0%3a41/GbpeReportedEpAttributeSet/",
+        "parent_relation": "GbpeReportedEpAttribute"
+    },
+    {
+        "subject": "EprL3Universe",
+        "uri": "/EprL3Universe/",
+        "properties": [],
+        "children": [
+            "/EprL3Universe/EprL3Ep/%2fPolicyUniverse%2fPolicySpace%2fcommon%2fGbpRoutingDomain%2fl3out_1_vrf%2f/10.2.56.34/",
+            "/EprL3Universe/EprL3Ep/%2fPolicyUniverse%2fPolicySpace%2fcommon%2fGbpRoutingDomain%2fl3out_1_vrf%2f/10.2.56.35/",
+            "/EprL3Universe/EprL3Ep/%2fPolicyUniverse%2fPolicySpace%2fcommon%2fGbpRoutingDomain%2fl3out_1_vrf%2f/10.2.56.36/"
+        ],
+        "parent_subject": "DmtreeRoot",
+        "parent_uri": "/",
+        "parent_relation": "EprL3Universe"
+    },
+    {
+        "subject": "EprL3Ep",
+        "uri": "/EprL3Universe/EprL3Ep/%2fPolicyUniverse%2fPolicySpace%2fcommon%2fGbpRoutingDomain%2fl3out_1_vrf%2f/10.2.56.34/",
+        "properties": [
+            {
+                "name": "uuid",
+                "data": "d663c54c-1159-11e9-9e00-84b261c2790e_e5c7a813cca040504cca74d1408e4eb611c87487c211afbb6f88eaba1b9bc69f_vethc1413be2"
+            },
+            {
+                "name": "context",
+                "data": "/PolicyUniverse/PolicySpace/common/GbpRoutingDomain/l3out_1_vrf/"
+            },
+            {
+                "name": "group",
+                "data": "/PolicyUniverse/PolicySpace/kube/GbpEpGroup/kubernetes%7ckube-system/"
+            },
+            {
+                "name": "ip",
+                "data": "10.2.56.34"
+            },
+            {
+                "name": "mac",
+                "data": "66:9d:8b:a1:de:4a"
+            }
+        ],
+        "children": [],
+        "parent_subject": "EprL3Universe",
+        "parent_uri": "/EprL3Universe/",
+        "parent_relation": "EprL3Ep"
+    },
+    {
+        "subject": "EprL3Ep",
+        "uri": "/EprL3Universe/EprL3Ep/%2fPolicyUniverse%2fPolicySpace%2fcommon%2fGbpRoutingDomain%2fl3out_1_vrf%2f/10.2.56.35/",
+        "properties": [
+            {
+                "name": "uuid",
+                "data": "f9a24007-1181-11e9-9e00-84b261c2790e_ce021cf1abcc1342fc1b6bef89eae3f5786814a2f44074d19a6ce6306d4f2183_vethccba25d7"
+            },
+            {
+                "name": "context",
+                "data": "/PolicyUniverse/PolicySpace/common/GbpRoutingDomain/l3out_1_vrf/"
+            },
+            {
+                "name": "group",
+                "data": "/PolicyUniverse/PolicySpace/kube/GbpEpGroup/kubernetes%7ckube-default/"
+            },
+            {
+                "name": "ip",
+                "data": "10.2.56.35"
+            },
+            {
+                "name": "mac",
+                "data": "4e:c9:c5:1a:e0:41"
+            }
+        ],
+        "children": [],
+        "parent_subject": "EprL3Universe",
+        "parent_uri": "/EprL3Universe/",
+        "parent_relation": "EprL3Ep"
+    },
+    {
+        "subject": "EprL3Ep",
+        "uri": "/EprL3Universe/EprL3Ep/%2fPolicyUniverse%2fPolicySpace%2fcommon%2fGbpRoutingDomain%2fl3out_1_vrf%2f/10.2.56.36/",
+        "properties": [
+            {
+                "name": "uuid",
+                "data": "f9a2db38-1181-11e9-9e00-84b261c2790e_5d42b5dbd7786fc3f7dfc6e69f41e8757daa4e1e5b64c4a876a404d3ab9791f7_veth19edcd0e"
+            },
+            {
+                "name": "context",
+                "data": "/PolicyUniverse/PolicySpace/common/GbpRoutingDomain/l3out_1_vrf/"
+            },
+            {
+                "name": "group",
+                "data": "/PolicyUniverse/PolicySpace/kube/GbpEpGroup/kubernetes%7ckube-default/"
+            },
+            {
+                "name": "ip",
+                "data": "10.2.56.36"
+            },
+            {
+                "name": "mac",
+                "data": "6a:c6:70:9b:f3:57"
+            }
+        ],
+        "children": [],
+        "parent_subject": "EprL3Universe",
+        "parent_uri": "/EprL3Universe/",
+        "parent_relation": "EprL3Ep"
+    },
+    {
+        "subject": "ObserverEpStatUniverse",
+        "uri": "/ObserverEpStatUniverse/",
+        "properties": [],
+        "children": [
+            "/ObserverEpStatUniverse/GbpeEpCounter/d663c54c-1159-11e9-9e00-84b261c2790e_e5c7a813cca040504cca74d1408e4eb611c87487c211afbb6f88eaba1b9bc69f_vethc1413be2/",
+            "/ObserverEpStatUniverse/GbpeEpCounter/f9a24007-1181-11e9-9e00-84b261c2790e_ce021cf1abcc1342fc1b6bef89eae3f5786814a2f44074d19a6ce6306d4f2183_vethccba25d7/",
+            "/ObserverEpStatUniverse/GbpeEpCounter/f9a2db38-1181-11e9-9e00-84b261c2790e_5d42b5dbd7786fc3f7dfc6e69f41e8757daa4e1e5b64c4a876a404d3ab9791f7_veth19edcd0e/"
+        ],
+        "parent_subject": "DmtreeRoot",
+        "parent_uri": "/",
+        "parent_relation": "ObserverEpStatUniverse"
+    },
+    {
+        "subject": "GbpeEpCounter",
+        "uri": "/ObserverEpStatUniverse/GbpeEpCounter/d663c54c-1159-11e9-9e00-84b261c2790e_e5c7a813cca040504cca74d1408e4eb611c87487c211afbb6f88eaba1b9bc69f_vethc1413be2/",
+        "properties": [
+            {
+                "name": "uuid",
+                "data": "d663c54c-1159-11e9-9e00-84b261c2790e_e5c7a813cca040504cca74d1408e4eb611c87487c211afbb6f88eaba1b9bc69f_vethc1413be2"
+            },
+            {
+                "name": "txUnicast",
+                "data": 0
+            },
+            {
+                "name": "txPackets",
+                "data": 164701
+            },
+            {
+                "name": "rxMulticast",
+                "data": 0
+            },
+            {
+                "name": "rxDrop",
+                "data": 0
+            },
+            {
+                "name": "rxBytes",
+                "data": 24563144
+            },
+            {
+                "name": "rxBroadcast",
+                "data": 0
+            },
+            {
+                "name": "rxPackets",
+                "data": 160641
+            },
+            {
+                "name": "txBytes",
+                "data": 38874058
+            },
+            {
+                "name": "rxUnicast",
+                "data": 0
+            },
+            {
+                "name": "txBroadcast",
+                "data": 0
+            },
+            {
+                "name": "txDrop",
+                "data": 0
+            },
+            {
+                "name": "txMulticast",
+                "data": 0
+            }
+        ],
+        "children": [],
+        "parent_subject": "ObserverEpStatUniverse",
+        "parent_uri": "/ObserverEpStatUniverse/",
+        "parent_relation": "GbpeEpCounter"
+    },
+    {
+        "subject": "GbpeEpCounter",
+        "uri": "/ObserverEpStatUniverse/GbpeEpCounter/f9a24007-1181-11e9-9e00-84b261c2790e_ce021cf1abcc1342fc1b6bef89eae3f5786814a2f44074d19a6ce6306d4f2183_vethccba25d7/",
+        "properties": [
+            {
+                "name": "uuid",
+                "data": "f9a24007-1181-11e9-9e00-84b261c2790e_ce021cf1abcc1342fc1b6bef89eae3f5786814a2f44074d19a6ce6306d4f2183_vethccba25d7"
+            },
+            {
+                "name": "txUnicast",
+                "data": 0
+            },
+            {
+                "name": "txPackets",
+                "data": 8
+            },
+            {
+                "name": "rxMulticast",
+                "data": 0
+            },
+            {
+                "name": "rxDrop",
+                "data": 0
+            },
+            {
+                "name": "rxBytes",
+                "data": 0
+            },
+            {
+                "name": "rxBroadcast",
+                "data": 0
+            },
+            {
+                "name": "rxPackets",
+                "data": 0
+            },
+            {
+                "name": "txBytes",
+                "data": 648
+            },
+            {
+                "name": "rxUnicast",
+                "data": 0
+            },
+            {
+                "name": "txBroadcast",
+                "data": 0
+            },
+            {
+                "name": "txDrop",
+                "data": 0
+            },
+            {
+                "name": "txMulticast",
+                "data": 0
+            }
+        ],
+        "children": [],
+        "parent_subject": "ObserverEpStatUniverse",
+        "parent_uri": "/ObserverEpStatUniverse/",
+        "parent_relation": "GbpeEpCounter"
+    },
+    {
+        "subject": "GbpeEpCounter",
+        "uri": "/ObserverEpStatUniverse/GbpeEpCounter/f9a2db38-1181-11e9-9e00-84b261c2790e_5d42b5dbd7786fc3f7dfc6e69f41e8757daa4e1e5b64c4a876a404d3ab9791f7_veth19edcd0e/",
+        "properties": [
+            {
+                "name": "uuid",
+                "data": "f9a2db38-1181-11e9-9e00-84b261c2790e_5d42b5dbd7786fc3f7dfc6e69f41e8757daa4e1e5b64c4a876a404d3ab9791f7_veth19edcd0e"
+            },
+            {
+                "name": "txUnicast",
+                "data": 0
+            },
+            {
+                "name": "txPackets",
+                "data": 8
+            },
+            {
+                "name": "rxMulticast",
+                "data": 0
+            },
+            {
+                "name": "rxDrop",
+                "data": 0
+            },
+            {
+                "name": "rxBytes",
+                "data": 0
+            },
+            {
+                "name": "rxBroadcast",
+                "data": 0
+            },
+            {
+                "name": "rxPackets",
+                "data": 0
+            },
+            {
+                "name": "txBytes",
+                "data": 648
+            },
+            {
+                "name": "rxUnicast",
+                "data": 0
+            },
+            {
+                "name": "txBroadcast",
+                "data": 0
+            },
+            {
+                "name": "txDrop",
+                "data": 0
+            },
+            {
+                "name": "txMulticast",
+                "data": 0
+            }
+        ],
+        "children": [],
+        "parent_subject": "ObserverEpStatUniverse",
+        "parent_uri": "/ObserverEpStatUniverse/",
+        "parent_relation": "GbpeEpCounter"
+    },
+    {
+        "subject": "ObserverPolicyStatUniverse",
+        "uri": "/ObserverPolicyStatUniverse/",
+        "properties": [],
+        "children": [],
+        "parent_subject": "DmtreeRoot",
+        "parent_uri": "/",
+        "parent_relation": "ObserverPolicyStatUniverse"
+    },
+    {
+        "subject": "PolicyUniverse",
+        "uri": "/PolicyUniverse/",
+        "properties": [],
+        "children": [
+            "/PolicyUniverse/PlatformConfig/comp%2fprov-Kubernetes%2fctrlr-%5bkube%5d-kube%2fsw-InsiemeLSOid/"
+        ],
+        "parent_subject": "DmtreeRoot",
+        "parent_uri": "/",
+        "parent_relation": "PolicyUniverse"
+    },
+    {
+        "subject": "PlatformConfig",
+        "uri": "/PolicyUniverse/PlatformConfig/comp%2fprov-Kubernetes%2fctrlr-%5bkube%5d-kube%2fsw-InsiemeLSOid/",
+        "properties": [
+            {
+                "name": "multicastGroupIP",
+                "data": "225.1.2.3"
+            },
+            {
+                "name": "inventoryType",
+                "data":"ON_LINK"
+            },
+            {
+                "name": "encapType",
+                "data":"vxlan"
+            },
+            {
+                "name": "mode",
+                "data":"intra_epg"
+            },
+            {
+                "name": "name",
+                "data": "comp/prov-Kubernetes/ctrlr-[kube]-kube/sw-InsiemeLSOid"
+            }
+        ],
+        "children": [
+            "/PolicyUniverse/PlatformConfig/comp%2fprov-Kubernetes%2fctrlr-%5bkube%5d-kube%2fsw-InsiemeLSOid/DfwConfig/",
+            "/PolicyUniverse/PlatformConfig/comp%2fprov-Kubernetes%2fctrlr-%5bkube%5d-kube%2fsw-InsiemeLSOid/L2Config/",
+            "/PolicyUniverse/PlatformConfig/comp%2fprov-Kubernetes%2fctrlr-%5bkube%5d-kube%2fsw-InsiemeLSOid/StpConfig/"
+        ],
+        "parent_subject": "PolicyUniverse",
+        "parent_uri": "/PolicyUniverse/",
+        "parent_relation": "PlatformConfig"
+    },
+    {
+        "subject": "DfwConfig",
+        "uri": "/PolicyUniverse/PlatformConfig/comp%2fprov-Kubernetes%2fctrlr-%5bkube%5d-kube%2fsw-InsiemeLSOid/DfwConfig/",
+        "properties": [],
+        "children": [],
+        "parent_subject": "PlatformConfig",
+        "parent_uri": "/PolicyUniverse/PlatformConfig/comp%2fprov-Kubernetes%2fctrlr-%5bkube%5d-kube%2fsw-InsiemeLSOid/",
+        "parent_relation": "DfwConfig"
+    },
+    {
+        "subject": "L2Config",
+        "uri": "/PolicyUniverse/PlatformConfig/comp%2fprov-Kubernetes%2fctrlr-%5bkube%5d-kube%2fsw-InsiemeLSOid/L2Config/",
+        "properties": [
+            {
+                "name": "state",
+                "data": 9000
+            }
+        ],
+        "children": [],
+        "parent_subject": "PlatformConfig",
+        "parent_uri": "/PolicyUniverse/PlatformConfig/comp%2fprov-Kubernetes%2fctrlr-%5bkube%5d-kube%2fsw-InsiemeLSOid/",
+        "parent_relation": "L2Config"
+    },
+    {
+        "subject": "StpConfig",
+        "uri": "/PolicyUniverse/PlatformConfig/comp%2fprov-Kubernetes%2fctrlr-%5bkube%5d-kube%2fsw-InsiemeLSOid/StpConfig/",
+        "properties": [
+            {
+                "name": "bpduGuard",
+                "data":"off"
+            },
+            {
+                "name": "bpduFilter",
+                "data":"off"
+            }
+        ],
+        "children": [],
+        "parent_subject": "PlatformConfig",
+        "parent_uri": "/PolicyUniverse/PlatformConfig/comp%2fprov-Kubernetes%2fctrlr-%5bkube%5d-kube%2fsw-InsiemeLSOid/",
+        "parent_relation": "StpConfig"
+    }
+]
