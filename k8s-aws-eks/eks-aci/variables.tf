@@ -48,6 +48,55 @@ variable "asg_max_size" {
   default   = 3
 }
 
+## ACC
+variable "acc_node_subnet" {
+  default   = "1.100.202.1/24"
+}
+
+variable "acc_pod_subnet" {
+  default   = "10.2.56.1/21"
+}
+
+variable "acc_extern_dynamic" {
+  default   = "10.3.56.1/21"
+}
+
+variable "acc_extern_static" {
+  default   = "10.4.56.1/21"
+}
+
+variable "acc_node_svc_subnet" {
+  default   = "10.5.56.1/21"
+}
+
+variable "acc_kubeapi_vlan" {
+  default   = 202
+}
+
+variable "acc_service_vlan" {
+  default   = 1022
+}
+
+variable "acc_infra_vlan" {
+  default   = 4093
+}
+
+variable "acc_opflex_server_port" {
+  default   = 8009
+}
+
+variable "acc_ep_registry_service_IP" {
+  default   = "172.20.0.2"
+}
+
+variable "acc_ep_registry_service_port" {
+  default   = 14443
+}
+
+variable "acc_aci_containers_version" {
+  default   = "latest"
+}
+
 variable "lb_type" {
   default   = "application"
 }
@@ -82,6 +131,10 @@ variable "health_port" {
 
 variable "aci_deployment_file" {
   default   = "https://raw.githubusercontent.com/noironetworks/vagrant-aci-containers/master/ubuntu-bionic/data/aci_deployment.yaml"
+}
+
+variable "busybox_deployment_file" {
+  default   = "https://raw.githubusercontent.com/noironetworks/vagrant-aci-containers/master/ubuntu-bionic/data/bbox.yaml"
 }
 
 variable "guestbook_deployment_file" {

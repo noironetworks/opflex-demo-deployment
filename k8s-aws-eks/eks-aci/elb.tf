@@ -75,16 +75,5 @@ resource "aws_eip" "elb" {
       CreatedByTag              = "Created by ${var.name_prefix}-cluster-${random_string.suffix.result}"
   }
 }
-
-# replace static-service-ip-pool in the aci deployment file with AWS EIP
-resource "null_resource" "edit_aci_deployment_eip" {
-  provisioner "local-exec" {
-     command = "sed -i -e 's/10.4.63.254/${aws_eip.elb.public_ip}/g' aci_deployment.yaml && sed -i -e 's/10.4.56.2/${aws_eip.elb.public_ip}/g' aci_deployment.yaml"
-  }
-  depends_on = [
-    "null_resource.edit_aci_deployment_epreg",
-  ]
-
-}
 */
 

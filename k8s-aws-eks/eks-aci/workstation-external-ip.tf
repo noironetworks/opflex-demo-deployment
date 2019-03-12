@@ -8,12 +8,7 @@
 # to the Kubernetes cluster.
 #
 
-data "http" "workstation-external-ip" {
-  url = "https://ipecho.net/plain"
-}
-
 # Override with variable or hardcoded value if necessary
 locals {
-  #workstation-external-cidr = "${chomp(data.http.workstation-external-ip.body)}/32"
   workstation-external-cidr = "0.0.0.0/0"
 }

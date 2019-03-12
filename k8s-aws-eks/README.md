@@ -6,6 +6,8 @@
     2. aws_access_key_id
     3. aws_secret_access_key
     4. region (E.g. us-east-2)
+    5. python2.7/python3.6 along with pip
+    4. virtualenv
 2. clone the repo
 ```
 git clone https://github.com/noironetworks/opflex-demo-deployment.git

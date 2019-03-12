@@ -1,4 +1,5 @@
 #!/bin/bash
+set -e
 
 usage()
 {
@@ -63,6 +64,27 @@ if [ -z "$AWS_ACCESS_KEY_ID" ] || [ -z "$AWS_SECRET_ACCESS_KEY" ] || [ -z "$AWS_
     exit 1
 fi
 
+# install python venv if operation is up
+if [[ "$oper" == "up" ]]; then
+    if ! command -v virtualenv &>/dev/null; then
+        echo "Install virtualenv to proceed"
+        exit 1
+    fi
+    
+    if command -v python2.7 &>/dev/null; then
+        echo "Python 2.7 is installed"
+        NATIVE_PPATH=$(which python2.7 | head -n 1)
+    elif command -v python3 &>/dev/null; then
+        echo "Python 3 is installed"
+        NATIVE_PPATH=$(which python3 | head -n 1)
+    else 
+        echo "Install python to proceed"
+        exit 1
+    fi
+    virtualenv -q -p $NATIVE_PPATH pvenv
+    ./pvenv/bin/pip install acc-provision
+fi
+
 echo "Download terraform binary for $ostype if not present..."
 if [[ ! -e ./$dir/terraform ]]; then
     curl -o ./$dir/terraform_0.11.11_amd64.zip https://releases.hashicorp.com/terraform/0.11.11/terraform_0.11.11_${arch}_amd64.zip
@@ -108,7 +130,8 @@ elif [[ "$oper" == "destroy" ]]; then
     echo "Destroying EKS cluster..."
     ./$dir/terraform init eks-aci
     ./$dir/terraform destroy eks-aci
-    rm -f aci_deployment.yaml*
-    rm -f guestbook.yaml*
+    rm -rf bin .terraform terraform.tfstate*
+    rm -f guestbook.yaml* bbox.yaml*
     rm -f *.pem && rm -f *.pem.pub
+    rm -rf pvenv user.key user.crt aci_deployment.yaml*
 fi
