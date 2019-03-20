@@ -1,0 +1,248 @@
+#!/bin/bash
+set -e
+
+capic_waittime=900
+apic_web_waittime=300
+apic_unset_waittime=180
+usage()
+{
+    printf "Usage: $0 <up|destroy>\n"
+    exit 1
+}
+
+apic_post()
+{
+    # Usage: apic_post $capicip $user $passwd $path $dfile
+    lurl="https://$1/api/node/mo/aaaLogin.json"
+    surl="https://$1/$4"
+    rm -f ./cjar
+    cat << EOF > ./login.json
+'{"aaaUser":{ "attributes":{"name":"$2", "pwd":"$3"}}}'
+EOF
+    set +e
+    curl -k --header "Content-Type: application/json" --fail $lurl --cookie-jar ./cjar --request POST --data @login.json
+    if [ "$?" -ne 0 ]; then
+        rm -f login.json
+        printf "Cannot login to APIC $1\n"
+        return 1
+    fi
+    rm -f login.json
+    curl -k --header "Content-Type: text/xml" --fail $surl --request POST --data @$5 --cookie ./cjar
+    if [ "$?" -ne 0 ]; then
+        printf "Cannot post to APIC $1\n"
+        return 1
+    fi
+    set -e
+    return 0
+}
+
+if [ $# -ne 1 ] ; then
+    usage
+else
+    case $1 in
+      up|destroy)
+          oper=$1
+      ;;
+      *)
+          usage
+      ;;
+    esac
+fi
+
+printf "Detecting OS...\n"
+if [[ "$OSTYPE" == "linux"* ]]; then
+    arch=linux
+    ostype=Linux
+elif [[ "$OSTYPE" == "darwin"* ]]; then
+    arch=darwin
+    ostype=MacOS
+else
+    printf "Unsupported OS: $OSTYPE\n"
+    exit 1
+fi
+printf "OS is $ostype\n"
+
+dir=bin
+tfdir=capic-aci
+printf "Creating a local $dir directory if not present...\n"
+if [[ ! -e $dir ]]; then
+    mkdir $dir
+elif [[ ! -d $dir ]]; then
+    printf "$dir already exists but is not a directory\n" 1>&2
+    exit 1
+fi
+
+printf "Checking AWS Environment Variables..."
+# if .capicrc is not present we'll assume that AWS env was never set
+if [[ ! -e ./.capicrc ]]; then
+    read -p "Enter AWS Access Key: " aws_key
+    read -p "Enter AWS Secret Key: " aws_secret
+    read -p "Enter AWS Region: " aws_region
+    echo "export AWS_ACCESS_KEY_ID=${aws_key}" > .capicrc
+    echo "export AWS_SECRET_ACCESS_KEY=${aws_secret}" >> .capicrc
+    echo "export AWS_DEFAULT_REGION=${aws_region}" >> .capicrc
+fi
+
+# add local bin directory to PATH
+if ! grep -Fxq "export PATH=\${PATH}:\${PWD}/bin" .capicrc; then
+    echo 'export PATH=${PATH}:${PWD}/bin' >> .capicrc
+fi
+. ./.capicrc
+
+if [ -z "$AWS_ACCESS_KEY_ID" ] || [ -z "$AWS_SECRET_ACCESS_KEY" ] || [ -z "$AWS_DEFAULT_REGION" ]; then
+    printf "AWS Access info is missing. Remove .capicrc file and rerun $0 $1\n"
+    exit 1
+fi
+
+printf "Download terraform binary for $ostype if not present...\n"
+if [[ ! -e ./$dir/terraform ]]; then
+    curl -o ./$dir/terraform_0.11.11_amd64.zip https://releases.hashicorp.com/terraform/0.11.11/terraform_0.11.11_${arch}_amd64.zip
+    unzip ./$dir/terraform_0.11.11_amd64.zip -d ./$dir
+    rm -f ./$dir/terraform_0.11.11_amd64.zip
+fi
+
+printf "Download aws-iam-authenticator binary for $ostype if not present...\n"
+if [[ ! -e ./$dir/aws-iam-authenticator ]]; then
+    curl -o ./$dir/aws-iam-authenticator  https://amazon-eks.s3-us-west-2.amazonaws.com/1.11.5/2018-12-06/bin/${arch}/amd64/aws-iam-authenticator
+    chmod +x ./$dir/aws-iam-authenticator
+fi
+
+if [[ "$oper" == "up" ]]; then
+    CAPIC_PASSWORD1=$(systemd-ask-password "Enter a password for the new cAPIC:")
+    CAPIC_PASSWORD2=$(systemd-ask-password "Retype the cAPIC Password:")
+    if [[ "$CAPIC_PASSWORD1" != "$CAPIC_PASSWORD2" ]]; then
+        printf "Sorry, passwords do not match. Rerun $0 $1\n"
+        exit 1
+    fi
+    user="admin"
+    passwd=$CAPIC_PASSWORD1
+    ppath="api/node/mo/.xml"
+    sfile="setup.xml"
+
+    cat << EOF > ./$sfile
+<polUni>
+  <fvTenant name="infra">
+    <cloudApicSubnetPool subnet="10.20.0.0/24" />
+    <cloudAwsProvider providerId="aws-infra" />
+    <cloudtemplateInfraNetwork name="default" vrfName="overlay-1">
+      <cloudtemplateProfile name="default" routerUsername="admin" routerPassword="ins3965!"/>
+      <cloudtemplateIntNetwork name="default">
+        <cloudRegionName provider="aws" region="us-west-1" />
+      </cloudtemplateIntNetwork>
+    </cloudtemplateInfraNetwork>
+  </fvTenant>
+  <cloudDomP name="default">
+    <cloudBgpAsP asn="123"/>
+    <cloudProvP vendor="aws">
+       <cloudRegion name="us-west-1" adminSt="managed">
+       </cloudRegion>
+    </cloudProvP>
+  </cloudDomP>
+  <fabricInst>
+    <commPol name="default">
+      <commSsh name="ssh" adminSt="enabled" passwordAuth="enabled" />
+    </commPol>
+  </fabricInst>
+</polUni>
+EOF
+
+    # check if cft is present in PWD
+    if [[ ! -e ./cft ]]; then
+        printf "An AWS Cloud Formation Template(CFT) not present for cAPIC.\n"
+        printf "Copy the cAPIC CFT file to $PWD, rename as cft and rerun the command $0 $1\n"
+        exit 1
+    fi
+    # generate ssh keys if not already present or doesn't match
+    if [ ! -e ./*.pem ] || [ ! -e ./*.pem.pub ]; then
+        printf "SSH keys not present. Generating a new pair ...\n"
+        rm -f *.pem && rm -f *.pem.pub
+        ssh-keygen -t rsa -N "" -f local.pem
+    elif ! diff <(ssh-keygen -y -f *.pem | cut -d' ' -f 2) <(cut -d' ' -f 2 *.pem.pub) &>/dev/null; then
+        printf "SSH keys not matching. Regenerating a new pair...\n"
+        rm -f *.pem && rm -f *.pem.pub
+        ssh-keygen -t rsa -N "" -f local.pem
+    fi
+    # get the public key
+    PKEY=$(cat *.pub | awk '{print $0}')
+
+    printf "Bringing up cAPIC...\n"
+    touch cft_mod
+    ./$dir/terraform init $tfdir
+    ./$dir/terraform apply -var public_key="$PKEY" -var capic_password="$passwd" $tfdir
+
+    # find cAPIC EIP and wait for X seconds before cAPIC is up and running
+    capicip=$(grep outputs.CAPICElasticIP terraform.tfstate | grep -o '[0-9]\{1,3\}\.[0-9]\{1,3\}\.[0-9]\{1,3\}\.[0-9]\{1,3\}')
+    url=https://$capicip
+    end=$((SECONDS+$capic_waittime))
+    printf "Query the cAPIC url $url for $capic_waittime secs before attempting to login...\n"
+    while true; do
+        if curl -k -m 1 --output /dev/null --silent --head --fail "$url"; then
+            printf "cAPIC is reachable: $url\n"
+            break
+        else
+            if [ $SECONDS -lt $end ] ; then
+                printf '.'
+                sleep 5
+            else
+                printf "\nCould not access $url in $capic_waittime secs. Verify the state of cAPIC stack from AWS\n"
+                exit 1
+            fi
+        fi
+    done
+    end=$((SECONDS+$capic_waittime))
+    while true; do
+        apic_post $capicip $user $passwd $ppath $sfile
+        if [ $? -eq 0 ]; then
+            printf "\ncAPIC initial setup successful\n"
+            printf "\nCheck the status of AWS resources (CSR router intances) created by cAPIC before proceeding with functional verification or deletion of the cAPIC stack\n"
+            break
+        else
+            if [ $SECONDS -lt $end ] ; then
+                rem_time=$(($end-SECONDS))
+                printf "\nWill try for $rem_time secs before giving up\n"
+                sleep 5
+            else
+                printf "\nCould not setup cAPIC in $capic_waittime secs. Verify the state of cAPIC using $url\n"
+                exit 1
+            fi
+        fi
+    done
+elif [[ "$oper" == "destroy" ]]; then
+    CAPIC_PASSWORD1=$(systemd-ask-password "Enter cAPIC password:")
+    passwd=$CAPIC_PASSWORD1
+    user="admin"
+    ppath="api/node/mo/.xml"
+    usfile="undo_setup.xml"
+
+    cat << EOF > ./$usfile
+<polUni>
+  <fvTenant name="infra">
+    <cloudApicSubnetPool subnet="10.20.0.0/24" />
+    <cloudAwsProvider providerId="aws-infra" />
+    <cloudtemplateInfraNetwork name="default" vrfName="overlay-1">
+      <cloudtemplateProfile name="default" routerUsername="admin" routerPassword="ins3965!"/>
+      <cloudtemplateIntNetwork name="default">
+        <cloudRegionName provider="aws" region="us-west-1" status = "deleted"/>
+      </cloudtemplateIntNetwork>
+    </cloudtemplateInfraNetwork>
+  </fvTenant>
+</polUni>
+EOF
+
+    capicip=$(grep outputs.CAPICElasticIP terraform.tfstate | grep -o '[0-9]\{1,3\}\.[0-9]\{1,3\}\.[0-9]\{1,3\}\.[0-9]\{1,3\}')
+    if [ ! -z $capicip ]; then
+        apic_post $capicip $user $passwd $ppath $usfile
+        if [ $? -ne 0 ]; then
+            printf "\nCould not undo cAPIC regional configs...\n"
+            exit 1
+        fi
+        printf "\nWait for $apic_unset_waittime secs before attempting to destroy the cAPIC stack...\n"
+        sleep $apic_unset_waittime
+    fi
+    printf "Destroying cAPIC stack and EKS cluster...\n"
+    ./$dir/terraform init $tfdir
+    ./$dir/terraform destroy -auto-approve -var capic_password="$passwd" $tfdir
+    rm -rf bin .terraform terraform.tfstate*
+    rm -f *.pem && rm -f *.pem.pub
+    rm -f setup.xml undo_setup.xml cjar cft_mod
+fi
