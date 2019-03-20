@@ -6,6 +6,7 @@
     2. aws_access_key_id
     3. aws_secret_access_key
     4. region (E.g. us-east-2)
+    5. Make sure you have a valid Cloud Formation Template and your account has access to the cAPIC and CSR AMIs
 2. clone the repo
 ```
 git clone https://github.com/noironetworks/opflex-demo-deployment.git
