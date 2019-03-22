@@ -36,6 +36,22 @@ EOF
     return 0
 }
 
+my-ask-password()
+{
+    prompt="$1 "
+    while IFS= read -p "$prompt" -r -s -n 1 char
+    do
+        if [[ $char == $'\0' ]]
+        then
+            break
+        fi
+        prompt='*'
+        password+="$char"
+    done
+    echo >&2
+    echo "$password"
+}
+
 if [ $# -ne 1 ] ; then
     usage
 else
@@ -108,8 +124,8 @@ if [[ ! -e ./$dir/aws-iam-authenticator ]]; then
 fi
 
 if [[ "$oper" == "up" ]]; then
-    CAPIC_PASSWORD1=$(systemd-ask-password "Enter a password for the new cAPIC:")
-    CAPIC_PASSWORD2=$(systemd-ask-password "Retype the cAPIC Password:")
+    CAPIC_PASSWORD1=$(my-ask-password "Enter a password for the new cAPIC:")
+    CAPIC_PASSWORD2=$(my-ask-password "Retype the cAPIC Password:")
     if [[ "$CAPIC_PASSWORD1" != "$CAPIC_PASSWORD2" ]]; then
         printf "Sorry, passwords do not match. Rerun $0 $1\n"
         exit 1
@@ -208,7 +224,7 @@ EOF
         fi
     done
 elif [[ "$oper" == "destroy" ]]; then
-    CAPIC_PASSWORD1=$(systemd-ask-password "Enter cAPIC password:")
+    CAPIC_PASSWORD1=$(my-ask-password "Enter cAPIC password:")
     passwd=$CAPIC_PASSWORD1
     user="admin"
     ppath="api/node/mo/.xml"
@@ -244,5 +260,5 @@ EOF
     ./$dir/terraform destroy -auto-approve -var capic_password="$passwd" $tfdir
     rm -rf bin .terraform terraform.tfstate*
     rm -f *.pem && rm -f *.pem.pub
-    rm -f setup.xml undo_setup.xml cjar cft_mod
+    rm -f setup.xml undo_setup.xml cjar cft_mod*
 fi
