@@ -59,6 +59,11 @@ variable "capic_password" {
   type    = "string"
 }
 
+variable "capic_external_access_cidr" {
+  default = "0.0.0.0/0"
+  type    = "string"
+}
+
 variable "aws_availability_zone" {
   default = "b"
   type    = "string"

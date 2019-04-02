@@ -28,6 +28,7 @@ resource "aws_cloudformation_stack" "network" {
     pPassword         = "${var.capic_password}"
     pConfirmPassword  = "${var.capic_password}"
     pKeyName          = "${aws_key_pair.deployer.key_name}"
+    pExtNw            = "${var.capic_external_access_cidr}"
   }
   capabilities        = ["CAPABILITY_IAM", "CAPABILITY_NAMED_IAM"]
   template_body = <<STACK
