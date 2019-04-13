@@ -110,12 +110,6 @@ resource "aws_security_group_rule" "my-cluster-ingress-workstation-https" {
   type              = "ingress"
 }
 
-resource "random_string" "suffix" {
-  length = 8
-  upper = false
-  special = false
-}
-
 resource "aws_eks_cluster" "my-cluster" {
   name     = "${var.name_prefix}-cluster-${random_string.suffix.result}"
   role_arn = "${aws_iam_role.cluster-iam-role.arn}"

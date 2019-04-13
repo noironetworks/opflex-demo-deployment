@@ -35,6 +35,17 @@ variable "public_key" {
   type    = "string"
 }
 
+variable "eks_k8s_version" {
+  default   = "1.12"
+  type    = "string"
+}
+
+variable "eks_worker_ami" {
+  #default   = "amazon-eks-node-v*"
+  default   = "amazon-eks-node-1.12-v20190329"
+  type    = "string"
+}
+
 variable "instance_type" {
   default   = "t3.small"
   type    = "string"
@@ -130,7 +141,8 @@ variable "health_port" {
 }
 
 variable "aci_deployment_file" {
-  default   = "https://raw.githubusercontent.com/noironetworks/vagrant-aci-containers/master/ubuntu-bionic/data/aci_deployment.yaml"
+  #default   = "https://raw.githubusercontent.com/noironetworks/vagrant-aci-containers/master/ubuntu-bionic/data/aci_deployment.yaml"
+  default   = "https://raw.githubusercontent.com/dshailen/misc/master/aci_deployment.yaml"
 }
 
 variable "busybox_deployment_file" {

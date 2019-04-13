@@ -22,6 +22,8 @@ resource "aws_iam_role_policy_attachment" "node-AmazonEC2ContainerRegistryReadOn
   role       = "${aws_iam_role.node-iam-role.name}"
 }
 
+#FIXME
+
 resource "aws_iam_instance_profile" "node-iam-instance-profile" {
   name = "${var.name_prefix}-node-instance-profile-${random_string.suffix.result}"
   role = "${aws_iam_role.node-iam-role.name}"
@@ -83,11 +85,13 @@ resource "aws_security_group_rule" "my-node-ingress-fe" {
   type                     = "ingress"
 }
 
+#FIXME
 
 data "aws_ami" "eks-worker" {
   filter {
     name   = "name"
-    values = ["amazon-eks-node-v*"]
+    #values = ["amazon-eks-node-v*"]
+    values = ["${var.eks_worker_ami}"]
   }
 
   most_recent = true
@@ -103,22 +107,6 @@ set -o xtrace
 /etc/eks/bootstrap.sh --apiserver-endpoint '${aws_eks_cluster.my-cluster.endpoint}' --b64-cluster-ca '${aws_eks_cluster.my-cluster.certificate_authority.0.data}' '${var.name_prefix}-cluster-${random_string.suffix.result}'
 python -m SimpleHTTPServer '${var.health_port}' &>/dev/null&
 USERDATA
-}
-
-resource "aws_key_pair" "deployer" {
-  key_name   = "${var.name_prefix}-key-${random_string.suffix.result}"
-  public_key = "${var.public_key}"
-}
-
-# rename the ssh key files to match the keyname
-resource "null_resource" "rename_sshkey_files" {
-  provisioner "local-exec" {
-     command = "mv local.pem ${var.name_prefix}-key-${random_string.suffix.result}.pem && mv local.pem.pub ${var.name_prefix}-key-${random_string.suffix.result}.pem.pub"
-  }
-
-  depends_on = [
-    "aws_key_pair.deployer",
-  ]
 }
 
 resource "aws_launch_configuration" "worker-alc" {
@@ -158,3 +146,4 @@ resource "aws_autoscaling_group" "worker-asg" {
     propagate_at_launch = true
   }
 }
+
