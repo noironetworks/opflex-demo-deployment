@@ -31,8 +31,10 @@ swapoff -a
 sudo sed -i '/ swap / s/^\(.*\)$/#\1/g' /etc/fstab
 
 echo "Setting kubelet node ip"
-sed -i "/^[^#]*KUBELET_EXTRA_ARGS=/c\KUBELET_EXTRA_ARGS=--node-ip=$IP" /etc/default/kubelet
-systemctl restart kubelet
+cat >>/etc/default/kubelet <<EOF
+KUBELET_EXTRA_ARGS="--node-ip=$IP"
+EOF
+systemctl daemon-reload && systemctl restart kubelet
 
 echo "Setup node for clear text ssh"
 sed -i "/^[^#]*PasswordAuthentication[[:space:]]no/c\PasswordAuthentication yes" /etc/ssh/sshd_config
