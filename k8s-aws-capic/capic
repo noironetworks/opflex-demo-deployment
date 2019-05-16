@@ -143,14 +143,14 @@ if [[ "$oper" == "up" ]]; then
     <cloudtemplateInfraNetwork name="default" vrfName="overlay-1">
       <cloudtemplateProfile name="default" routerUsername="admin" routerPassword="ins3965!"/>
       <cloudtemplateIntNetwork name="default">
-        <cloudRegionName provider="aws" region="us-west-1" />
+        <cloudRegionName provider="aws" region="$AWS_DEFAULT_REGION" />
       </cloudtemplateIntNetwork>
     </cloudtemplateInfraNetwork>
   </fvTenant>
   <cloudDomP name="default">
     <cloudBgpAsP asn="123"/>
     <cloudProvP vendor="aws">
-       <cloudRegion name="us-west-1" adminSt="managed">
+       <cloudRegion name="$AWS_DEFAULT_REGION" adminSt="managed">
        </cloudRegion>
     </cloudProvP>
   </cloudDomP>
@@ -184,8 +184,7 @@ EOF
     printf "Bringing up cAPIC...\n"
     touch cft_mod
     ./$dir/terraform init $tfdir
-    ./$dir/terraform apply -var public_key="$PKEY" -var capic_password="$passwd" $tfdir
-
+    ./$dir/terraform apply -var public_key="$PKEY" -var aws_region="$AWS_DEFAULT_REGION" -var capic_password="$passwd" $tfdir
     # find cAPIC EIP and wait for X seconds before cAPIC is up and running
     capicip=$(grep outputs.CAPICElasticIP terraform.tfstate | grep -o '[0-9]\{1,3\}\.[0-9]\{1,3\}\.[0-9]\{1,3\}\.[0-9]\{1,3\}')
     url=https://$capicip
@@ -238,7 +237,7 @@ elif [[ "$oper" == "destroy" ]]; then
     <cloudtemplateInfraNetwork name="default" vrfName="overlay-1">
       <cloudtemplateProfile name="default" routerUsername="admin" routerPassword="ins3965!"/>
       <cloudtemplateIntNetwork name="default">
-        <cloudRegionName provider="aws" region="us-west-1" status = "deleted"/>
+        <cloudRegionName provider="aws" region="$AWS_DEFAULT_REGION" status = "deleted"/>
       </cloudtemplateIntNetwork>
     </cloudtemplateInfraNetwork>
   </fvTenant>

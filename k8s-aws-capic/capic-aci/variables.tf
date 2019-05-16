@@ -13,7 +13,7 @@ variable "aws_secret_key" {
 
 variable "aws_region" {
     description = "The AWS region."
-    default  = "us-west-1"
+    default  = "us-east-2"
 }
 
 variable "name_prefix" {
@@ -65,7 +65,7 @@ variable "capic_external_access_cidr" {
 }
 
 variable "aws_availability_zone" {
-  default = "b"
+  default = "a"
   type    = "string"
 }
 
