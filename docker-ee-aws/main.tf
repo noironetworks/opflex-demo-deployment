@@ -67,7 +67,7 @@ resource "aws_instance" "docker_master1" {
   }
 
   key_name               = "${var.aws_instance_key_name}"
-  vpc_security_group_ids = ["${module.security_groups.docker_sg_id}"]
+  vpc_security_group_ids = ["${module.sec_groups.docker_sg_id}"]
   subnet_id              = "${aws_subnet.docker_pub_sub1.id}"
   availability_zone      = "${var.aws_availability_zone}"
 
@@ -129,7 +129,7 @@ resource "aws_instance" "docker_worker1" {
   }
 
   key_name               = "${var.aws_instance_key_name}"
-  vpc_security_group_ids = ["${module.security_groups.docker_worker_sg_id}"]
+  vpc_security_group_ids = ["${module.sec_groups.docker_worker_sg_id}"]
   subnet_id              = "${aws_subnet.docker_pub_sub1.id}"
   availability_zone      = "${var.aws_availability_zone}"
 
@@ -170,9 +170,10 @@ resource "aws_instance" "docker_worker1" {
   }
 }
 
-module "security_groups" {
-  source = "./security_groups"
-  vpc_id = "${aws_vpc.docker_vpc.id}"
+module "sec_groups" {
+  source                = "./sec_groups"
+  vpc_id                = "${aws_vpc.docker_vpc.id}"
+  allowed_ingress_cidrs = ["${var.cidrs["public1"]}"]
 }
 
 data "external" "swarm_tokens" {

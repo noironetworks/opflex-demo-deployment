@@ -3,3 +3,7 @@ variable "sship" {
 }
 
 variable "vpc_id" {}
+
+variable "allowed_ingress_cidrs" {
+  type = "list"
+}
