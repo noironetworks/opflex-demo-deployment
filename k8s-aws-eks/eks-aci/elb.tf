@@ -3,13 +3,14 @@ resource "aws_lb" "elb" {
   name               = "${var.name_prefix}-elb-${random_string.suffix.result}"
   internal           = false
   load_balancer_type = "${var.lb_type}"
-  subnets            = ["${aws_subnet.subnet1.*.id}"]
+  #subnets            = ["${aws_subnet.subnet1.*.id}"]
   # needed if eip has to be allocated
-  #subnet_mapping {
-  #  subnet_id     = "${aws_subnet.subnet1.0.id}"
-  #  allocation_id = "${aws_eip.elb.id}"
-  #}
-  security_groups    = ["${aws_security_group.node-sg.id}"]
+  subnet_mapping {
+    subnet_id     = "${aws_subnet.subnet1.0.id}"
+    allocation_id = "${aws_eip.elb.id}"
+  }
+  #do not use security groups with LB type network
+  #security_groups    = ["${aws_security_group.node-sg.id}"]
   enable_cross_zone_load_balancing = false
 
   depends_on = [
@@ -37,6 +38,11 @@ resource "aws_lb_target_group" "elb_target_group" {
 
   # disable health check
   #health_check           = []
+  stickiness {
+    type      = "lb_cookie"
+    enabled   = false
+
+  }
   health_check {
     healthy_threshold   = 3
     unhealthy_threshold = 3
@@ -68,12 +74,11 @@ resource "aws_lb_target_group_attachment" "elbtg_attachment" {
 }
 
 # uncomment when using EIP for NLB
-/*
 resource "aws_eip" "elb" {
   vpc      = true
   tags {
       CreatedByTag              = "Created by ${var.name_prefix}-cluster-${random_string.suffix.result}"
   }
 }
-*/
+
 

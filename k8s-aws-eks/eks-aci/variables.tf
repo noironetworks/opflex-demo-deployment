@@ -109,7 +109,7 @@ variable "acc_aci_containers_version" {
 }
 
 variable "lb_type" {
-  default   = "application"
+  default   = "network"
 }
 
 variable "nodeport" {
@@ -117,7 +117,7 @@ variable "nodeport" {
 }
 
 variable "lb_listener_protocol" {
-  default   = "HTTP"
+  default   = "TCP"
 }
 
 variable "lb_listener_port" {
@@ -125,11 +125,11 @@ variable "lb_listener_port" {
 }
 
 variable "lb_target_protocol" {
-  default   = "HTTP"
+  default   = "TCP"
 }
 
 variable "lb_target_port" {
-  default   = 80
+  default   = 31313
 }
 
 variable "health_protocol" {
