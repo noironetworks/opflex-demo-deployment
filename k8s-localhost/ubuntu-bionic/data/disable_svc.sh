@@ -14,6 +14,7 @@ nextip ()
 
 curr_ip=$MASTER_IP
 for i in $(seq 1 $NUM_NODES); do
+    sshpass -p "vagrant" ssh -o StrictHostKeyChecking=no vagrant@$curr_ip sudo ip route del default via 1.100.201.1
     sshpass -p "vagrant" ssh -o StrictHostKeyChecking=no vagrant@$curr_ip sudo ifconfig enp0s3 up
     echo "External services are now disabled on $curr_ip"
     curr_ip=$(nextip $curr_ip)
