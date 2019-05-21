@@ -70,7 +70,8 @@ resource "aws_security_group_rule" "my-node-ingress-lbhealth" {
   from_port                = "${var.health_port}"
   protocol                 = "tcp"
   security_group_id        = "${aws_security_group.node-sg.id}"
-  source_security_group_id = "${aws_security_group.node-sg.id}"
+  cidr_blocks              = ["${aws_vpc.vpc1.cidr_block}"]
+  #source_security_group_id = "${aws_security_group.node-sg.id}"
   to_port                  = "${var.health_port}"
   type                     = "ingress"
 }
@@ -81,7 +82,8 @@ resource "aws_security_group_rule" "my-node-ingress-fe" {
   protocol                 = "TCP"
   security_group_id        = "${aws_security_group.node-sg.id}"
   cidr_blocks              = ["0.0.0.0/0"]
-  to_port                  = "${var.lb_listener_port}"
+  #to_port                  = "${var.lb_listener_port}"
+  to_port                  = "${var.nodeport}"
   type                     = "ingress"
 }
 

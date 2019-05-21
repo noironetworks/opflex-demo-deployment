@@ -120,7 +120,7 @@ if [[ "$oper" == "up" ]]; then
 
     echo "Bringing up EKS cluster..."
     ./$dir/terraform init eks-aci
-    ./$dir/terraform apply -var public_key="$PKEY" eks-aci
+    ./$dir/terraform apply -var public_key="$PKEY" -var aws_region="$AWS_DEFAULT_REGION" eks-aci
     if ! grep -Fxq "export KUBECONFIG=\${PWD}/kubeconfig" .eksrc; then
         echo 'export KUBECONFIG=${PWD}/kubeconfig' >> .eksrc
     fi
