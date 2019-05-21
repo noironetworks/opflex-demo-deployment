@@ -11,7 +11,7 @@ spec:
   selector:
     app: hostnames
   sessionAffinity: None
-  type: ClusterIP
+  type: LoadBalancer
 
 ---
 apiVersion: extensions/v1beta1

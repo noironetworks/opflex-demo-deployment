@@ -1,3 +1,42 @@
+apiVersion: apiextensions.k8s.io/v1beta1
+kind: CustomResourceDefinition
+metadata:
+  name: epgs.aci.aw
+spec:
+  group: aci.aw
+  names:
+    kind: Epg
+    listKind: EpgList
+    plural: epgs
+  scope: Namespaced
+  version: v1
+---
+apiVersion: apiextensions.k8s.io/v1beta1
+kind: CustomResourceDefinition
+metadata:
+  name: contracts.aci.aw
+spec:
+  group: aci.aw
+  names:
+    kind: Contract
+    listKind: ContractList
+    plural: contracts
+  scope: Namespaced
+  version: v1
+---
+apiVersion: apiextensions.k8s.io/v1beta1
+kind: CustomResourceDefinition
+metadata:
+  name: podifs.aci.aw
+spec:
+  group: aci.aw
+  names:
+    kind: PodIF
+    listKind: PodIFList
+    plural: podifs
+  scope: Namespaced
+  version: v1
+---
 apiVersion: v1
 kind: ConfigMap
 metadata:
@@ -72,6 +111,8 @@ data:
     }
   host-agent-config: |-
     {
+        "ep-registry": "k8s",
+        "opflex-mode": "overlay",
         "log-level": "debug",
         "aci-vmm-type": "Kubernetes",
         "aci-vmm-domain": "kube",
@@ -82,7 +123,6 @@ data:
         "service-vlan": 1022,
         "encap-type": "vxlan",
         "aci-infra-vlan": 4093,
-        "registry-url": "http://10.96.0.2:14443",
         "cni-netconfig": [
             {
                 "gateway": "10.2.56.1",
@@ -173,6 +213,16 @@ rules:
   - watch
   - get
 - apiGroups:
+  - "aci.aw"
+  resources:
+  - epgs
+  - contracts
+  - podifs
+  verbs:
+  - list
+  - watch
+  - get
+- apiGroups:
   - "apps"
   resources:
   - deployments
@@ -205,9 +255,35 @@ rules:
   - ""
   resources:
   - nodes
+  - namespaces
   - pods
   - endpoints
   - services
+  - replicationcontrollers
+  verbs:
+  - list
+  - watch
+  - get
+- apiGroups:
+  - "apps"
+  resources:
+  - deployments
+  - replicasets
+  verbs:
+  - list
+  - watch
+  - get
+- apiGroups:
+  - "aci.aw"
+  resources:
+  - podifs
+  - podifs/status
+  verbs:
+  - "*"
+- apiGroups:
+  - "networking.k8s.io"
+  resources:
+  - networkpolicies
   verbs:
   - list
   - watch
@@ -275,7 +351,7 @@ spec:
           effect: NoSchedule
       containers:
         - name: aci-containers-host
-          image: noirolabs/aci-containers-host
+          image: challa/aci-containers-host:demo1
           imagePullPolicy: Always
           securityContext:
             capabilities:
@@ -307,7 +383,7 @@ spec:
               path: /status
               port: 8090
         - name: opflex-agent
-          image: noirolabs/opflex
+          image: challa/opflex:demo1
           imagePullPolicy: Always
           securityContext:
             capabilities:
@@ -325,7 +401,7 @@ spec:
             - name: opflex-config-volume
               mountPath: /usr/local/etc/opflex-agent-ovs/conf.d
         - name: opflex-server
-          image: noirolabs/opflex-server
+          image: challa/opflex-server:demo1
           imagePullPolicy: Always
           securityContext:
             capabilities:
@@ -339,7 +415,7 @@ spec:
             - name: opflex-server-config-volume
               mountPath: /usr/local/etc/opflex-server
         - name: mcast-daemon
-          image: noirolabs/opflex
+          image: challa/opflex:demo1
           command: ["/bin/sh"]
           args: ["/usr/local/bin/launch-mcastdaemon.sh"]
           imagePullPolicy: Always
@@ -413,7 +489,7 @@ spec:
           effect: NoSchedule
       containers:
         - name: aci-containers-openvswitch
-          image: noirolabs/openvswitch
+          image: challa/openvswitch:demo1
           imagePullPolicy: Always
           securityContext:
             capabilities:
@@ -489,14 +565,14 @@ spec:
           effect: NoSchedule
       containers:
         - name: aci-gbpserver
-          image: noirolabs/gbp-server
+          image: challa/gbp-server:demo1
           imagePullPolicy: Always
           volumeMounts:
             - name: kubeconfig
               mountPath: /kube
 
         - name: aci-containers-controller
-          image: noirolabs/aci-containers-controller
+          image: challa/aci-containers-controller:demo1
           imagePullPolicy: Always
           volumeMounts:
             - name: controller-config-volume
@@ -520,19 +596,3 @@ spec:
             items:
               - key: controller-config
                 path: controller.conf
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: ep-registry
-  namespace: kube-system
-  labels:
-    app: gbpserver
-spec:
-  clusterIP: 10.96.0.2
-  ports:
-  - port: 14443
-    targetPort: 14443
-  selector:
-    name: aci-containers-controller
-
