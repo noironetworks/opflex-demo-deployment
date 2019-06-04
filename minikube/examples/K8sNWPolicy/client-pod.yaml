@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: client-pod
+spec:
+  containers:
+  - name: client-pod
+    image: contiv/util-busybox
+    env:
+    - name: http_proxy
+      value: ""
+    - name: https_proxy
+      value: ""
+    command: ["sleep"]
+    args: ["7200"]
