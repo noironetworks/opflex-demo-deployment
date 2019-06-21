@@ -1,0 +1,12 @@
+apiVersion: aci.aw/v1
+kind: Epg
+metadata:
+  name: epg-b
+  namespace: kube-system
+spec:
+  name: epg-b
+  consumed-contracts:
+    - tcp-6020
+  provided-contracts:
+    - tcp-6020
+

@@ -1,0 +1,12 @@
+apiVersion: aci.aw/v1
+kind: Contract
+metadata:
+  name: tcp-6020
+  namespace: kube-system
+spec:
+  name: tcp-6020
+  allow-list:
+    - protocol: tcp
+      ports:
+        start: 6020
+        end: 6020

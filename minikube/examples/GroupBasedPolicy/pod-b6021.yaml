@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: pod-b6021
+  annotations:
+        "opflex.cisco.com/endpoint-group": '{"policy-space":"kube","name":"epg-b"}'
+spec:
+  containers:
+  - name: pod-b6021
+    image: alpine
+    command: ["/bin/sh"]
+    args: ["-c", "nc -l -p 6021"]

@@ -351,7 +351,7 @@ spec:
           effect: NoSchedule
       containers:
         - name: aci-containers-host
-          image: challa/aci-containers-host:demo
+          image: noirolabs/aci-containers-host:mkube
           imagePullPolicy: Always
           securityContext:
             capabilities:
@@ -383,7 +383,7 @@ spec:
               path: /status
               port: 8090
         - name: opflex-agent
-          image: challa/opflex:demo
+          image: noirolabs/opflex:mkube
           imagePullPolicy: Always
           securityContext:
             capabilities:
@@ -401,7 +401,7 @@ spec:
             - name: opflex-config-volume
               mountPath: /usr/local/etc/opflex-agent-ovs/conf.d
         - name: opflex-server
-          image: challa/opflex-server:demo
+          image: noirolabs/opflex-server:mkube
           imagePullPolicy: Always
           securityContext:
             capabilities:
@@ -415,7 +415,7 @@ spec:
             - name: opflex-server-config-volume
               mountPath: /usr/local/etc/opflex-server
         - name: mcast-daemon
-          image: challa/opflex:demo
+          image: noirolabs/opflex:mkube
           command: ["/bin/sh"]
           args: ["/usr/local/bin/launch-mcastdaemon.sh"]
           imagePullPolicy: Always
@@ -489,7 +489,7 @@ spec:
           effect: NoSchedule
       containers:
         - name: aci-containers-openvswitch
-          image: challa/openvswitch:demo
+          image: noirolabs/openvswitch:mkube
           imagePullPolicy: Always
           securityContext:
             capabilities:
@@ -565,14 +565,14 @@ spec:
           effect: NoSchedule
       containers:
         - name: aci-gbpserver
-          image: challa/gbp-server:demo
+          image: noirolabs/gbp-server:mkube
           imagePullPolicy: Always
           volumeMounts:
             - name: kubeconfig
               mountPath: /kube
 
         - name: aci-containers-controller
-          image: challa/aci-containers-controller:demo
+          image: noirolabs/aci-containers-controller:mkube
           imagePullPolicy: Always
           volumeMounts:
             - name: controller-config-volume

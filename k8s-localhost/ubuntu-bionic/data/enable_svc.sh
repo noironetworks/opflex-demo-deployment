@@ -15,9 +15,11 @@ nextip ()
 curr_ip=$FIRST_NODE_IP
 for i in $(seq 2 $NUM_NODES); do
     sshpass -p "vagrant" ssh -o StrictHostKeyChecking=no vagrant@$curr_ip sudo ifconfig enp0s3 down
+    sshpass -p "vagrant" ssh -o StrictHostKeyChecking=no vagrant@$curr_ip sudo ip route add default via 1.100.201.1
     echo "External services are now enabled on $curr_ip"
     curr_ip=$(nextip $curr_ip)
 done
 
 echo "External services are now enabled on 1.100.201.11"
 sshpass -p "vagrant" ssh -o StrictHostKeyChecking=no vagrant@1.100.201.11 sudo ifconfig enp0s3 down
+sshpass -p "vagrant" ssh -o StrictHostKeyChecking=no vagrant@1.100.201.11 sudo ip route add default via 1.100.201.1
