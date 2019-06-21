@@ -1,0 +1,147 @@
+#!/bin/bash
+set -e
+
+usage()
+{
+    echo "Usage: $0 <up|destroy>"
+    exit 1
+}
+
+if [ $# -ne 1 ] ; then
+    usage
+else
+    case $1 in
+      up|destroy)
+          oper=$1
+      ;;
+      *)
+          usage
+      ;;
+    esac
+fi
+
+echo "Detecting OS..."
+if [[ "$OSTYPE" == "linux"* ]]; then
+    arch=linux
+    ostype=Linux
+elif [[ "$OSTYPE" == "darwin"* ]]; then
+    arch=darwin
+    ostype=MacOS
+else
+    echo "Unsupported OS: $OSTYPE"
+    exit 1
+fi
+echo "OS is $ostype"
+
+dir=bin
+echo "Creating a local $dir directory if not present..."
+if [[ ! -e $dir ]]; then
+    mkdir $dir
+elif [[ ! -d $dir ]]; then
+    echo "$dir already exists but is not a directory" 1>&2
+    exit 1
+fi
+
+echo "Checking GKE Environment Variables..."
+# if .gkerc is not present we'll assume that GCP env was never set
+if [[ ! -e ./.gkerc ]]; then
+    read -p "Enter GCP project name: " proj_name
+    read -p "Enter GCP project service account file: " service_file
+    service_account_email=$(grep client_email serviceaccount.json | awk '{print $2}' | sed 's/\"//g' | sed 's/,//g')
+    if [[ "$service_account_email" == "" ]]; then
+	echo "Service account email id missing in service account file"
+	exit 1
+    fi
+    echo "Using $service_account_email for configuring the project"
+    read -p "Enter GKE Location: " gke_location
+    echo "export GKE_PROJECT=${proj_name}" > .gkerc
+    echo "export GKE_SERVICE_ACC_FILE=${service_file}" >> .gkerc
+    echo "export GKE_LOCATION=${gke_location}" >> .gkerc
+fi
+# add local bin directory to PATH
+if ! grep -Fxq "export PATH=\${PATH}:\${PWD}/bin" .gkerc; then
+    echo 'export PATH=${PATH}:${PWD}/bin' >> .gkerc
+fi
+. ./.gkerc
+
+if [ -z "$GKE_PROJECT" ] || [ -z "$GKE_SERVICE_ACC_FILE" ] || [ -z "$GKE_LOCATION" ]; then
+    echo "GKE Access info is missing. Remove .gkerc file and rerun $0 $1"
+    exit 1
+fi
+
+# install python venv if operation is up
+if [[ "$oper" == "up" ]]; then
+    if ! command -v virtualenv &>/dev/null; then
+        echo "Install virtualenv to proceed"
+        exit 1
+    fi
+
+    if command -v python2.7 &>/dev/null; then
+        echo "Python 2.7 is installed"
+        NATIVE_PPATH=$(which python2.7 | head -n 1)
+    elif command -v python3 &>/dev/null; then
+        echo "Python 3 is installed"
+        NATIVE_PPATH=$(which python3 | head -n 1)
+    else 
+        echo "Install python to proceed"
+        exit 1
+    fi
+    virtualenv -q -p $NATIVE_PPATH pvenv
+    ./pvenv/bin/pip install acc-provision
+
+    if command -v gcloud info &>/dev/null; then
+        NATIVE_GPATH=$(which gcloud | head -n 1)
+    else
+        #TODO. install gcloud
+        echo "Install gcloud to proceed"
+        exit 1
+    fi
+    gcloud auth activate-service-account $service_account_email --key-file=$GKE_SERVICE_ACC_FILE
+fi
+
+echo "Download terraform binary for $ostype if not present..."
+if [[ ! -e ./$dir/terraform ]]; then
+    #curl -o ./$dir/terraform_0.11.11_amd64.zip https://releases.hashicorp.com/terraform/0.11.11/terraform_0.11.11_${arch}_amd64.zip
+    curl -o ./$dir/terraform_0.12.2_amd64.zip https://releases.hashicorp.com/terraform/0.12.2/terraform_0.12.2_${arch}_amd64.zip
+    unzip ./$dir/terraform_0.12.2_amd64.zip -d ./$dir
+    rm -f ./$dir/terraform_0.12.2_amd64.zip
+fi
+
+echo "Download kubectl binary for $ostype if not present..."
+if [[ ! -e ./$dir/kubectl ]]; then
+    curl -o ./$dir/kubectl https://amazon-eks.s3-us-west-2.amazonaws.com/1.11.5/2018-12-06/bin/${arch}/amd64/kubectl
+    chmod +x ./$dir/kubectl
+fi
+
+if [[ "$oper" == "up" ]]; then
+    # generate ssh keys if not already present or doesn't match
+    if [ ! -e ./*.pem ] || [ ! -e ./*.pem.pub ]; then
+        echo "SSH keys not present. Generating a new pair ..."
+        rm -f *.pem && rm -f *.pem.pub
+        ssh-keygen -t rsa -N "" -f local.pem
+    elif ! diff <(ssh-keygen -y -f *.pem | cut -d' ' -f 2) <(cut -d' ' -f 2 *.pem.pub) &>/dev/null; then
+        echo "SSH keys not matching. Regenerating a new pair..."
+        rm -f *.pem && rm -f *.pem.pub
+        ssh-keygen -t rsa -N "" -f local.pem
+    fi
+    # get the public key
+    PKEY=$(cat *.pub | awk '{print $0}')
+
+    echo "Bringing up EKS cluster..."
+    ./$dir/terraform init gke-aci
+    ./$dir/terraform apply -var public_key="$PKEY" -var gcp_project="$GKE_PROJECT" -var gke_location="$GKE_LOCATION"\
+       	-var env_user="$USER" -var gke_service_account_file="$GKE_SERVICE_ACC_FILE" -var gke_service_account_email=$service_account_email gke-aci
+    if ! grep -Fxq "export KUBECONFIG=\${PWD}/kubeconfig" .gkerc; then
+        echo 'export KUBECONFIG=${PWD}/kubeconfig' >> .gkerc
+    fi
+
+    #echo "Before executing kubectl commands source .gkerc"
+elif [[ "$oper" == "destroy" ]]; then
+    echo "Destroying EKS cluster..."
+    ./$dir/terraform init gke-aci
+    ./$dir/terraform destroy gke-aci
+    rm -rf bin .terraform terraform.tfstate*
+    rm -f guestbook.yaml* bbox.yaml*
+    rm -f *.pem && rm -f *.pem.pub
+    rm -rf pvenv user.key user.crt aci_deployment.yaml*
+fi
