@@ -1,0 +1,140 @@
+#!/bin/bash
+set -e
+
+usage()
+{
+    echo "Usage: $0 <up|destroy>"
+    exit 1
+}
+
+if [ $# -ne 1 ] ; then
+    usage
+else
+    case $1 in
+      up|destroy)
+          oper=$1
+      ;;
+      *)
+          usage
+      ;;
+    esac
+fi
+
+echo "Detecting OS..."
+if [[ "$OSTYPE" == "linux"* ]]; then
+    arch=linux
+    ostype=Linux
+elif [[ "$OSTYPE" == "darwin"* ]]; then
+    arch=darwin
+    ostype=MacOS
+else
+    echo "Unsupported OS: $OSTYPE"
+    exit 1
+fi
+echo "OS is $ostype"
+
+dir=bin
+echo "Creating a local $dir directory if not present..."
+if [[ ! -e $dir ]]; then
+    mkdir $dir
+elif [[ ! -d $dir ]]; then
+    echo "$dir already exists but is not a directory" 1>&2
+    exit 1
+fi
+
+echo "Checking AWS Environment Variables..."
+# if .eksrc is not present we'll assume that AWS env was never set
+if [[ ! -e ./.eksrc ]]; then
+    read -p "Enter AWS Access Key: " aws_key
+    read -p "Enter AWS Secret Key: " aws_secret
+    read -p "Enter AWS VPC id: " aws_capic_vpc_id
+    read -p "Enter your VPC's CIDR (E.g 10.2.0.0/16): " aws_vpc_cidr
+    echo "export AWS_ACCESS_KEY_ID=${aws_key}" > .eksrc
+    echo "export AWS_SECRET_ACCESS_KEY=${aws_secret}" >> .eksrc
+    echo "export AWS_CAPIC_VPC_ID=${aws_capic_vpc_id}" >> .eksrc
+    echo "export AWS_CAPIC_VPC_CIDR=${aws_vpc_cidr}" >> .eksrc
+fi
+
+# add local bin directory to PATH
+if ! grep -Fxq "export PATH=\${PATH}:\${PWD}/bin" .eksrc; then
+    echo 'export PATH=${PATH}:${PWD}/bin' >> .eksrc
+fi
+. ./.eksrc
+
+if [ -z "$AWS_ACCESS_KEY_ID" ] || [ -z "$AWS_SECRET_ACCESS_KEY" ] ||\
+   [ -z "$AWS_CAPIC_VPC_ID" ] || [ -z "$AWS_CAPIC_VPC_CIDR" ]; then
+    echo "AWS Access info is missing. Remove .eksrc file and rerun $0 $1"
+    exit 1
+fi
+
+# install python venv if operation is up
+if [[ "$oper" == "up" ]]; then
+    if ! command -v virtualenv &>/dev/null; then
+        echo "Install virtualenv to proceed"
+        exit 1
+    fi
+    
+    if command -v python2.7 &>/dev/null; then
+        echo "Python 2.7 is installed"
+        NATIVE_PPATH=$(which python2.7 | head -n 1)
+    elif command -v python3 &>/dev/null; then
+        echo "Python 3 is installed"
+        NATIVE_PPATH=$(which python3 | head -n 1)
+    else 
+        echo "Install python to proceed"
+        exit 1
+    fi
+    virtualenv -q -p $NATIVE_PPATH pvenv
+    ./pvenv/bin/pip install acc-provision
+fi
+
+echo "Download terraform binary for $ostype if not present..."
+if [[ ! -e ./$dir/terraform ]]; then
+    curl -o ./$dir/terraform_0.11.11_amd64.zip https://releases.hashicorp.com/terraform/0.11.11/terraform_0.11.11_${arch}_amd64.zip
+    unzip ./$dir/terraform_0.11.11_amd64.zip -d ./$dir
+    rm -f ./$dir/terraform_0.11.11_amd64.zip
+fi
+
+echo "Download kubectl binary for $ostype if not present..."
+if [[ ! -e ./$dir/kubectl ]]; then
+    curl -o ./$dir/kubectl https://amazon-eks.s3-us-west-2.amazonaws.com/1.11.5/2018-12-06/bin/${arch}/amd64/kubectl
+    chmod +x ./$dir/kubectl
+fi
+
+echo "Download aws-iam-authenticator binary for $ostype if not present..."
+if [[ ! -e ./$dir/aws-iam-authenticator ]]; then
+    curl -o ./$dir/aws-iam-authenticator  https://amazon-eks.s3-us-west-2.amazonaws.com/1.11.5/2018-12-06/bin/${arch}/amd64/aws-iam-authenticator
+    chmod +x ./$dir/aws-iam-authenticator
+fi
+
+if [[ "$oper" == "up" ]]; then
+    # generate ssh keys if not already present or doesn't match
+    if [ ! -e ./*.pem ] || [ ! -e ./*.pem.pub ]; then
+        echo "SSH keys not present. Generating a new pair ..."
+        rm -f *.pem && rm -f *.pem.pub
+        ssh-keygen -t rsa -N "" -f local.pem
+    elif ! diff <(ssh-keygen -y -f *.pem | cut -d' ' -f 2) <(cut -d' ' -f 2 *.pem.pub) &>/dev/null; then
+        echo "SSH keys not matching. Regenerating a new pair..."
+        rm -f *.pem && rm -f *.pem.pub
+        ssh-keygen -t rsa -N "" -f local.pem
+    fi
+    # get the public key
+    PKEY=$(cat *.pub | awk '{print $0}')
+    read A B C D <<<"${AWS_CAPIC_VPC_CIDR//./ }"
+    echo "Bringing up EKS cluster..."
+    ./$dir/terraform init eks-aci
+    ./$dir/terraform apply -var public_key="$PKEY" -var aws_capic_vpc_id="$AWS_CAPIC_VPC_ID" -var aws_k8s_cluster_cidr_prefix="$A.$B" eks-aci
+    if ! grep -Fxq "export KUBECONFIG=\${PWD}/kubeconfig" .eksrc; then
+        echo 'export KUBECONFIG=${PWD}/kubeconfig' >> .eksrc
+    fi
+
+    #echo "Before executing kubectl commands source .eksrc"
+elif [[ "$oper" == "destroy" ]]; then
+    echo "Destroying EKS cluster..."
+    ./$dir/terraform init eks-aci
+    ./$dir/terraform destroy -var aws_capic_vpc_id="$AWS_CAPIC_VPC_ID" eks-aci
+    rm -rf bin .terraform terraform.tfstate*
+    rm -f guestbook.yaml* bbox.yaml*
+    rm -f *.pem && rm -f *.pem.pub
+    rm -rf pvenv user.key user.crt aci_deployment.yaml*
+fi
