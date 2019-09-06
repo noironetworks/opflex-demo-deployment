@@ -88,6 +88,7 @@ resource "aws_security_group" "node-sg" {
     map(
      "Name", "${var.name_prefix}-tag-${random_string.suffix.result}",
      "kubernetes.io/cluster/${var.name_prefix}-cluster-${random_string.suffix.result}", "owned",
+     "Demo", "eks",
     )
   }"
 }
@@ -118,7 +119,7 @@ resource "aws_eks_cluster" "my-cluster" {
 
   vpc_config {
     security_group_ids = ["${aws_security_group.cluster-sg.id}"]
-    subnet_ids         = ["${aws_subnet.subnet1.*.id}"]
+    subnet_ids         = ["${var.aws_capic_subnet_id1}", "${var.aws_capic_subnet_id2}"]
   }
 
   depends_on = [

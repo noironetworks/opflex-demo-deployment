@@ -6,7 +6,7 @@ resource "aws_lb" "elb" {
   #subnets            = ["${aws_subnet.subnet1.*.id}"]
   # needed if eip has to be allocated
   subnet_mapping {
-    subnet_id     = "${aws_subnet.subnet1.0.id}"
+    subnet_id     = "${var.aws_capic_subnet_id1}"
     allocation_id = "${aws_eip.elb.id}"
   }
   #do not use security groups with LB type network

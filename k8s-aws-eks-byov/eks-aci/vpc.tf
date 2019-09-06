@@ -4,6 +4,13 @@ data "aws_vpc" "vpc1" {
   id = "${var.aws_capic_vpc_id}"
 }
 
+/*
+data "aws_subnet" "capic_subnets" {
+  id1 = "${var.aws_capic_subnet_id1}"
+  id2 = "${var.aws_capic_subnet_id2}"
+}
+*/
+/*
 resource "aws_subnet" "subnet1" {
   count = "${var.subnet_count}"
 
@@ -14,14 +21,13 @@ resource "aws_subnet" "subnet1" {
 
   tags = "${
     map(
-     "Name", "${var.name_prefix}-tag-${random_string.suffix.result}",
+     "Name", "subnet-[${var.aws_k8s_cluster_cidr_prefix}.${count.index+101}.0/24]",
      "kubernetes.io/cluster/${var.name_prefix}-cluster-${random_string.suffix.result}", "shared",
     )
   }"
 }
 
 # Commented out
-/*
 
 resource "aws_vpc" "vpc1" {
   cidr_block = "10.2.0.0/16"

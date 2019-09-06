@@ -45,14 +45,20 @@ fi
 echo "Checking AWS Environment Variables..."
 # if .eksrc is not present we'll assume that AWS env was never set
 if [[ ! -e ./.eksrc ]]; then
+    read -p "Enter AWS Region: " aws_region
     read -p "Enter AWS Access Key: " aws_key
     read -p "Enter AWS Secret Key: " aws_secret
     read -p "Enter AWS VPC id: " aws_capic_vpc_id
     read -p "Enter your VPC's CIDR (E.g 10.2.0.0/16): " aws_vpc_cidr
+    read -p "Enter your capic subnet id1: " aws_capic_subnet_id1
+    read -p "Enter your capic subnet id2: " aws_capic_subnet_id2
     echo "export AWS_ACCESS_KEY_ID=${aws_key}" > .eksrc
     echo "export AWS_SECRET_ACCESS_KEY=${aws_secret}" >> .eksrc
     echo "export AWS_CAPIC_VPC_ID=${aws_capic_vpc_id}" >> .eksrc
     echo "export AWS_CAPIC_VPC_CIDR=${aws_vpc_cidr}" >> .eksrc
+    echo "export AWS_CAPIC_SUBNET_ID1=${aws_capic_subnet_id1}" >> .eksrc
+    echo "export AWS_CAPIC_SUBNET_ID2=${aws_capic_subnet_id2}" >> .eksrc
+    echo "export AWS_REGION=${aws_region}" >> .eksrc
 fi
 
 # add local bin directory to PATH
@@ -123,7 +129,7 @@ if [[ "$oper" == "up" ]]; then
     read A B C D <<<"${AWS_CAPIC_VPC_CIDR//./ }"
     echo "Bringing up EKS cluster..."
     ./$dir/terraform init eks-aci
-    ./$dir/terraform apply -var public_key="$PKEY" -var aws_capic_vpc_id="$AWS_CAPIC_VPC_ID" -var aws_k8s_cluster_cidr_prefix="$A.$B" eks-aci
+    ./$dir/terraform apply -var public_key="$PKEY" -var aws_capic_vpc_id="$AWS_CAPIC_VPC_ID" -var aws_k8s_cluster_cidr_prefix="$A.$B" -var aws_capic_subnet_id1="$AWS_CAPIC_SUBNET_ID1" -var aws_capic_subnet_id2="$AWS_CAPIC_SUBNET_ID2" -var aws_region="$AWS_REGION" eks-aci
     if ! grep -Fxq "export KUBECONFIG=\${PWD}/kubeconfig" .eksrc; then
         echo 'export KUBECONFIG=${PWD}/kubeconfig' >> .eksrc
     fi

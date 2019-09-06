@@ -21,9 +21,19 @@ variable "aws_k8s_cluster_cidr_prefix" {
     default  = "10.2"
 }
 
+variable "aws_capic_subnet_id1" {
+    description = "The cAPIC subnet id."
+    default  = ""
+}
+
+variable "aws_capic_subnet_id2" {
+    description = "The cAPIC subnet id."
+    default  = ""
+}
+
 variable "aws_region" {
     description = "The AWS region."
-    default  = "us-east-2"
+    default  = "us-east-1"
 }
 
 variable "name_prefix" {

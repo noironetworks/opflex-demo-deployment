@@ -135,11 +135,17 @@ resource "aws_autoscaling_group" "worker-asg" {
   name                 = "${var.name_prefix}-asg-${random_string.suffix.result}"
   # use only the first subnet
   #vpc_zone_identifier  = ["${data.aws_subnet_ids.capic_subnet_ids.0.id}"]
-  vpc_zone_identifier  = ["${aws_subnet.subnet1.0.id}"]
+  vpc_zone_identifier  = ["${var.aws_capic_subnet_id1}"]
 
   tag {
     key                 = "Name"
     value               = "${var.name_prefix}-worker-${random_string.suffix.result}"
+    propagate_at_launch = true
+  }
+
+  tag {
+    key                 = "Demo"
+    value               = "eks"
     propagate_at_launch = true
   }
 
