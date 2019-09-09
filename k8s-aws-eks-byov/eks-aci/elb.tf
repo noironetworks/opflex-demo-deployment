@@ -1,4 +1,5 @@
 # create ELB
+/*
 resource "aws_lb" "elb" {
   name               = "${var.name_prefix}-elb-${random_string.suffix.result}"
   internal           = false
@@ -82,4 +83,4 @@ resource "aws_eip" "elb" {
   }
 }
 
-
+*/

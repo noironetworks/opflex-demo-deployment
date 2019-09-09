@@ -54,9 +54,6 @@ KUBECONFIG
 source .eksrc
 kubectl get pods --all-namespaces
 
-Guest Book URL:
-http://${aws_lb.elb.dns_name}
-
 ACI
 
   accinput = <<ACCINPUT
@@ -144,7 +141,7 @@ resource "local_file" "kube_config" {
 resource "null_resource" "delete_daemonset" {
   provisioner "local-exec" {
     command = "export PATH=$PWD/bin:$PATH && kubectl --kubeconfig=kubeconfig delete daemonset aws-node -n kube-system"
-    on_failure = "continue"
+    on_failure = "fail"
   }
 
   depends_on = [
