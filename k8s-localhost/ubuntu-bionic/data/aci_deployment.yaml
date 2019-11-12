@@ -1,6 +1,66 @@
 apiVersion: apiextensions.k8s.io/v1beta1
 kind: CustomResourceDefinition
 metadata:
+    name: snatglobalinfos.aci.snat
+spec:
+    group: aci.snat
+    names:
+      kind: SnatGlobalInfo
+      listKind: SnatGlobalInfoList
+      plural: snatglobalinfos
+      singular: snatglobalinfo
+    scope: Namespaced
+    version: v1
+---
+apiVersion: apiextensions.k8s.io/v1beta1
+kind: CustomResourceDefinition
+metadata:
+    name: snatlocalinfos.aci.snat
+spec:
+    group: aci.snat
+    names:
+      kind: SnatLocalInfo
+      listKind: SnatLocalInfoList
+      plural: snatlocalinfos
+      singular: snatlocalinfo
+    scope: Namespaced
+    version: v1
+---
+apiVersion: apiextensions.k8s.io/v1beta1
+kind: CustomResourceDefinition
+metadata:
+    name: snatpolicies.aci.snat
+spec:
+    group: aci.snat
+    names:
+      kind: SnatPolicy
+      listKind: SnatPolicyList
+      plural: snatpolicies
+      singular: snatpolicy
+    scope: Namespaced
+    subresources:
+      status: {}
+    version: v1
+---
+apiVersion: apiextensions.k8s.io/v1beta1
+kind: CustomResourceDefinition
+metadata:
+    name: nodeinfos.aci.snat
+spec:
+    group: aci.snat
+    names:
+      kind: NodeInfo
+      listKind: NodeInfoList
+      plural: nodeinfos
+      singular: nodeinfo
+    scope: Namespaced
+    subresources:
+      status: {}
+    version: v1
+---
+apiVersion: apiextensions.k8s.io/v1beta1
+kind: CustomResourceDefinition
+metadata:
   name: epgs.aci.aw
 spec:
   group: aci.aw
@@ -37,6 +97,21 @@ spec:
   scope: Namespaced
   version: v1
 ---
+apiVersion: apiextensions.k8s.io/v1beta1
+kind: CustomResourceDefinition
+metadata:
+  name: gbpsstates.aci.aw
+spec:
+  group: aci.aw
+  names:
+    kind: GBPSState
+    listKind: GBPSStateList
+    plural: gbpsstates
+  scope: Namespaced
+  version: v1
+  subresources:
+    status: {}
+---
 apiVersion: v1
 kind: ConfigMap
 metadata:
@@ -55,28 +130,28 @@ data:
         "apic-username": "kube",
         "apic-private-key-path": "/usr/local/etc/aci-cert/user.key",
         "apic-use-inst-tag": true,
-        "aci-prefix": "kube",
+        "aci-prefix": "defaultTenant",
         "aci-vmm-type": "Kubernetes",
-        "aci-vmm-domain": "kube",
-        "aci-vmm-controller": "kube",
-        "aci-policy-tenant": "kube",
+        "aci-vmm-domain": "defaultTenant",
+        "aci-vmm-controller": "defaultTenant",
+        "aci-policy-tenant": "defaultTenant",
         "require-netpol-annot": false,
-        "aci-service-phys-dom": "kube-pdom",
+        "aci-service-phys-dom": "defaultTenant-pdom",
         "aci-service-encap": "vlan-1022",
         "aci-service-monitor-interval": 0,
-        "aci-vrf-tenant": "kube",
+        "aci-vrf-tenant": "defaultTenant",
         "aci-l3out": "l3out-v1",
         "aci-ext-networks": [
             "l3out_v1_net"
         ],
         "aci-vrf": "defaultVrf",
         "default-endpoint-group": {
-            "policy-space": "kube",
+            "policy-space": "defaultTenant",
             "name": "kubernetes|kube-default"
         },
         "namespace-default-endpoint-group": {
             "kube-system": {
-                "policy-space": "kube",
+                "policy-space": "defaultTenant",
                 "name": "kubernetes|kube-system"
             }
         },
@@ -94,8 +169,8 @@ data:
         ],
         "pod-ip-pool": [
             {
-                "end": "10.2.63.254",
-                "start": "10.2.56.2"
+                "end": "11.3.63.254",
+                "start": "11.3.56.2"
             }
         ],
         "pod-subnet-chunk-size": 32,
@@ -115,33 +190,33 @@ data:
         "opflex-mode": "overlay",
         "log-level": "debug",
         "aci-vmm-type": "Kubernetes",
-        "aci-vmm-domain": "kube",
-        "aci-vmm-controller": "kube",
-        "aci-prefix": "kube",
+        "aci-vmm-domain": "defaultTenant",
+        "aci-vmm-controller": "defaultTenant",
+        "aci-prefix": "defaultTenant",
         "aci-vrf": "defaultVrf",
-        "aci-vrf-tenant": "kube",
+        "aci-vrf-tenant": "defaultTenant",
         "service-vlan": 1022,
         "encap-type": "vxlan",
         "aci-infra-vlan": 4093,
         "cni-netconfig": [
             {
-                "gateway": "10.2.56.1",
+                "gateway": "11.3.0.1",
                 "routes": [
                     {
                         "dst": "0.0.0.0/0",
-                        "gw": "10.2.56.1"
+                        "gw": "11.3.0.1"
                     }
                 ],
-                "subnet": "10.2.56.0/21"
+                "subnet": "11.3.0.0/16"
             }
         ],
         "default-endpoint-group": {
-            "policy-space": "kube",
+            "policy-space": "defaultTenant",
             "name": "kubernetes|kube-default"
         },
         "namespace-default-endpoint-group": {
             "kube-system": {
-                "policy-space": "kube",
+                "policy-space": "defaultTenant",
                 "name": "kubernetes|kube-system"
             }
         }
@@ -153,6 +228,12 @@ data:
         },
         "opflex": {
         }
+    }
+  gbp-server-config: |-
+    {
+        "aci-policy-tenant": "defaultTenant",
+        "pod-subnet": "11.3.0.1/16",
+        "push-json-file": false
     }
 ---
 apiVersion: v1
@@ -223,6 +304,13 @@ rules:
   - watch
   - get
 - apiGroups:
+  - "aci.aw"
+  resources:
+  - gbpsstates
+  - gbpsstates/status
+  verbs:
+  - '*'
+- apiGroups:
   - "apps"
   resources:
   - deployments
@@ -242,6 +330,25 @@ rules:
   verbs:
 # - update
   - '*'
+- apiGroups:
+  - "aci.snat"
+  resources:
+  - nodeinfos
+  verbs:
+  - create
+  - list
+  - watch
+  - get
+- apiGroups:
+  - "aci.snat"
+  resources:
+  - snatlocalinfos
+  - snatglobalinfos
+  - snatpolicies
+  verbs:
+  - list
+  - watch
+  - get
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
@@ -284,6 +391,25 @@ rules:
   - "networking.k8s.io"
   resources:
   - networkpolicies
+  verbs:
+  - list
+  - watch
+  - get
+- apiGroups:
+  - "aci.snat"
+  resources:
+  - nodeinfos
+  verbs:
+  - create
+  - list
+  - watch
+  - get
+- apiGroups:
+  - "aci.snat"
+  resources:
+  - snatlocalinfos
+  - snatglobalinfos
+  - snatpolicies
   verbs:
   - list
   - watch
@@ -351,7 +477,7 @@ spec:
           effect: NoSchedule
       containers:
         - name: aci-containers-host
-          image: challa/aci-containers-host:demo
+          image: challa/aci-containers-host:merge
           imagePullPolicy: Always
           securityContext:
             capabilities:
@@ -363,6 +489,8 @@ spec:
               valueFrom:
                 fieldRef:
                   fieldPath: spec.nodeName
+            - name: TENANT
+              value: "defaultTenant"
           volumeMounts:
             - name: cni-bin
               mountPath: /mnt/cni-bin
@@ -383,12 +511,15 @@ spec:
               path: /status
               port: 8090
         - name: opflex-agent
-          image: challa/opflex:demo
+          image: challa/opflex:merge
           imagePullPolicy: Always
           securityContext:
             capabilities:
               add:
                 - NET_ADMIN
+          env:
+            - name: SSL_MODE
+              value: disabled
           volumeMounts:
             - name: hostvar
               mountPath: /usr/local/var
@@ -401,7 +532,7 @@ spec:
             - name: opflex-config-volume
               mountPath: /usr/local/etc/opflex-agent-ovs/conf.d
         - name: opflex-server
-          image: challa/opflex-server:demo
+          image: challa/opflex-server:merge
           imagePullPolicy: Always
           securityContext:
             capabilities:
@@ -414,8 +545,10 @@ spec:
           volumeMounts:
             - name: opflex-server-config-volume
               mountPath: /usr/local/etc/opflex-server
+          args:
+            - "--grpc_address=1.100.201.12:19999"
         - name: mcast-daemon
-          image: challa/opflex:demo
+          image: challa/opflex:merge
           command: ["/bin/sh"]
           args: ["/usr/local/bin/launch-mcastdaemon.sh"]
           imagePullPolicy: Always
@@ -489,7 +622,7 @@ spec:
           effect: NoSchedule
       containers:
         - name: aci-containers-openvswitch
-          image: challa/openvswitch:demo
+          image: challa/openvswitch:merge
           imagePullPolicy: Always
           securityContext:
             capabilities:
@@ -565,14 +698,19 @@ spec:
           effect: NoSchedule
       containers:
         - name: aci-gbpserver
-          image: challa/gbp-server:demo
+          image: challa/gbp-server:merge
           imagePullPolicy: Always
           volumeMounts:
             - name: kubeconfig
               mountPath: /kube
+            - name: controller-config-volume
+              mountPath: /usr/local/etc/aci-containers/
+          env:
+            - name: GBP_SERVER_CONF
+              value: /usr/local/etc/aci-containers/gbp-server.conf
 
         - name: aci-containers-controller
-          image: challa/aci-containers-controller:demo
+          image: challa/aci-containers-controller:merge
           imagePullPolicy: Always
           volumeMounts:
             - name: controller-config-volume
@@ -596,3 +734,5 @@ spec:
             items:
               - key: controller-config
                 path: controller.conf
+              - key: gbp-server-config
+                path: gbp-server.conf
