@@ -546,7 +546,7 @@ spec:
             - name: opflex-server-config-volume
               mountPath: /usr/local/etc/opflex-server
           args:
-            - "--grpc_address=1.100.201.12:19999"
+            - "--grpc_address=1.100.201.12:19999 --level=debug2"
         - name: mcast-daemon
           image: challa/opflex:merge
           command: ["/bin/sh"]
