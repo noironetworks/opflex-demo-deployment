@@ -1,8 +1,7 @@
 #
 # AKS Cluster Resources
 #  * ARM resource group
-#  * EC2 Security Group to allow networking traffic with EKS cluster
-#  * EKS Cluster
+#  * AKS Cluster
 #
 
 locals {
@@ -50,7 +49,7 @@ resource "tls_private_key" "key" {
 
 # save the private key
 resource "null_resource" "save-key" {
-  triggers {
+  triggers = {
     key = "${tls_private_key.key.private_key_pem}"
   }
 
@@ -63,23 +62,23 @@ EOF
   }
 }
 
-resource "azurerm_virtual_network" "my-vnet" {
- name                = "${var.name_prefix}-vnet-${random_string.suffix.result}"
- address_space       = ["${var.aks_virtual_network_address_space}"]
- location            = "${azurerm_resource_group.my-rg.location}"
- resource_group_name = "${azurerm_resource_group.my-rg.name}"
- tags {
-    Environment = "Production"
- }
+#resource "azurerm_virtual_network" "my-vnet" {
+# name                = "${var.name_prefix}-vnet-${random_string.suffix.result}"
+# address_space       = ["${var.aks_virtual_network_address_space}"]
+# location            = "${azurerm_resource_group.my-rg.location}"
+# resource_group_name = "${azurerm_resource_group.my-rg.name}"
+# tags {
+#    Environment = "Production"
+# }
+#
+#}
 
-}
-
-resource "azurerm_subnet" "my-node-snet" {
- name                 = "${var.name_prefix}-snet-${random_string.suffix.result}"
- resource_group_name  = "${azurerm_resource_group.my-rg.name}"
- virtual_network_name = "${azurerm_virtual_network.my-vnet.name}"
- address_prefix       = "${var.aks_virtual_network_node_cidr}"
-}
+#resource "azurerm_subnet" "my-node-snet" {
+# name                 = "${var.name_prefix}-snet-${random_string.suffix.result}"
+# resource_group_name  = "${azurerm_resource_group.my-rg.name}"
+# virtual_network_name = "${azurerm_virtual_network.my-vnet.name}"
+# address_prefix       = "${var.aks_virtual_network_node_cidr}"
+#}
 
 # AKS cluster
 resource "azurerm_kubernetes_cluster" "my-cluster" { 
@@ -92,18 +91,16 @@ resource "azurerm_kubernetes_cluster" "my-cluster" {
     admin_username = "${var.admin_username}"
 
     ssh_key {
-      #key_data = "${trimspace(tls_private_key.key.public_key_openssh)} ${var.admin_username}@cisco.com"
       key_data = "${trimspace(tls_private_key.key.public_key_openssh)} ${var.admin_username}@cisco.com"
     }
   }
 
-  agent_pool_profile {
+  default_node_pool {
     name            = "default"
-    count           = "${var.agent_count}"
+    node_count      = "${var.agent_count}"
     vm_size         = "${var.instance_type}"
-    os_type         = "${var.instance_ostype}"
-    os_disk_size_gb = "${var.instance_disksize}"
-    vnet_subnet_id  = "${azurerm_subnet.my-node-snet.id}"
+    os_disk_size_gb = "64"
+    vnet_subnet_id  = "${var.az_capic_subnet_id}"
   }
 
   network_profile {
@@ -118,7 +115,7 @@ resource "azurerm_kubernetes_cluster" "my-cluster" {
     client_secret = "${var.client_secret}"
   }
 
-  tags {
+  tags = {
     Environment = "Production"
   }
 }

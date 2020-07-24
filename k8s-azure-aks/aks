@@ -61,6 +61,7 @@ if ! grep -Fxq "export PATH=\${PATH}:\${PWD}/bin" .aksrc; then
     echo 'export PATH=${PATH}:${PWD}/bin' >> .aksrc
 fi
 . ./.aksrc
+. ./.acirc
 
 if [ -z "$ARM_CLIENT_ID" ] || [ -z "$ARM_CLIENT_SECRET" ] || [ -z "$ARM_SUBSCRIPTION_ID" ] || [ -z "$ARM_TENANT_ID" ] || [ -z "$TF_VAR_client_id" ] || [ -z "$TF_VAR_client_secret" ] ; then
     rm -f .aksrc
@@ -70,9 +71,9 @@ fi
 
 echo "Download terraform binary for $ostype if not present..."
 if [[ ! -e ./$dir/terraform ]]; then
-    curl -o ./$dir/terraform_0.11.11_amd64.zip https://releases.hashicorp.com/terraform/0.11.11/terraform_0.11.11_${arch}_amd64.zip
-    unzip ./$dir/terraform_0.11.11_amd64.zip -d ./$dir
-    rm -f ./$dir/terraform_0.11.11_amd64.zip
+    curl -o ./$dir/terraform_0.12.26.zip https://releases.hashicorp.com/terraform/0.12.26/terraform_0.12.26_${arch}_amd64.zip
+    unzip ./$dir/terraform_0.12.26_amd64.zip -d ./$dir
+    rm -f ./$dir/terraform_0.12.26_amd64.zip
 fi
 
 echo "Download kubectl binary for $ostype if not present..."
@@ -86,7 +87,7 @@ if [[ "$oper" == "up" ]]; then
     echo "Bringing up Azure Kubernetes cluster..."
     ./$dir/terraform init aks-aci
     #./$dir/terraform apply -var public_key="$PKEY" aks-aci
-    ./$dir/terraform apply aks-aci
+    ./$dir/terraform apply -var az_capic_subnet_id="$AZ_CAPIC_SUBNET_ID" -var azurerm_location="$AZ_CAPIC_REGION" aks-aci
     if ! grep -Fxq "export KUBECONFIG=\${PWD}/kubeconfig" .aksrc; then
         echo 'export KUBECONFIG=${PWD}/kubeconfig' >> .aksrc
     fi

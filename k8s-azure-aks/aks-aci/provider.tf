@@ -1,4 +1,5 @@
 # Configure the Azure RM Provider
 provider "azurerm" {
-  version     = "=1.22.0"
+  version     = "=2.0.0"
+  features {}
 }

@@ -128,3 +128,8 @@ variable "busybox_deployment_file" {
 variable "guestbook_deployment_file" {
   default   = "https://raw.githubusercontent.com/dshailen/misc/master/guestbook.yaml"
 }
+
+variable "az_capic_subnet_id" {
+  default   = ""
+  type    = "string"
+}
