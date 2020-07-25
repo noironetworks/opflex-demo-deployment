@@ -72,8 +72,8 @@ fi
 echo "Download terraform binary for $ostype if not present..."
 if [[ ! -e ./$dir/terraform ]]; then
     curl -o ./$dir/terraform_0.12.26.zip https://releases.hashicorp.com/terraform/0.12.26/terraform_0.12.26_${arch}_amd64.zip
-    unzip ./$dir/terraform_0.12.26_amd64.zip -d ./$dir
-    rm -f ./$dir/terraform_0.12.26_amd64.zip
+    unzip ./$dir/terraform_0.12.26.zip -d ./$dir
+    rm -f ./$dir/terraform_0.12.26.zip
 fi
 
 echo "Download kubectl binary for $ostype if not present..."
